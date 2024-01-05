@@ -1,5 +1,3 @@
-/* Navbar.css */
-
 .Navbar {
     display: flex;
     justify-content: space-between;
@@ -7,39 +5,39 @@
     background-color: #333;
     padding: 10px;
     color: white;
-  }
-  
-  .Navbar__left {
+}
+
+.Navbar__left {
     flex: 1;
-  }
-  
-  .Navbar__logo {
+}
+
+.Navbar__logo {
     max-width: 100px; /* Adjust the max-width as needed */
-  }
-  
-  .Navbar__center {
+}
+
+.Navbar__center {
     flex: 2;
     display: flex;
     justify-content: space-around;
-  }
-  
-  .Navbar__center ul {
+}
+
+.Navbar__center ul {
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .Navbar__center li {
+}
+
+.Navbar__center li {
     position: relative;
     cursor: pointer;
     margin-right: 20px; /* Add margin between items */
-  }
-  
-  .Navbar__dropdown {
+}
+
+.Navbar__dropdown {
     display: inline-block;
-  }
-  
-  .Navbar__dropdown-content {
+}
+
+.Navbar__dropdown-content {
     display: none;
     position: absolute;
     background-color: #ffffff; /* Dropdown background color */
@@ -48,37 +46,37 @@
     color: #333; /* Text color in the dropdown */
     min-width: 120px;
     border-radius: 8px; /* Rounded corners for the dropdown */
-  }
-  
-  .Navbar__dropdown-content ul {
+}
+
+.Navbar__dropdown-content ul {
     list-style: none;
     padding: 10px;
     margin: 0;
     white-space: nowrap;
-  }
-  
-  .Navbar__dropdown-content li {
+}
+
+.Navbar__dropdown-content li {
     padding: 5px;
     transition: background-color 0.3s; /* Smooth transition for hover effect */
     text-align: left;
-  }
-  
-  .Navbar__dropdown-content li:hover {
+}
+
+.Navbar__dropdown-content li:hover {
     background-color: #f0f0f0; /* Background color on hover */
-  }
-  
-  .Navbar__dropdown:hover .Navbar__dropdown-content {
+}
+
+.Navbar__dropdown:hover .Navbar__dropdown-content {
     display: block;
-  }
-  
-  .Navbar__right {
+}
+
+.Navbar__right {
     flex: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-  }
-  
-  .Navbar__button {
+}
+
+.Navbar__button {
     margin-right: 10px;
     background-color: #4CAF50;
     color: white;
@@ -90,26 +88,27 @@
     font-size: 14px;
     cursor: pointer;
     border-radius: 4px;
-  }
-  
-  .Navbar__notification-icon,
-  .Navbar__user-icon {
-      font-size: 20px;
-      color: #ffffff;
-      margin-right: 5px; /* Add margin to create a gap */
-      transition: color 0.3s;
-  }
-  
-  .Navbar__user-icon {
-      margin-right: 10px; /* Additional margin for the user icon */
-  }
-  
-  .Navbar__user-icon:hover,
-  .Navbar__notification-icon:hover {
-      color: #f0f0f0;
-      cursor: pointer;
-  }
-  
+}
 
+.Navbar__profile {
+    display: flex;
+    align-items: center;
+}
 
-  
+.Navbar__notification-icon,
+.Navbar__user-icon {
+    font-size: 20px;
+    color: #ffffff;
+    margin-right: 5px; /* Add margin to create a gap */
+    transition: color 0.3s;
+}
+
+.Navbar__user-icon {
+    margin-right: 10px; /* Additional margin for the user icon */
+}
+
+.Navbar__user-icon:hover,
+.Navbar__notification-icon:hover {
+    color: #f0f0f0;
+    cursor: pointer;
+}

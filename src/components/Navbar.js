@@ -2,10 +2,17 @@
 import React from 'react';
 import '../components/Navbar.css';
 import { FaUserCircle, FaBell } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 const Navbar = () => {
+    const navigate = useNavigate();
+
+  const handleLearnMoreClick = () => {
+    navigate('/login');
+  };
     return (
         <div className="Navbar">
             <div className="Navbar__left">
@@ -45,7 +52,7 @@ const Navbar = () => {
             
 
             <div className="Navbar__right">
-                <button className="Navbar__button">Login</button>
+                <button className="Navbar__button" onClick={ handleLearnMoreClick}>Login</button>
                 <button className="Navbar__button">Recruiters Login</button>
                 <div className="Navbar__profile">
                     <FaBell className="Navbar__notification-icon" />
