@@ -1,100 +1,138 @@
-import React, { useState } from 'react';
-import { Link } from '@mui/material';
-import './login.css'; 
+import * as React from "react";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Divider } from "@mui/material";
+import glogo from "./Login Images/google-icon.svg";
+import "../components/login.css";
 
-const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
+// TODO remove, this demo shouldn't need to reset the theme.
 
+const defaultTheme = createTheme();
+const handleGoogleLogin = () => {
+  console.log("Google Sign-In clicked");
+};
+
+const LogIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const validEmail = 'user@example.com';
-    const validPassword = 'password';
-
-    if (!email || !password) { 
-      setEmailError(email ? '' : 'Please enter the email address.');
-      setPasswordError(password ? '' : 'Please enter the password.');
-      return;
-    }
-
-    if (email === validEmail && password === validPassword) {
-      alert('Login successful!');
-    } else {
-      alert('Invalid email or password. Please try again.');
-    }
+    const data = new FormData(event.currentTarget);
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
   };
 
   return (
-    <div className="wrapper">
-      <div className="login-box">
-        <form onSubmit={handleSubmit}>
-          <h2>Login</h2>
-
-          <div className="input-box">
-            <span className="icon">
-              <ion-icon name="mail"></ion-icon>
-            </span>
-            <input
-              type="email"
+    <ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            LogIn
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit}
+            noValidate
+            sx={{ mt: 1 }}
+          >
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email"
               name="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                setEmailError('');
-              }}
-              
+              autoComplete="email"
+              autoFocus
             />
-            <label>Email</label>
-            
-          </div>
-          {emailError && <span className="error" style={{color:'red'}}>{emailError}</span>}
-
-          <div className="input-box">
-            <span className="icon">
-              <ion-icon name="lock-closed"></ion-icon>
-            </span>
-            <input
-              type="password"
+            <TextField
+              margin="normal"
+              required
+              fullWidth
               name="password"
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setPasswordError('');
-              }}
-              
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
             />
-            <label>Password</label>
-          </div>
-          {passwordError && <span className="error" style={{color:'red', marginTop:'-10px'}}>{passwordError}</span>}
 
+            <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
 
-          <div className="remember-forgot">
-            <label>
-              <input
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-              />{' '}
-              Remember me
-            </label>
-            <Link className='forget-pass' style={{marginTop:'25px'}}>Forgot Password?</Link>
-          </div>
+              <Link href="#" variant="body2" style={{marginLeft:'120px'}}>
+                Forgot password?
+              </Link>
+            </Grid>
 
-          <button type="submit">Login</button>
-
-          <div className="register-link">
-            <p>
-              Don't have an account? <Link>Register</Link>
-            </p>
-          </div>
-        </form>
-      </div>
-    </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 1, mb: 2 }}
+            >
+              LogIn
+            </Button>
+            <Divider style={{ textAlign: "center" }}>OR</Divider>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              LogIn via OTP
+            </Button>
+          </Box>
+        </Box>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={handleGoogleLogin}
+          sx={{
+            display: "flex",
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "20px", // Adjust the gap as needed
+          }}
+        >
+          <img src={glogo} alt="Google Logo" className="g-logo" />
+          Continue with Google
+        </Button>
+        <Grid container className="dont-account">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+      </Container>
+    </ThemeProvider>
   );
 };
 
-export default Login;
+export default LogIn;
