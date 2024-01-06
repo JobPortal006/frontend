@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Avatar from '@mui/material/Avatar'; // Import Avatar component
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import './SignUpStyles.css';  // Import the CSS file
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel'; 
 import GoogleLogo from '../components/signup-image/google-icon.svg'; 
+import { Icon } from '@mui/material';
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -76,9 +76,9 @@ export const SignUp = () => {
       <form className="signUpForm" onSubmit={handleSubmit}>
         
       <div className="avatar-container">
-            <Avatar sx={{ bgcolor: 'primary.main' }}>
-              <LockOutlinedIcon />
-            </Avatar>
+            <Icon className='icon'>
+              <AccountCircleIcon />
+            </Icon>
           </div>
       <div className='Signup-heading'>
       SignUp
