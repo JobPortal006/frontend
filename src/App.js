@@ -9,6 +9,8 @@ import { HashRouter as Router, Route, Routes} from 'react-router-dom';
 function App() {
   return ( <Router>
      <Navbar />
+     <Signup1 />
+      <SignUp />
      <Routes>
      <Route path="/login" element={<Login />} />
      </Routes>
@@ -17,6 +19,5 @@ function App() {
      
      
   );
-}
 
 export default App;
