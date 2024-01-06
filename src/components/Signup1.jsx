@@ -1,6 +1,6 @@
 import React from 'react'
 import '../components/Signup1.css'; 
-export const Signup1 = () => {
+ const Signup1 = () => {
   return (
     <div className='signup1'>
     <h1 className='register'>Register</h1><br/>
@@ -8,3 +8,4 @@ export const Signup1 = () => {
     </div>
   )
 }
+ export default Signup1;

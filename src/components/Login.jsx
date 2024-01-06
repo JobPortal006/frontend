@@ -1,8 +1,27 @@
 import React, { useState } from 'react';
 import { Link } from '@mui/material';
 import './login.css'; 
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
+
+
+
+    const navigate = useNavigate();
+  
+    const handleSignupClick = () => {
+      navigate('/signup');
+     
+      
+    };
+
+
+
+
+
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
@@ -88,7 +107,7 @@ const Login = () => {
 
           <div className="register-link">
             <p>
-              Don't have an account? <Link>Register</Link>
+              Don't have an account? <button onClick={ handleSignupClick}>Register</button>
             </p>
           </div>
         </form>

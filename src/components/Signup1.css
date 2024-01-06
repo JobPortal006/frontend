@@ -1,9 +1,9 @@
-body{
+/* body{
     margin: 0%;
     padding: 0%;
     background: rgb(178,181,180);
 background: linear-gradient(90deg, rgba(178,181,180,1) 100%, rgba(69,116,74,1) 100%);
-}
+} */
 .register{
     color: #000;
 }

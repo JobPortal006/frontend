@@ -9,8 +9,15 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel'; 
 import GoogleLogo from '../components/signup-image/google-icon.svg'; 
 import { Icon } from '@mui/material';
+import Signup1 from './Signup1';
 
-export const SignUp = () => {
+ const SignUp = () => {
+
+
+  
+
+
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -70,7 +77,9 @@ export const SignUp = () => {
     console.log('Google Sign-In clicked');
   };
 
-  return (
+    return (<>
+    <Signup1 />
+
     <div className='signup'>
       
       <form className="signUpForm" onSubmit={handleSubmit}>
@@ -150,8 +159,11 @@ export const SignUp = () => {
           <img src={GoogleLogo} alt="Google Logo" className="google-logo" />
           Continue with Google
         </Button>
-        <div className='account'>Have an account? Sign In</div>
+        <div className='account' >Have an account?Sign In </div>
       </form>
     </div>
+    </>
   );
 };
+
+export default SignUp;

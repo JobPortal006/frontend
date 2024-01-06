@@ -10,9 +10,16 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
     const navigate = useNavigate();
 
-  const handleLearnMoreClick = () => {
+  const handleLoginClick = () => {
     navigate('/login');
+   
+    
   };
+
+  const home=()=>{
+    navigate('/home')
+}
+
     return (
         <div className="Navbar">
             <div className="Navbar__left">
@@ -20,7 +27,7 @@ const Navbar = () => {
             </div>
             <div className="Navbar__center">
                 <ul>
-                    <li className="Navbar__dropdown">
+                    <li className="Navbar__dropdown" onClick={home}>
                         Home
                         <div className="Navbar__dropdown-content">
                             {/* Dropdown content for Home */}
@@ -52,7 +59,7 @@ const Navbar = () => {
             
 
             <div className="Navbar__right">
-                <button className="Navbar__button" onClick={ handleLearnMoreClick}>Login</button>
+                <button className="Navbar__button" onClick={ handleLoginClick}>Login</button>
                 <button className="Navbar__button">Recruiters Login</button>
                 <div className="Navbar__profile">
                     <FaBell className="Navbar__notification-icon" />
