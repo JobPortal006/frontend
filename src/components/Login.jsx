@@ -16,11 +16,10 @@ import { Divider } from "@mui/material";
 import glogo from "./Login Image/google-icon.svg";
 import jllogo from "./Login Image/JL logo design.jpg";
 import "../components/login.css";
+import { useNavigate } from 'react-router-dom';
 
 
 
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 const handleGoogleLogin = () => {
@@ -29,13 +28,20 @@ const handleGoogleLogin = () => {
 
 const LogIn = () => {
 
+   const navigate = useNavigate();
+  
+    const handleSignupClick = () => {
+      navigate('/signup');
+     
+      
+    };
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
 
     
-
   const handleSubmit = (event) => {
     event.preventDefault();
     // Validate email
@@ -165,13 +171,15 @@ const LogIn = () => {
         </Button>
         <Grid container className="dont-account">
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <p href="#" variant="body2">
+                  "Don't have an account? <button onClick={ handleSignupClick}>Sign Up"</button>
+                </p>
               </Grid>
             </Grid>
       </Container>
     </ThemeProvider>
+
+         
   );
 };
 
