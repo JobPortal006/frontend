@@ -4,5 +4,13 @@
 }
 .dont-account{
     margin-top: 20px;
-    margin-left: 90px;
+    margin-left: 110px;
+}
+
+
+main{
+    margin-top: -25px;
+    padding: 0 10px 15px 0.5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5)
+
 }
