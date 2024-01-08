@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 const defaultTheme = createTheme();
 const handleGoogleLogin = () => {
   console.log("Google Sign-In clicked");
@@ -172,7 +173,7 @@ const LogIn = () => {
         <Grid container className="dont-account">
               <Grid item>
                 <p href="#" variant="body2">
-                  "Don't have an account? <button onClick={ handleSignupClick}>Sign Up"</button>
+                  "Don't have an account? <span style={{cursor:'pointer',textDecoration:'underline'}} onClick={ handleSignupClick}>Sign Up"</span>
                 </p>
               </Grid>
             </Grid>

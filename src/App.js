@@ -3,7 +3,6 @@ import './App.css';
 import Navbar from './components/Navbar.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogIn from './components/Login.jsx';
-import Signup1 from'../src/components/Signup1';
 import SignUp from './components/Signup';
 import { HashRouter as Router, Route, Routes} from 'react-router-dom';
 
