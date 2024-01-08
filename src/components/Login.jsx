@@ -14,7 +14,10 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Divider } from "@mui/material";
 import glogo from "./Login Image/google-icon.svg";
+import jllogo from "./Login Image/JL logo design.jpg";
 import "../components/login.css";
+
+
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -25,18 +28,40 @@ const handleGoogleLogin = () => {
 };
 
 const LogIn = () => {
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [emailError, setEmailError] = React.useState('');
+  const [passwordError, setPasswordError] = React.useState('');
+
+    
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    // Validate email
+    if (!email) {
+      setEmailError('Please enter an email.');
+      return;
+    }
+
+    // Validate password
+    if (!password) {
+      setPasswordError('Please enter a password.');
+      return;
+    }
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
+      
     });
+    console.log('Form submitted:', { email, password });
+
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="xs" >
         <CssBaseline />
         <Box
           sx={{
@@ -46,10 +71,10 @@ const LogIn = () => {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <Avatar src={jllogo} sx={{ m: 1, mt:1, bgcolor: "secondary.main", width: 56, height: 65 }} >
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{mt:-1}}>
             LogIn
           </Typography>
           <Box
@@ -60,23 +85,37 @@ const LogIn = () => {
           >
             <TextField
               margin="normal"
-              required
               fullWidth
               id="email"
               label="Email"
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError(''); // Reset the error when typing
+              }}
+              error={!!emailError}
+              helperText={emailError}
             />
             <TextField
               margin="normal"
-              required
               fullWidth
               name="password"
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setPasswordError(''); // Reset the error when typing
+              }}
+              error={!!passwordError}
+              helperText={passwordError}
             />
 
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
