@@ -37,34 +37,62 @@ const LogIn = () => {
       
     };
 
+    const handleOTP = () =>{
+      navigate('/OTPlogin');
+    }
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
+  
 
-    
+  const handleEmailBlur = () => {
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) {
+      setEmailError('Please enter a valid email.');
+    } else {
+      setEmailError('');
+    }
+  };
+
+  const handlePasswordBlur = () => {
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) {
+      setEmailError('Please enter a valid email.');
+    }
+  };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Validate email
-    if (!email) {
+  
+    // Trim the email input value and check for empty spaces
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail && !password) {
       setEmailError('Please enter an email.');
-      return;
-    }
-
-    // Validate password
-    if (!password) {
       setPasswordError('Please enter a password.');
-      return;
+    } else if (!trimmedEmail) {
+      setEmailError('Please enter a valid email.');
+      setPasswordError('');
+    } else if (!password) {
+      setEmailError('');
+      setPasswordError('Please enter a password.');
+    } else {
+      setEmailError('');
+      setPasswordError('');
+  
+      // If both fields are filled, proceed with form submission
+      const data = new FormData(event.currentTarget);
+      console.log({
+        email: data.get('email'),
+        password: data.get('password'),
+      });
+      console.log('Form submitted:', { email, password });
     }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-      
-    });
-    console.log('Form submitted:', { email, password });
-
   };
+  
+    
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -104,6 +132,7 @@ const LogIn = () => {
                 setEmail(e.target.value);
                 setEmailError(''); // Reset the error when typing
               }}
+              onBlur={handleEmailBlur}
               error={!!emailError}
               helperText={emailError}
             />
@@ -121,8 +150,10 @@ const LogIn = () => {
                 setPassword(e.target.value);
                 setPasswordError(''); // Reset the error when typing
               }}
+              onBlur={handlePasswordBlur} // Added onBlur event handler
               error={!!passwordError}
               helperText={passwordError}
+              
             />
 
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -146,10 +177,11 @@ const LogIn = () => {
             </Button>
             <Divider style={{ textAlign: "center" }}>OR</Divider>
             <Button
-              type="submit"
+              
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+             onClick={handleOTP}
             >
               LogIn via OTP
             </Button>
