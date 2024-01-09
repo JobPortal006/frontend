@@ -1,167 +1,267 @@
-// SignUp.js
 import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import './SignUpStyles.css';  // Import the CSS file
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel'; 
-import GoogleLogo from '../components/signup-image/google-icon.svg'; 
-import { Icon } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Checkbox, FormControlLabel, Typography, Link } from '@mui/material';
+
+import "../components/SignUpStyles.css";
 import Signup1 from './Signup1';
 
- const SignUp = () => {
-
-
-  
-
-
-
+const SignUp = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    mobile: '',
+    phoneNumber: '',
     password: '',
+    confirmPassword: '',
   });
 
+  const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    mobile: '',
+    phoneNumber: '',
     password: '',
+    confirmPassword: '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-
-    // Validate the input based on the field name
-    switch (name) {
-      case 'name':
-        setErrors({ ...errors, [name]: value.length < 3 ? 'Name should be at least 3 characters' : '' });
-        break;
-      case 'email':
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        setErrors({ ...errors, [name]: emailRegex.test(value) ? '' : 'Invalid email address' });
-        break;
-      case 'mobile':
-        const mobileRegex = /^[0-9]{10}$/;
-        setErrors({ ...errors, [name]: mobileRegex.test(value) ? '' : 'Invalid mobile number' });
-        break;
-      case 'password':
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        setErrors({ ...errors, [name]: passwordRegex.test(value) ? '' : 'Password should be at least 8 characters and include at least one letter and one number' });
-        break;
-      default:
-        break;
+    const containsSpace = /\s/.test(value);
+  
+    if (containsSpace) {
+      setErrors({ ...errors, [name]: 'please enter the valid value' });
+      return;
     }
+  
+    if (name === 'phoneNumber') {
+      const numericValue = value.replace(/\D/g, '');
+      setFormData({ ...formData, [name]: numericValue });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  
+    // Clear the error message when the user starts typing
+    setErrors({ ...errors, [name]: '' });
+  };
+  
+  
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Validate form fields using regular expressions
+    const regexName = /^[a-zA-Z]+$/;
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const regexPhoneNumber = /^[0-9]{10}$/;
+    const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+
+    const newErrors = {};
+    if (!regexName.test(formData.firstName)) {
+      newErrors.firstName = 'Please enter a valid first name';
+    }
+
+    if (!regexName.test(formData.lastName)) {
+      newErrors.lastName = 'Please enter a valid last name';
+    }
+
+    if (!regexEmail.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!regexPhoneNumber.test(formData.phoneNumber)) {
+      newErrors.phoneNumber = 'Please enter a valid phone number';
+    }
+
+    if (!regexPassword.test(formData.password)) {
+      newErrors.password =
+        'Password should be at least 8 characters and include at least one letter and one number';
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
     // Check if there are any validation errors
-    const hasErrors = Object.values(errors).some((error) => error !== '');
-    if (hasErrors) {
-      console.log('Form contains errors. Please correct them.');
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      console.log('Please fill in all the required fields correctly.');
     } else {
       // Add your signup logic here
       console.log(formData);
     }
   };
 
-  const handleGoogleLogin = () => {
-    // Implement Google Sign-In logic here
-    // You may use a library like react-google-login or directly use the Google Sign-In API
-    console.log('Google Sign-In clicked');
+  const handleGoogleSignIn = () => {
+    // Add your Google Sign-In logic here
+    console.log('Sign In with Google clicked');
   };
 
-    return (<>
-    <Signup1 />
-
-    <div className='signup'>
-      
-      <form className="signUpForm" onSubmit={handleSubmit}>
-        
-      <div className="avatar-container">
-            <Icon className='icon'>
-              <AccountCircleIcon />
-            </Icon>
-          </div>
-      <div className='Signup-heading'>
-      SignUp
-      </div>
-        <TextField 
-          label="Name"
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          error={Boolean(errors.name)}
-          helperText={errors.name}
-          color="primary"
-        />
-        <TextField
-          label="Email"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          error={Boolean(errors.email)}
-          helperText={errors.email}
-        />
-        <TextField
-          label="Mobile Number"
-          type="tel"
-          name="mobile"
-          value={formData.mobile}
-          onChange={handleChange}
-          error={Boolean(errors.mobile)}
-          helperText={errors.mobile}
-        />
-        <TextField
-          label="Password"
-          type="password"
-          name="password"
-          value={formData.password}
-          onChange={handleChange}
-          error={Boolean(errors.password)}
-          helperText={errors.password}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="termsAndConditions"
-              checked={formData.termsAndConditions}
-              onChange={handleChange}
-              color="primary"
-            />
-          }
-          label="I agree to the terms and conditions"
-        />
-        <Button type="submit" variant="contained" color="primary">
-          Sign Up
-        </Button>
-        <Divider variant="middle" sx={{ my: 3 }}>or Register with</Divider>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={handleGoogleLogin}
-          sx={{
-            display: 'flex',
-            width:'100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '20px', // Adjust the gap as needed
-          }}
-        >
-          <img src={GoogleLogo} alt="Google Logo" className="google-logo" />
-          Continue with Google
-        </Button>
-        <div className='account' >Have an account?Sign In </div>
-      </form>
-    </div>
+  return (
+    <>
+    {/* <Signup1 /> */}
+    <form
+      onSubmit={handleSubmit}
+      style={{
+        marginBottom: '16px',
+        margin: 'auto',
+        padding: '2%',
+        maxWidth: '45%',
+        width: '100%',
+        boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
+        borderRadius:'20px'
+      }}
+      sm={{
+        '@media (max-width:320px)': {
+          maxwidth: '100%',
+        },
+      }}
+    >
+      <Typography variant="h4" align="center" gutterBottom>
+      Create Account
+      </Typography>
+      <Grid container spacing={0.5}>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="First Name"
+            type="text"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginBottom: '16px' }}
+            error={Boolean(errors.firstName)}
+            helperText={errors.firstName}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            label="Last Name"
+            type="text"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginBottom: '16px' }}
+            error={Boolean(errors.lastName)}
+            helperText={errors.lastName}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Email"
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginBottom: '16px' }}
+            error={Boolean(errors.email)}
+            helperText={errors.email}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Phone Number"
+            type="tel"
+            name="phoneNumber"
+            value={formData.phoneNumber}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginBottom: '16px' }}
+            error={Boolean(errors.phoneNumber)}
+            helperText={errors.phoneNumber}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginBottom: '16px' }}
+            error={Boolean(errors.password)}
+            helperText={errors.password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleTogglePasswordVisibility} edge="end">
+                    {showPassword ?   <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Confirm Password"
+            type={showPassword ? 'text' : 'password'}
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            fullWidth
+            style={{ marginBottom: '16px' }}
+            error={Boolean(errors.confirmPassword)}
+            helperText={errors.confirmPassword}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={handleTogglePasswordVisibility} edge="end">
+                    {showPassword ?   <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormControlLabel
+            control={<Checkbox required />}
+            label="I accept the terms and conditions"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <Button type="submit" variant="contained" color="primary" style={{ marginTop: '15px' }} fullWidth>
+            Sign Up
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Divider variant="middle" sx={{ my: 3 }}>
+            or Register with
+          </Divider>
+        </Grid>
+        <Grid item xs={12}>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleGoogleSignIn}
+            fullWidth
+            sx={{ marginTop: '8px' }}
+          >
+            Signup with Google
+          </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body2" align="center" sx={{ marginTop: '10px' }}>
+            Have an account? <Link href="#">Sign In</Link>
+          </Typography>
+        </Grid>
+      </Grid>
+    </form>
     </>
   );
 };

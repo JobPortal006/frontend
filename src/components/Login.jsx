@@ -17,32 +17,54 @@ import glogo from "./Login Image/google-icon.svg";
 import jllogo from "./Login Image/JL logo design.jpg";
 import "../components/login.css";
 import { useNavigate } from 'react-router-dom';
+import { useEffect,useState } from "react";
+import {signInWithPopup} from 'firebase/auth';
+import {auth,provider} from './firebase';
 
 
 
 
 
 const defaultTheme = createTheme();
-const handleGoogleLogin = () => {
-  console.log("Google Sign-In clicked");
-};
+
 
 const LogIn = () => {
 
    const navigate = useNavigate();
-  
-    const handleSignupClick = () => {
-      navigate('/signup');
-     
-      
-    };
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
 
-    
+  
+
+// for login with the google
+
+
+const [value,setValue]=useState('')
+
+const googleClick = () => {
+
+  signInWithPopup(auth, provider)
+    .then((data) => {
+      // console.log(data)
+      setValue(data.user.email);
+      localStorage.setItem('email', data.user.email);
+      localStorage.setItem('googleToken', data._tokenResponse.oauthAccessToken);
+
+    })
+    .catch((error) => {
+      console.error('Google Sign-In Error:', error.message);
+    });
+};
+
+
+
+const handleSignupClick = () => {
+  navigate('/signup');
+};
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Validate email
@@ -50,26 +72,30 @@ const LogIn = () => {
       setEmailError('Please enter an email.');
       return;
     }
-
     // Validate password
     if (!password) {
       setPasswordError('Please enter a password.');
       return;
     }
-
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
-      password: data.get("password"),
-
-      
+      password: data.get("password"),  
     });
     console.log('Form submitted:', { email, password });
-
-
   };
+  const token= localStorage.getItem('googleToken');
 
-  return (
+  useEffect(()=>{
+    // setValue(localStorage.getItem('email'))
+    console.log(token,"token----->");
+    if(token){
+      navigate('/home');
+    }
+  });  
+
+  return ( <>
+  
     <ThemeProvider theme={defaultTheme}>
 
       <Container component="main" maxWidth="xs" >
@@ -164,10 +190,10 @@ const LogIn = () => {
             </Button>
           </Box>
         </Box>
-        <Button
+        <Button 
           variant="outlined"
           color="primary"
-          onClick={handleGoogleLogin}
+          onClick={googleClick}
           sx={{
             display: "flex",
             width: "100%",
@@ -179,6 +205,7 @@ const LogIn = () => {
           <img src={glogo} alt="Google Logo" className="g-logo" />
           Continue with Google
         </Button>
+
         <Grid container className="dont-account">
               <Grid item>
 
@@ -190,8 +217,9 @@ const LogIn = () => {
             </Grid>
       </Container>
     </ThemeProvider>
-
+  </>
   );
 };
 
 export default LogIn;
+
