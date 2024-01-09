@@ -51,7 +51,11 @@ const LogIn = () => {
     const trimmedEmail = email.trim();
     if (!trimmedEmail) {
       setEmailError('Please enter a valid email.');
-    } else {
+    }else if (!trimmedEmail.endsWith('@gmail.com')) {
+      setEmailError('Please enter a valid Gmail address.');
+      setPasswordError(''); 
+    }
+    else {
       setEmailError('');
     }
   };
@@ -60,7 +64,7 @@ const LogIn = () => {
     const trimmedEmail = email.trim();
     if (!trimmedEmail) {
       setEmailError('Please enter a valid email.');
-    }
+    } 
   };
 
 
@@ -74,6 +78,9 @@ const LogIn = () => {
       setPasswordError('Please enter a password.');
     } else if (!trimmedEmail) {
       setEmailError('Please enter a valid email.');
+      setPasswordError('');
+    } else if (!trimmedEmail.endsWith('@gmail.com')) {
+      setEmailError('Please enter a valid Gmail address.');
       setPasswordError('');
     } else if (!password) {
       setEmailError('');
@@ -204,7 +211,7 @@ const LogIn = () => {
         </Button>
         <Grid container className="dont-account">
               <Grid item>
-                <p href="#" variant="body2">
+                <p href="#" variant="body2" style={{marginLeft:'-2.5rem'}}>
                   "Don't have an account? <span style={{cursor:'pointer',textDecoration:'underline'}} onClick={ handleSignupClick}>Sign Up"</span>
                 </p>
               </Grid>
