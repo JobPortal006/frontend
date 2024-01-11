@@ -19,7 +19,7 @@ import "../components/login.css";
 import { useNavigate } from 'react-router-dom';
 import { useEffect,useState } from "react";
 import {signInWithPopup} from 'firebase/auth';
-import {auth,provider} from './firebase';
+import {auth,provider} from './firebaseloginusingGoogle';
 
 
 
@@ -113,7 +113,6 @@ const handleSignupClick = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" sx={{mt:-1}}>
-
             LogIn
           </Typography>
           <Box
@@ -134,7 +133,7 @@ const handleSignupClick = () => {
 
               onChange={(e) => {
                 setEmail(e.target.value);
-                setEmailError(''); // Reset the error when typing
+                setEmailError(''); 
               }}
               error={!!emailError}
               helperText={emailError}
@@ -199,7 +198,7 @@ const handleSignupClick = () => {
             width: "100%",
             alignItems: "center",
             justifyContent: "center",
-            gap: "20px", // Adjust the gap as needed
+            gap: "20px", 
           }}
         >
           <img src={glogo} alt="Google Logo" className="g-logo" />

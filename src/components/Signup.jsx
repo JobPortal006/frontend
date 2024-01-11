@@ -8,28 +8,36 @@ import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Checkbox, FormControlLabel, Typography, Link } from '@mui/material';
-
+import axios from 'axios';
 import "../components/SignUpStyles.css";
-import Signup1 from './Signup1';
+// import Signup1 from './Signup1';
+import {auth,provider} from './firebaseloginusingGoogle';
+import {signInWithPopup} from 'firebase/auth';
+import { useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+
+
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    phoneNumber: '',
+    mobile: '',
     password: '',
-    confirmPassword: '',
+    confirm_password: '',
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
-    phoneNumber: '',
+    mobile: '',
     password: '',
-    confirmPassword: '',
+    confirm_password: '',
   });
 
   const handleChange = (e) => {
@@ -41,14 +49,13 @@ const SignUp = () => {
       return;
     }
   
-    if (name === 'phoneNumber') {
+    if (name === 'mobile') {
       const numericValue = value.replace(/\D/g, '');
       setFormData({ ...formData, [name]: numericValue });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   
-    // Clear the error message when the user starts typing
     setErrors({ ...errors, [name]: '' });
   };
   
@@ -57,31 +64,30 @@ const SignUp = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate form fields using regular expressions
     const regexName = /^[a-zA-Z]+$/;
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const regexPhoneNumber = /^[0-9]{10}$/;
+    const regexmobile = /^[0-9]{10}$/;
     const regexPassword = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 
     const newErrors = {};
-    if (!regexName.test(formData.firstName)) {
-      newErrors.firstName = 'Please enter a valid first name';
+    if (!regexName.test(formData.first_name)) {
+      newErrors.first_name = 'Please enter a valid first name';
     }
 
-    if (!regexName.test(formData.lastName)) {
-      newErrors.lastName = 'Please enter a valid last name';
+    if (!regexName.test(formData.last_name)) {
+      newErrors.last_name = 'Please enter a valid last name';
     }
 
     if (!regexEmail.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
-    if (!regexPhoneNumber.test(formData.phoneNumber)) {
-      newErrors.phoneNumber = 'Please enter a valid phone number';
+    if (!regexmobile.test(formData.mobile)) {
+      newErrors.mobile = 'Please enter a valid phone number';
     }
 
     if (!regexPassword.test(formData.password)) {
@@ -89,25 +95,55 @@ const SignUp = () => {
         'Password should be at least 8 characters and include at least one letter and one number';
     }
 
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+    if (formData.password !== formData.confirm_password) {
+      newErrors.confirm_password = 'Passwords do not match';
     }
 
-    // Check if there are any validation errors
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
       console.log('Please fill in all the required fields correctly.');
     } else {
-      // Add your signup logic here
       console.log(formData);
+      let headers = new Headers();
+
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/json');
+      headers.append('Origin','http://192.168.1.62:8000/insert/');
+      const apiUrl = 'http://192.168.1.62:8000/insert/';
+
+
+        axios.post(apiUrl,formData,headers).then(response => console.log(response,"post data response===>")).catch(e => console.log(e));
+
     }
   };
 
-  const handleGoogleSignIn = () => {
-    // Add your Google Sign-In logic here
-    console.log('Sign In with Google clicked');
-  };
+  
+//for login with google
+const [value,setValue]=useState('')
 
+const handleGoogleSignIn = () => {
+
+  signInWithPopup(auth, provider)
+    .then((data) => {
+      // console.log(data)
+      setValue(data.user.email);
+      localStorage.setItem('email', data.user.email);
+      localStorage.setItem('googleToken', data._tokenResponse.oauthAccessToken);
+
+    }) 
+    .catch((error) => {
+      console.error('Google Sign-In Error:', error.message);
+    });
+};
+const token= localStorage.getItem('googleToken');
+
+useEffect(()=>{
+  // setValue(localStorage.getItem('email'))
+  console.log(token,"token----->");
+  if(token){
+    navigate('/home');
+  }
+});  
   return (
     <>
     {/* <Signup1 /> */}
@@ -136,26 +172,26 @@ const SignUp = () => {
           <TextField
             label="First Name"
             type="text"
-            name="firstName"
-            value={formData.firstName}
+            name="first_name"
+            value={formData.first_name}
             onChange={handleChange}
             fullWidth
             style={{ marginBottom: '16px' }}
-            error={Boolean(errors.firstName)}
-            helperText={errors.firstName}
+            error={Boolean(errors.first_name)}
+            helperText={errors.first_name}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             label="Last Name"
             type="text"
-            name="lastName"
-            value={formData.lastName}
+            name="last_name"
+            value={formData.last_name}
             onChange={handleChange}
             fullWidth
             style={{ marginBottom: '16px' }}
-            error={Boolean(errors.lastName)}
-            helperText={errors.lastName}
+            error={Boolean(errors.last_name)}
+            helperText={errors.last_name}
           />
         </Grid>
         <Grid item xs={12}>
@@ -175,13 +211,13 @@ const SignUp = () => {
           <TextField
             label="Phone Number"
             type="tel"
-            name="phoneNumber"
-            value={formData.phoneNumber}
+            name="mobile"
+            value={formData.mobile}
             onChange={handleChange}
             fullWidth
             style={{ marginBottom: '16px' }}
-            error={Boolean(errors.phoneNumber)}
-            helperText={errors.phoneNumber}
+            error={Boolean(errors.mobile)}
+            helperText={errors.mobile}
           />
         </Grid>
         <Grid item xs={12}>
@@ -210,13 +246,13 @@ const SignUp = () => {
           <TextField
             label="Confirm Password"
             type={showPassword ? 'text' : 'password'}
-            name="confirmPassword"
-            value={formData.confirmPassword}
+            name="confirm_password"
+            value={formData.confirm_password}
             onChange={handleChange}
             fullWidth
             style={{ marginBottom: '16px' }}
-            error={Boolean(errors.confirmPassword)}
-            helperText={errors.confirmPassword}
+            error={Boolean(errors.confirm_password)}
+            helperText={errors.confirm_password}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">

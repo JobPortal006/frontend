@@ -116,6 +116,10 @@ const Navbar = () => {
       localStorage.clear();
       navigate('/login');
     };
+
+    const CreateAccount=()=>{
+        navigate('/CreateAccount')
+    };
   
     const isLoggedIn = !!localStorage.getItem('googleToken');
   
@@ -180,6 +184,9 @@ const Navbar = () => {
             <>
               <button className="Navbar__button" onClick={logout}>
                 Logout
+              </button>
+              <button className="Navbar__button" onClick={CreateAccount}>
+                Create an account
               </button>
               <FaUserCircle className="Navbar__user-icon" style={{ fontSize: '20px' }} />
               <FaBell className="Navbar__notification-icon" />
