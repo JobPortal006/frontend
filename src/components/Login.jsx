@@ -99,6 +99,9 @@ const LogIn = () => {
     }
   };
   
+  const handleForget = () =>{
+    navigate('/ForgetPassword');
+  }
     
 
   return (
@@ -169,7 +172,7 @@ const LogIn = () => {
                 label="Remember me"
               />
 
-              <Link href="#" variant="body2" style={{marginLeft:'120px'}}>
+              <Link variant="body2" style={{marginLeft:'120px', cursor:'pointer'}} onClick={handleForget}>
                 Forgot password?
               </Link>
             </Grid>
@@ -212,7 +215,7 @@ const LogIn = () => {
         <Grid container className="dont-account">
               <Grid item>
                 <p href="#" variant="body2" style={{marginLeft:'-2.5rem'}}>
-                  "Don't have an account? <span style={{cursor:'pointer',textDecoration:'underline'}} onClick={ handleSignupClick}>Sign Up"</span>
+                  Don't have an account? <span style={{cursor:'pointer'}} onClick={ handleSignupClick}>Sign Up</span>
                 </p>
               </Grid>
             </Grid>

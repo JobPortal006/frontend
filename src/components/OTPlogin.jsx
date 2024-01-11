@@ -35,11 +35,12 @@ const OTPlogin = () => {
       const getToken = confirmationResult?.user?.accessToken;
       if (getToken !== undefined) {
         console.log('OTP verified successfully:', confirmationResult?.user?.accessToken);
+        toast.success('Redirecting to Login Page')
           navigate('/login')
-        // You can perform actions after successful OTP verification here
+        //  successful OTP verification here
       } else {
         console.log('Failed to verify OTP');
-        // Handle the case where OTP verification failed
+        //  OTP verification failed
       }
     } catch (err) {
       toast.error('OTP is Error');
