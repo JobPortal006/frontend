@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import SearchBar from './searchBar';
-import Home1 from './Home1';
+
 const Home = () => {
 const navigate = useNavigate();
     const token = localStorage.getItem('googleToken');
@@ -12,7 +12,6 @@ const navigate = useNavigate();
     });
   return (
     <div>
-      <Home1 />
 
       <SearchBar />
     </div>

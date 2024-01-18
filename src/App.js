@@ -6,6 +6,7 @@ import LogIn from './components/Login.jsx';
 import SignUp1 from './components/Signup1.jsx';
 import { BrowserRouter as Router, Route, Routes, BrowserRouter} from 'react-router-dom';
 import Home from './components/home.jsx';
+import CreateAccount from './components/CreateAccount.jsx';
 
 function App() {
 
@@ -14,9 +15,11 @@ function App() {
     <BrowserRouter>
     <Navbar />
      <Routes>
+     <Route index path='/home' element={<Home />} />
      <Route path="/login" element={<LogIn />} />
      <Route path='/signup' element={<SignUp1 />} />
-     <Route index path='/home' element={<Home />} />
+     <Route path='/CreateAccount' element={<CreateAccount />} />
+
 
      </Routes>
   </BrowserRouter>
