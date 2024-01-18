@@ -6,12 +6,14 @@ import SignUp from "./components/Signup";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import OTPlogin from "./components/OTPlogin.jsx";
 import ForgetPassword from "./components/ForgetPassword.jsx";
+import Password from "./components/Password.jsx";
 
 function App() {
   return (
     
     <Router>
       <Navbar />
+      <Password />
       
 
       <Routes>

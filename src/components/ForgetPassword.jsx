@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-// import { toast, Toaster } from "react-hot-toast";
 import "../components/forgetpassword.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -46,47 +46,106 @@ const ForgetPassword = () => {
     </div>
   );
 
-  const handleSubmit = () => {
-    if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email");
-      return;
-    } else if (email === "jeevaelango886@gmail.com") {
-      toast.success("Check Your Mail", {
-       
-        style: {
-          border: "2px solid #4caf50",
-          padding: "16px",
-          color: "#4caf50",
-          backgroundColor: "#f0f0f0",
-          
-        },
-        iconTheme: {
-          primary: "#4caf50",
-          secondary: "#f0f0f0",
-          
-        },
-      });
-    } else {
-      toast.error("Click Here to", {
-        icon: (
-          <div style={{ marginLeft: "150px"}}>
-            <Notify />
-          </div>
-        ),
-        position: "top-center",
-        autoClose: false,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
 
-      setEmailError("Your Email is Not Registered");
-    }
-    console.log("Submitted email:", email);
+  // useEffect(() => {
+ 
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await fetch('http://192.168.1.41:8000/forgetpassword/');
+  //       if (!response.ok) {
+  //         throw new Error('Failed to fetch email');
+  //       }
+  //       console.log(response);
+  //       const data = await response.json();
+  //       setEmail(data.email); 
+  //       console.log(data.data.status);
+  //       console.log(data.headers);
+
+
+  //     } catch (error) {
+  //       console.error('Error fetching email:', error.message);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+
+  const handleSubmit = async () => {
+   
+   
+    
+
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Origin','http://192.168.1.41:8000/forgetpassword/');
+    const apiUrl = 'http://192.168.1.41:8000/forgetpassword/';
+
+
+      // axios.post(apiUrl,{email},headers).then(response => 
+      //  { const data = response.data.status
+
+      //   console.log(data,"post data response===>")}).catch(e => console.log(e));
+      let data;
+      try {
+        const response = await axios.post(apiUrl, { email }, headers);
+        data = response.data.status;
+        console.log(data, "post data response===>");
+    
+        // You can use the 'data' value here as needed
+    
+      } catch (error) {
+        console.log(error);
+      }
+      
+      console.log(data);
+      if (!validateEmail(email)) {
+        setEmailError("Please enter a valid email");
+        return;
+      } else if (data) {
+        toast.success("Check Your Mail", {
+         
+          style: {
+            border: "2px solid #4caf50",
+            padding: "16px",
+            color: "#4caf50",
+            backgroundColor: "#f0f0f0",
+            
+          },
+          iconTheme: {
+            primary: "#4caf50",
+            secondary: "#f0f0f0",
+            
+          },
+        });
+      } else {
+        toast.error("Click Here to", {
+          icon: (
+            <div style={{ marginLeft: "150px"}}>
+              <Notify />
+            </div>
+          ),
+          position: "top-center",
+          autoClose: false,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+  
+        setEmailError("Your Email is Not Registered");
+      }
+      console.log("Submitted email:", email);
+
   };
+
+
+  
+
 
   return (
     <div className="pass-container">

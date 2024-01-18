@@ -17,6 +17,7 @@ import glogo from "./Login Image/google-icon.svg";
 import jllogo from "./Login Image/JL logo design.jpg";
 import "../components/login.css";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 
 
@@ -36,6 +37,7 @@ const LogIn = () => {
      
       
     };
+ 
 
     const handleOTP = () =>{
       navigate('/OTPlogin');
@@ -45,6 +47,14 @@ const LogIn = () => {
   const [password, setPassword] = React.useState('');
   const [emailError, setEmailError] = React.useState('');
   const [passwordError, setPasswordError] = React.useState('');
+
+
+  // const [form, setForm] = React.useState({
+    
+  //   email: '',
+  //   password: ''
+    
+  // });
   
 
   const handleEmailBlur = () => {
@@ -96,6 +106,18 @@ const LogIn = () => {
         password: data.get('password'),
       });
       console.log('Form submitted:', { email, password });
+
+
+      let headers = new Headers();
+
+      headers.append('Content-Type', 'application/json');
+      headers.append('Accept', 'application/json');
+      headers.append('Origin','http://192.168.1.38:8000/login/');
+      const apiUrl = 'http://192.168.1.38:8000/login/';
+
+
+        axios.post(apiUrl,{email, password},headers).then(response => console.log(response,"post data response===>")).catch(e => console.log(e));
+
     }
   };
   
