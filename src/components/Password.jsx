@@ -6,7 +6,10 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import axios from 'axios'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from "react-toastify";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,9 +59,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
+
 const Password = () => {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -72,6 +76,27 @@ const Password = () => {
       setShowConfirmPassword(!showConfirmPassword);
     }
   };
+
+
+  const navigate = useNavigate();
+
+  const reDirect = () =>{
+    navigate('/LogIn');
+  }
+
+  const Notifi = () => (
+    
+      <Button
+        variant="contained"
+        color="info"
+        onClick={reDirect}
+        style={{marginTop:'100px'}}
+      >
+        Login
+      </Button>
+   
+  );
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -87,31 +112,81 @@ const Password = () => {
     } else if (password !== confirmPassword) {
       setMessage("Passwords don't match");
     } else {
-      console.log('Password:', password);
-      alert('Password Updated Successfully 👍');
+      console.log('Password:', password, confirmPassword);
+      toast.success("Password Updated", {
+         
+        icon: (
+          <div style={{marginLeft:'100px',marginTop:'-30px'}}>
+            <Notifi/>
+          </div>
+        ),
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        
+        
+      
+        
+     
+          
+        })
       setMessage('');
-      axios.post('http://192.168.1.41:8000/updatepassword/',{email,password,confirmPassword}).then(response => (console.log(response,"Print the response here"))
-      .catch(e=>console.log(e))
-      )
+      
+      
     }
   };
+
+
+ 
+  // const handlePassword = async () =>{
+
+  // let headers = new Headers();
+  // headers.append('Content-Type', 'application/json');
+  // headers.append('Accept', 'application/json');
+  // headers.append('Origin','http://192.168.1.41:8000/updatepassword/');
+  // const apiUrl = 'http://192.168.1.41:8000/updatepassword/';
+
+  //   let data;
+  //   try {
+  //     const response = await axios.post(apiUrl, {password, confirmPassword }, headers);
+  //     data = response;
+  //     console.log(data, "post data response===>");
+
+  
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+    
+    
+  //   }
+
+  const handlePassword = async () => {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Accept', 'application/json');
+    headers.append('Origin', 'http://192.168.1.41:8000/updatepassword/');
+    const apiUrl = 'http://192.168.1.41:8000/updatepassword/';
+  
+    let data;
+    try {
+      const response = await axios.post(apiUrl, { password, confirmPassword }, headers);
+      data = response.data;
+      console.log(data, 'post data response===>');
+    } catch (error) {
+      console.log('Server error:', error);
+    }
+  };
+  
 
   return (
     <div className={classes.root}>
       <form className={classes.form} onSubmit={handleSubmit}>
         <h2>Update Password</h2>
-
-        <label className={classes.label} htmlFor="password">Email Id</label>
-        <div className={classes.passwordContainer}>
-          <TextField
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter Your Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
 
         <label className={classes.label} htmlFor="password">Password</label>
         <div className={classes.passwordContainer}>
@@ -139,7 +214,7 @@ const Password = () => {
           <TextField
             type={showConfirmPassword ? 'text' : 'password'}
             id="cnfrm-password"
-            name="cpassword"
+            name="confirm_password"
             placeholder="Re-Enter Your Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -156,9 +231,23 @@ const Password = () => {
         </div>
 
         {message && <p className={classes.error}>{message}</p>}
-        <Button type="submit" className={classes.submitButton} style={{ backgroundColor: '#ccb4fb' }}>
+        <Button type="submit" className={classes.submitButton} style={{ backgroundColor: '#ccb4fb' }} onClick={handlePassword}>
           Submit
         </Button>
+
+         <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
+
       </form>
     </div>
   );

@@ -47,29 +47,6 @@ const ForgetPassword = () => {
   );
 
 
-  // useEffect(() => {
- 
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await fetch('http://192.168.1.41:8000/forgetpassword/');
-  //       if (!response.ok) {
-  //         throw new Error('Failed to fetch email');
-  //       }
-  //       console.log(response);
-  //       const data = await response.json();
-  //       setEmail(data.email); 
-  //       console.log(data.data.status);
-  //       console.log(data.headers);
-
-
-  //     } catch (error) {
-  //       console.error('Error fetching email:', error.message);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
-
 
   const handleSubmit = async () => {
    
@@ -83,18 +60,12 @@ const ForgetPassword = () => {
     headers.append('Origin','http://192.168.1.41:8000/forgetpassword/');
     const apiUrl = 'http://192.168.1.41:8000/forgetpassword/';
 
-
-      // axios.post(apiUrl,{email},headers).then(response => 
-      //  { const data = response.data.status
-
-      //   console.log(data,"post data response===>")}).catch(e => console.log(e));
       let data;
       try {
         const response = await axios.post(apiUrl, { email }, headers);
         data = response.data.status;
         console.log(data, "post data response===>");
-    
-        // You can use the 'data' value here as needed
+
     
       } catch (error) {
         console.log(error);
