@@ -121,6 +121,7 @@ const SignUp = () => {
 //for login with google
 const [value,setValue]=useState('')
 
+
 const handleGoogleSignIn = () => {
 
   signInWithPopup(auth, provider)

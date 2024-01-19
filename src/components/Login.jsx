@@ -49,15 +49,7 @@ const LogIn = () => {
   const [passwordError, setPasswordError] = React.useState('');
 
 
-  // const [form, setForm] = React.useState({
-    
-  //   email: '',
-  //   password: ''
-    
-  // });
-  
-
-  const handleEmailBlur = () => {
+  const emailBlur = () => {
     const trimmedEmail = email.trim();
     if (!trimmedEmail) {
       setEmailError('Please enter a valid email.');
@@ -164,7 +156,7 @@ const LogIn = () => {
                 setEmail(e.target.value);
                 setEmailError(''); // Reset the error when typing
               }}
-              onBlur={handleEmailBlur}
+              onBlur={emailBlur}
               error={!!emailError}
               helperText={emailError}
             />

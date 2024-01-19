@@ -127,7 +127,7 @@ const Password = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: "dark",
         
         
       
@@ -245,7 +245,7 @@ const Password = () => {
             pauseOnFocusLoss
             draggable
             pauseOnHover
-            theme="dark"
+            theme="light"
           />
 
       </form>
