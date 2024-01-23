@@ -32,7 +32,7 @@ const Navbar = () => {
   
     const isLoggedIn = !!localStorage.getItem('googleToken');
     const otpToken = !!localStorage.getItem('otpToken');
-    const out = localStorage.getItem('email');
+    
     console.log(isLoggedIn,"aaaaaaaaaa============<");
     return (
       <div className="Navbar">
@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
   
         <div className="Navbar__center">
-          {(isLoggedIn || otpToken || out) ? (
+          {(isLoggedIn || otpToken) ? (
             <ul>
               <li className="Navbar__dropdown" onClick={home}>
                 Home
@@ -91,7 +91,7 @@ const Navbar = () => {
         </div>
   
         <div className="Navbar__right">
-          {isLoggedIn || otpToken || out? (
+          {isLoggedIn || otpToken? (
             <>
               <button className="Navbar__button" onClick={logout}>
                 Logout
