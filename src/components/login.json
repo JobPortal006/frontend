@@ -1,0 +1,21 @@
+{
+    "email": {
+      "one": "Please enter an emali.",
+      "two": "Please enter a valid email",
+      "three": "@gmail.com"
+    },
+    "password": {
+      "one": "Please enter an password.",
+      "two": "Please enter a valid password"
+    },
+    "Context":{
+      "one": "LogIn",
+      "two": "Forget password?",
+      "three": "LogIn via OTP",
+      "four": "COntinue with Google",
+      "five": "OR",
+      "six":"Don't have an account?",
+      "seven":"Sign Up"
+    }
+  }
+  

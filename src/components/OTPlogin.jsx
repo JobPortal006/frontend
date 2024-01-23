@@ -1,12 +1,13 @@
 import { Button, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../components/OTPlogin.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "@firebase/auth";
-import auth from "./Firebase/login";
+import { auth } from '../components/Firebase/firebase.js';
 import { useNavigate } from "react-router";
 import {toast, Toaster} from 'react-hot-toast';
+// import { useEffect } from "react";
 
 
 const OTPlogin = () => {
@@ -33,10 +34,11 @@ const OTPlogin = () => {
       const confirmationResult = await confirmation.confirm(otp);
       localStorage.setItem('token',confirmationResult?.user?.accessToken);
       const getToken = confirmationResult?.user?.accessToken;
-      if (getToken !== undefined) {
+      localStorage.setItem('otpToken',getToken)
+      if (confirmationResult?.user?.accessToken !== undefined ) {
         console.log('OTP verified successfully:', confirmationResult?.user?.accessToken);
         toast.success('Redirecting to Login Page')
-          navigate('/login')
+        navigate('/home');
         //  successful OTP verification here
       } else {
         console.log('Failed to verify OTP');
@@ -47,6 +49,14 @@ const OTPlogin = () => {
       console.error(err);
     }
   };
+
+  useEffect(()=>{
+    const otpToken = localStorage.getItem('otpToken');
+    if(otpToken !== null){
+      navigate("/home");
+    }
+  });
+
 
   return (
     <div className="otp-login">

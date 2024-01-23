@@ -1,29 +1,43 @@
-import "./App.css";
-import Navbar from "./components/Navbar.js";
-import "bootstrap/dist/css/bootstrap.min.css";
-import LogIn from "./components/Login.jsx";
-import SignUp from "./components/Signup";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import './App.css';
+import Navbar from './components/Navbar.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import LogIn from './components/Login.jsx';
+import SignUp1 from './components/Signup1.jsx';
+import { BrowserRouter as Router, Route, Routes, BrowserRouter} from 'react-router-dom';
+import Home from './components/home.jsx';
+import CreateAccount from './components/CreateAccount.jsx';
 import OTPlogin from "./components/OTPlogin.jsx";
 import ForgetPassword from "./components/ForgetPassword.jsx";
 // import Password from "./components/Password.jsx";
 
 function App() {
-  return (
-    
-    <Router>
-      <Navbar />
-      
-      
 
-      <Routes>
-        <Route path="/login" element={<LogIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/OTPlogin" element={<OTPlogin />} />
-        <Route path="/ForgetPassword" element={<ForgetPassword />} />
-      </Routes>
-    </Router>
+  return (
+    <div>
+    <BrowserRouter>
+    <Navbar />
+     <Routes>
+     <Route index path='/home' element={<Home />} />
+     <Route path="/login" element={<LogIn />} />
+     <Route path='/signup' element={<SignUp1 />} />
+     <Route path='/CreateAccount' element={<CreateAccount />} />
+     <Route path="/OTPlogin" element={<OTPlogin />} />
+      <Route path="/ForgetPassword" element={<ForgetPassword />} />
+
+
+     </Routes>
+  </BrowserRouter>
+    </div>
     
+     
+     
   );
-}
+  }
 export default App;
+
+
+
+
+
+
+

@@ -57,8 +57,8 @@ const ForgetPassword = () => {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Origin','http://192.168.1.41:8000/forgetpassword/');
-    const apiUrl = 'http://192.168.1.41:8000/forgetpassword/';
+    headers.append('Origin','http://192.168.1.36:8000/forgetpassword/');
+    const apiUrl = 'http://192.168.1.36:8000/forgetpassword/';
 
       let data;
       try {
