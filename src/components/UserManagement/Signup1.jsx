@@ -1,5 +1,5 @@
 import React from 'react'
-import '../components/Signup1.css'; 
+import '../UserManagement/Signup1.css'; 
 import SignUp from './Signup';
  const Signup1 = () => {
   return (<>

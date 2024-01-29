@@ -269,7 +269,7 @@
 
 // export default RegistrationForm;
 
-
+// reviewed form
 import React, { useState } from 'react';
 import { styled } from '@mui/system';
 import axios from 'axios';
@@ -478,7 +478,7 @@ const JobApplicationForm = () => {
     };
     return (<div style={gradient}  >
         <Container>
-            <form onSubmit={handleSubmit} onReset={handleReset}>
+            <form onSubmit={handleSubmit} onReset={handleReset} >
                 <Grid container spacing={3}>
                     {/* Column 1 */}
                     <Grid item xs={12} sm={4}>
