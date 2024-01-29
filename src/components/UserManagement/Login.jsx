@@ -13,13 +13,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Divider } from "@mui/material";
-import glogo from "./Login Image/google-icon.svg";
-import jllogo from "./Login Image/JL logo design.jpg";
-import "../components/login.css";
+import glogo from "../Login Images/google-icon.svg";
+import jllogo from "../Login Image/JL logo design.jpg";
+import "../UserManagement/login.css";
 import { useNavigate } from 'react-router-dom';
 import { useEffect,useState } from "react";
 import {signInWithPopup} from 'firebase/auth';
-import {auth,provider} from './firebaseloginusingGoogle';
+import {auth,provider} from '../FireBase/firebaseloginusingGoogle';
 
 
 
@@ -221,4 +221,8 @@ const handleSignupClick = () => {
 };
 
 export default LogIn;
+
+
+
+
 
