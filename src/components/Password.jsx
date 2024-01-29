@@ -169,8 +169,8 @@ const Password = () => {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Origin', 'http://192.168.1.41:8000/updatepassword/');
-    const apiUrl = 'http://192.168.1.41:8000/updatepassword/';
+    headers.append('Origin', 'http://192.168.1.36:8000/updatepassword/');
+    const apiUrl = 'http://192.168.1.36:8000/updatepassword/';
   
     let data;
     try {

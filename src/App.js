@@ -8,7 +8,8 @@ import Home from './components/home.jsx';
 import CreateAccount from './components/CreateAccount.jsx';
 import OTPlogin from "./components/OTPlogin.jsx";
 import ForgetPassword from "./components/ForgetPassword.jsx";
-// import Password from "./components/Password.jsx";
+import Password from './components/Password.jsx';
+
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
      <Route path='/CreateAccount' element={<CreateAccount />} />
      <Route path="/OTPlogin" element={<OTPlogin />} />
       <Route path="/ForgetPassword" element={<ForgetPassword />} />
+      <Route path="/Password" element={<Password/>} />
 
 
      </Routes>
