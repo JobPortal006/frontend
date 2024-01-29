@@ -47,7 +47,7 @@ const UserForm = () => {
         mobile_number: '',
         gender: '',
         profile_picture: null,
-        
+
     });
 
     // State for address
@@ -70,16 +70,16 @@ const UserForm = () => {
     // State for education details
     const [education, setEducation] = useState({
         sslc_school_name: '',
-        sslc_start_date: '',
-        sslc_end_date: '',
+        sslc_start_year: '',
+        sslc_end_year: '',
         sslc_percentage: '',
         hsc_school_name: '',
-        hsc_start_date: '',
-        hsc_end_date: '',
+        hsc_start_year: '',
+        hsc_end_year: '',
         hsc_percentage: '',
         college_name: '',
-        college_start_date: '',
-        college_end_date: '',
+        college_start_year: '',
+        college_end_year: '',
         college_percentage: '',
         department: '',
         degree: '',
@@ -89,7 +89,7 @@ const UserForm = () => {
 
     const [jobPreference, setJobPreference] = useState({
         key_skills: '',
-        industries: '',
+        industry: '',
         department: '',
         prefered_locations: ''
     })
@@ -176,7 +176,7 @@ const UserForm = () => {
 
     // State for profile picture
     const [profilePicture, setProfilePicture] = useState(null);
-   
+
 
     // State for accordion expansion
     const [userDetailsExpanded, setUserDetailsExpanded] = useState(false);
@@ -185,21 +185,21 @@ const UserForm = () => {
     const [jobPreferenceExpanded, setjobPreferenceExpanded] = useState(false);
     // State for professional details accordion expansion
     const [professionalDetailsExpanded, setProfessionalDetailsExpanded] = useState(false);
-// for user details validations
-const [errors, setErrors] = useState({
-    userDetails: {
-        first_name: '',
-        last_name: '',
-        date_of_birth: '',
-        mobile_number: '',
-    },
-    jobPreference: {
-        key_skills: '',
-        industries: '',
-        department: '',
-        prefered_locations: '',
-    },
-});
+    // for user details validations
+    const [errors, setErrors] = useState({
+        userDetails: {
+            first_name: '',
+            last_name: '',
+            date_of_birth: '',
+            mobile_number: '',
+        },
+        jobPreference: {
+            key_skills: '',
+            industry: '',
+            department: '',
+            prefered_locations: '',
+        },
+    });
     // Handle changes in user details fields
     const handleUserDetailsChange = (event) => {
         // Clear previous error messages
@@ -287,7 +287,7 @@ const [errors, setErrors] = useState({
         // Update jobPreference only if validation passes
         let updatedJobPreference = { ...jobPreference };
 
-        // Add validation logic for key_skills, industries, department, and prefered_locations
+        // Add validation logic for key_skills, industry, department, and prefered_locations
         if (/[0-9!@#$%^&*().?":{}|<>]/.test(event.target.value)) {
             // Invalid input, set error message
             setErrors({
@@ -311,9 +311,9 @@ const [errors, setErrors] = useState({
     // Handle profile picture upload
     const handleProfilePictureChange = (event) => {
         const file = event.target.files[0];
-    
+
         setProfilePicture(file);
-    
+
         // Update userDetails to include profile_picture
         setUserDetails((prevUserDetails) => ({
             ...prevUserDetails,
@@ -442,7 +442,7 @@ const [errors, setErrors] = useState({
     //     setResume(null);
     //     setJobPreference({
     //         key_skills: '',
-    //         industries: '',
+    //         industry: '',
     //         department: '',
     //         prefered_locations: '',
     //     });
@@ -549,16 +549,16 @@ const [errors, setErrors] = useState({
             });
             setEducation({
                 sslc_school_name: '',
-                sslc_start_date: '',
-                sslc_end_date: '',
+                sslc_start_year: '',
+                sslc_end_year: '',
                 sslc_percentage: '',
                 hsc_school_name: '',
-                hsc_start_date: '',
-                hsc_end_date: '',
+                hsc_start_year: '',
+                hsc_end_year: '',
                 hsc_percentage: '',
                 college_name: '',
-                college_start_date: '',
-                college_end_date: '',
+                college_start_year: '',
+                college_end_year: '',
                 college_percentage: '',
                 department: '',
                 degree: '',
@@ -572,7 +572,7 @@ const [errors, setErrors] = useState({
             setResume(null);
             setJobPreference({
                 key_skills: '',
-                industries: '',
+                industry: '',
                 department: '',
                 prefered_locations: '',
             });
@@ -598,23 +598,23 @@ const [errors, setErrors] = useState({
     const [language, setLanguage] = useState('en'); // Default language is English
 
     const handleChangeLanguage = (newLanguage) => {
-      setLanguage(newLanguage);
+        setLanguage(newLanguage);
     };
-  
+
     const handleLanguageChange = (event) => {
-      const newLanguage = event.target.value;
-      handleChangeLanguage(newLanguage);
+        const newLanguage = event.target.value;
+        handleChangeLanguage(newLanguage);
     };
     const formRef = useRef(null);
     return (
         <FormContainer >
-            <Typography variant="h4" align="center" gutterBottom> 
-            {UserFormData[language].UserDetail.one}
+            <Typography variant="h4" align="center" gutterBottom>
+                {UserFormData[language].UserDetail.one}
             </Typography>
             <select value={language} onChange={handleLanguageChange}>
-        <option value="en">English</option>
-        <option value="tamil">Tamil</option>
-      </select>
+                <option value="en">English</option>
+                <option value="tamil">Tamil</option>
+            </select>
 
             <form ref={formRef} onSubmit={handleSubmit} >
                 {/* User Details Accordion */}
@@ -626,7 +626,7 @@ const [errors, setErrors] = useState({
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6}>
                                 {/* First Column */}
-                                <TextField 
+                                <TextField
                                     label={UserFormData[language].UserDetail.two}
                                     name="first_name"
                                     value={userDetails.first_name}
@@ -648,7 +648,7 @@ const [errors, setErrors] = useState({
                                     required
                                     error={Boolean(errors.last_name)}
                                     helperText={errors.last_name}
-                                    
+
 
                                 />
                                 <TextField
@@ -661,7 +661,7 @@ const [errors, setErrors] = useState({
                                     required
                                     error={Boolean(errors.date_of_birth)}
                                     helperText={errors.date_of_birth}
-                                    
+
 
                                 />
                             </Grid>
@@ -677,7 +677,7 @@ const [errors, setErrors] = useState({
                                     required
                                     error={Boolean(errors.mobile_number)}
                                     helperText={errors.mobile_number}
-                                    
+
 
                                 />
                                 <Select
@@ -689,7 +689,7 @@ const [errors, setErrors] = useState({
                                     displayEmpty
                                     margin="dense"
                                     required
-                                    
+
 
                                 >
                                     <MenuItem value="" disabled>{UserFormData[language].UserDetail.twelve}</MenuItem>
@@ -725,112 +725,112 @@ const [errors, setErrors] = useState({
                 </AccordionWrapper>
 
                 {/* Address Accordion */}
-                    <AccordionWrapper expanded={addressExpanded} onChange={handleAddressExpand}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography variant="h6">Address</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography variant="h6"> Permanent Address</Typography>
+                <AccordionWrapper expanded={addressExpanded} onChange={handleAddressExpand}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                        <Typography variant="h6">Address</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                        <Typography variant="h6"> Permanent Address</Typography>
 
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={6} >
-                                    {/* First Column */}
-                                    <TextField
-                                        label="Street"
-                                        name="street"
-                                        value={address.permanent.street}
-                                        onChange={(e) => handleAddressChange('permanent', e)}
-                                        fullWidth
-                                        margin="dense"
-                                        required
-                                    />
-                                    <TextField
-                                        label="City"
-                                        name="city"
-                                        value={address.permanent.city}
-                                        onChange={(e) => handleAddressChange('permanent', e)}
-                                        fullWidth
-                                        margin="dense"
-                                        required
-                                    />
-                                    <TextField
-                                        label="Pincode"
-                                        name="pincode"
-                                        value={address.permanent.pincode}
-                                        onChange={(e) => handleAddressChange('permanent', e)}
-                                        fullWidth
-                                        margin="dense"
-                                        required
-                                    />
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6} >
+                                {/* First Column */}
+                                <TextField
+                                    label="Street"
+                                    name="street"
+                                    value={address.permanent.street}
+                                    onChange={(e) => handleAddressChange('permanent', e)}
+                                    fullWidth
+                                    margin="dense"
+                                    required
+                                />
+                                <TextField
+                                    label="City"
+                                    name="city"
+                                    value={address.permanent.city}
+                                    onChange={(e) => handleAddressChange('permanent', e)}
+                                    fullWidth
+                                    margin="dense"
+                                    required
+                                />
+                                <TextField
+                                    label="Pincode"
+                                    name="pincode"
+                                    value={address.permanent.pincode}
+                                    onChange={(e) => handleAddressChange('permanent', e)}
+                                    fullWidth
+                                    margin="dense"
+                                    required
+                                />
 
-                                    <TextField
-                                        label="Country"
-                                        name="country"
-                                        value={address.permanent.country}
-                                        onChange={(e) => handleAddressChange('permanent', e)}
-                                        fullWidth
-                                        margin="dense"
-                                        required
-                                    />
-                                    <TextField
-                                        label="State"
-                                        name="state"
-                                        value={address.permanent.state}
-                                        onChange={(e) => handleAddressChange('permanent', e)}
-                                        fullWidth
-                                        margin="dense"
-                                        required
-                                    />
+                                <TextField
+                                    label="Country"
+                                    name="country"
+                                    value={address.permanent.country}
+                                    onChange={(e) => handleAddressChange('permanent', e)}
+                                    fullWidth
+                                    margin="dense"
+                                    required
+                                />
+                                <TextField
+                                    label="State"
+                                    name="state"
+                                    value={address.permanent.state}
+                                    onChange={(e) => handleAddressChange('permanent', e)}
+                                    fullWidth
+                                    margin="dense"
+                                    required
+                                />
 
-                                </Grid>
-                                <Grid item xs={12} sm={6} >
-                                    <Typography variant="h6">Current Address</Typography>
-                                    <TextField
-                                        label="Street"
-                                        name="street"
-                                        value={address.current.street}
-                                        onChange={(e) => handleAddressChange('current', e)}
-                                        fullWidth
-                                        margin="dense"
-                                    />
-                                    <TextField
-                                        label="City"
-                                        name="city"
-                                        value={address.current.city}
-                                        onChange={(e) => handleAddressChange('current', e)}
-                                        fullWidth
-                                        margin="dense"
-                                    />
-                                    <TextField
-                                        label="Pincode"
-                                        name="pincode"
-                                        value={address.current.pincode}
-                                        onChange={(e) => handleAddressChange('current', e)}
-                                        fullWidth
-                                        margin="dense"
-                                    />
-
-                                    <TextField
-                                        label="Country"
-                                        name="country"
-                                        value={address.current.country}
-                                        onChange={(e) => handleAddressChange('current', e)}
-                                        fullWidth
-                                        margin="dense"
-                                    />
-                                    <TextField
-                                        label="State"
-                                        name="state"
-                                        value={address.current.state}
-                                        onChange={(e) => handleAddressChange('current', e)}
-                                        fullWidth
-                                        margin="dense"
-                                    />
-
-                                </Grid>
                             </Grid>
-                        </AccordionDetails>
-                    </AccordionWrapper>
+                            <Grid item xs={12} sm={6} >
+                                <Typography variant="h6">Current Address</Typography>
+                                <TextField
+                                    label="Street"
+                                    name="street"
+                                    value={address.current.street}
+                                    onChange={(e) => handleAddressChange('current', e)}
+                                    fullWidth
+                                    margin="dense"
+                                />
+                                <TextField
+                                    label="City"
+                                    name="city"
+                                    value={address.current.city}
+                                    onChange={(e) => handleAddressChange('current', e)}
+                                    fullWidth
+                                    margin="dense"
+                                />
+                                <TextField
+                                    label="Pincode"
+                                    name="pincode"
+                                    value={address.current.pincode}
+                                    onChange={(e) => handleAddressChange('current', e)}
+                                    fullWidth
+                                    margin="dense"
+                                />
+
+                                <TextField
+                                    label="Country"
+                                    name="country"
+                                    value={address.current.country}
+                                    onChange={(e) => handleAddressChange('current', e)}
+                                    fullWidth
+                                    margin="dense"
+                                />
+                                <TextField
+                                    label="State"
+                                    name="state"
+                                    value={address.current.state}
+                                    onChange={(e) => handleAddressChange('current', e)}
+                                    fullWidth
+                                    margin="dense"
+                                />
+
+                            </Grid>
+                        </Grid>
+                    </AccordionDetails>
+                </AccordionWrapper>
 
                 {/* Educatiom Accordion */}
 
@@ -850,17 +850,17 @@ const [errors, setErrors] = useState({
                                     margin="dense"
                                 />
                                 <TextField
-                                    label="SSLC-start-date"
-                                    name="sslc_start_date"
-                                    value={education.sslc_start_date}
+                                    label="SSLC-start-year"
+                                    name="sslc_start_year"
+                                    value={education.sslc_start_year}
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
                                 />
                                 <TextField
-                                    label="SSLC-end-date"
-                                    name="sslc_end_date"
-                                    value={education.sslc_end_date}
+                                    label="SSLC-end-year"
+                                    name="sslc_end_year"
+                                    value={education.sslc_end_year}
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
@@ -886,17 +886,17 @@ const [errors, setErrors] = useState({
                                     margin="dense"
                                 />
                                 <TextField
-                                    label="HSC-start-date"
-                                    name="hsc_start_date"
-                                    value={education.hsc_start_date}
+                                    label="HSC-start-year"
+                                    name="hsc_start_year"
+                                    value={education.hsc_start_year}
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
                                 />
                                 <TextField
-                                    label="HSC-end-date"
-                                    name="hsc_end_date"
-                                    value={education.hsc_end_date}
+                                    label="HSC-end-year"
+                                    name="hsc_end_year"
+                                    value={education.hsc_end_year}
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
@@ -911,7 +911,7 @@ const [errors, setErrors] = useState({
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
-                                <Typography sx={{width:'100%'}} >UG Details:</Typography>
+                                <Typography sx={{ width: '100%' }} >UG Details:</Typography>
                                 {/* Third Column */}
                                 <TextField
                                     label="College-name"
@@ -922,17 +922,17 @@ const [errors, setErrors] = useState({
                                     margin="dense"
                                 />
                                 <TextField
-                                    label="College-start-date"
-                                    name="college_start_date"
-                                    value={education.college_start_date}
+                                    label="College-start-year"
+                                    name="college_start_year"
+                                    value={education.college_start_year}
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
                                 />
                                 <TextField
-                                    label="College-end-date"
-                                    name="college_end_date"
-                                    value={education.college_end_date}
+                                    label="College-end-year"
+                                    name="college_end_year"
+                                    value={education.college_end_year}
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
@@ -948,7 +948,7 @@ const [errors, setErrors] = useState({
                             </Grid>
 
                             <Grid item xs={12} sm={6} >
-                                <Typography sx={{color:'transparent'}}> . </Typography>
+                                <Typography sx={{ color: 'transparent' }}> . </Typography>
                                 {/* Fourth Column */}
                                 <TextField
                                     label="Department"
@@ -1230,15 +1230,15 @@ const [errors, setErrors] = useState({
                                     helperText={errors.jobPreference.key_skills}
                                 />
                                 <TextField
-                                    label="Industries"
-                                    name="industries"
-                                    value={jobPreference.industries}
+                                    label="Industry"
+                                    name="industry"
+                                    value={jobPreference.industry}
                                     onChange={handlejobPreferenceChange}
                                     fullWidth
                                     margin="dense"
                                     required
-                                    error={Boolean(errors.jobPreference.industries)}
-                                    helperText={errors.jobPreference.industries}
+                                    error={Boolean(errors.jobPreference.industry)}
+                                    helperText={errors.jobPreference.industry}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -1310,10 +1310,10 @@ const [errors, setErrors] = useState({
                     Submit
                 </Button>
             </form>
-            
-      {/* <button onClick={() => handleChangeLanguage('en')}>Switch to English</button>
+
+            {/* <button onClick={() => handleChangeLanguage('en')}>Switch to English</button>
       <button onClick={() => handleChangeLanguage('es')}>Cambiar a Español</button> */}
-      
+
 
         </FormContainer>
     );
