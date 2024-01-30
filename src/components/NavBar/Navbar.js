@@ -6,7 +6,7 @@ import React from 'react';
 import '../NavBar/Navbar.css';
 import { FaUserCircle, FaBell } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import NavbarData from "../NavBarJson/NavBarJsonData.json";
+import NavbarData from "../Json/NavBarJsonData.json";
 
 const Navbar = () => {
   const translations = NavbarData.english;

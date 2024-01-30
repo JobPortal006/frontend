@@ -20,7 +20,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import axios from 'axios';
-import UserFormData from '../UserManagementJson/UserForm.json'
+import UserFormData from '../Json/UserForm.json';
 
 // Container styling
 const FormContainer = styled(Container)({
