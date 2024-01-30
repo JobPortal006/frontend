@@ -1313,8 +1313,6 @@ const UserForm = () => {
 
             {/* <button onClick={() => handleChangeLanguage('en')}>Switch to English</button>
       <button onClick={() => handleChangeLanguage('es')}>Cambiar a Español</button> */}
-
-
         </FormContainer>
     );
 };
