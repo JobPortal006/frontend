@@ -20,7 +20,7 @@ import jllogo from "./Login Image/JL logo design.jpg";
 import "../components/login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { auth, provider } from "../components/Firebase/firebase.js";
+import { auth, provider } from "./FireBase/firebase.js";
 import { signInWithPopup } from "@firebase/auth";
 import { emailBlur, handlePasswordBlur, handleSubmit } from "./Validtion.jsx";
 import validation from "../components/login.json";

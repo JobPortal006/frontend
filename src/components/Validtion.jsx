@@ -11,9 +11,7 @@ const mailTwo = validation.email.two;
 const mailThree = validation.email.three;
 const passOne = validation.password.one;
 
-
 export const emailBlur = (email, setEmailError, setPasswordError) => {
-  
   const trimmedEmail = email.trim();
   if (!trimmedEmail) {
     setEmailError(mailOne);
@@ -32,8 +30,15 @@ export const handlePasswordBlur = (email, setEmailError) => {
   }
 };
 
-export const handleSubmit = async (event,email,password,setEmailError,setPasswordError,outputData, setOutputData) => {
-
+export const handleSubmit = async (
+  event,
+  email,
+  password,
+  setEmailError,
+  setPasswordError,
+  outputData,
+  setOutputData
+) => {
   event.preventDefault();
 
   const trimmedEmail = email.trim();
@@ -52,43 +57,5 @@ export const handleSubmit = async (event,email,password,setEmailError,setPasswor
   } else {
     setEmailError("");
     setPasswordError("");
-
-  //   let headers = new Headers();
-  //   const dataOne = { email, password };
-
-
-  //   headers.append("Content-Type", "application/json");
-  //   headers.append("Accept", "application/json");
-  //   headers.append("Origin", "http://192.168.1.36:8000/login/");
-  //   const apiUrl = "http://192.168.1.36:8000/login/";
-
-   
-  //   try {
-  //     const response = await axios.post(apiUrl, dataOne, headers);
-  //     localStorage.setItem("loginToken", response?.data?.message?.token)
-  //     console.log( "LoginToken========>",response.data.message.token);
-  //     outputData = response.data.status;
-  //     setOutputData(outputData);
-  //     console.log(outputData, "post data response===>");
-  //     console.log(dataOne);
-  //     console.log(response.data);
-      
-     
-     
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
   }
-  
-
 };
-
-
-
-
- // if ( response?.data?.message?.token !== undefined && outputData ===  true) {
-      //   navigate("/home");
-      // } else {
-      //   console.log("Navigation Error======>");
-      // }
-

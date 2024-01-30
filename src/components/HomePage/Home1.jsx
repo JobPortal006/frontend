@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Paper, Grid } from '@mui/material';
-import SearchBar from './searchBar';
+import SearchBar from '../searchBar';
 
 const Home1 = () => {
   return (

@@ -1,7 +1,7 @@
 // Navbar.jsx
 
 import React from 'react';
-import '../components/Navbar.css';
+import '../NavBar/Navbar.js';
 import { FaUserCircle, FaBell } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 // ... (previous imports)

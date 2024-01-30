@@ -1,10 +1,10 @@
 import './App.css';
-import Navbar from './components/Navbar.js';
+import Navbar from './components/NavBar/Navbar.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogIn from './components/Login.jsx';
 import SignUp1 from './components/Signup1.jsx';
 import { BrowserRouter as Router, Route, Routes, BrowserRouter} from 'react-router-dom';
-import Home from './components/home.jsx';
+import Home from './components/HomePage/home.jsx';
 import CreateAccount from './components/CreateAccount.jsx';
 import OTPlogin from "./components/OTPlogin.jsx";
 import ForgetPassword from "./components/ForgetPassword.jsx";

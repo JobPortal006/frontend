@@ -269,7 +269,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../components/OTPlogin.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "@firebase/auth";
-import { auth } from '../components/Firebase/firebase.js';
+import { auth } from './FireBase/firebase.js';
 import { useNavigate } from "react-router";
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios'; // Import axios
