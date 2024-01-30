@@ -512,7 +512,7 @@ const UserForm = () => {
 
         try {
             // Make API call
-            const response = await axios.post('http://192.168.1.36:8000/userRegister/', dataToSend, {
+            const response = await axios.post('http://192.168.1.38:8000/userRegister/', dataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     // You may need to add other headers like authentication token if required
@@ -615,10 +615,10 @@ const UserForm = () => {
                 <option value="en">English</option>
                 <option value="tamil">Tamil</option>
             </select>
-
+  
             <form ref={formRef} onSubmit={handleSubmit} >
                 {/* User Details Accordion */}
-                <AccordionWrapper expanded={userDetailsExpanded} onChange={handleUserDetailsExpand} >
+                <AccordionWrapper  expanded={userDetailsExpanded} onChange={handleUserDetailsExpand}  className='user_details'> 
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography variant="h6">{UserFormData[language].UserDetail.one}</Typography>
                     </AccordionSummary>
@@ -689,11 +689,12 @@ const UserForm = () => {
                                     displayEmpty
                                     margin="dense"
                                     required
+                                    className='user_details_gender'
 
 
                                 >
                                     <MenuItem value="" disabled>{UserFormData[language].UserDetail.twelve}</MenuItem>
-                                    <MenuItem value="male">{UserFormData[language].UserDetail.fourteen}</MenuItem>
+                                    <MenuItem  className='male' value="male">{UserFormData[language].UserDetail.fourteen}</MenuItem>
                                     <MenuItem value="female">{UserFormData[language].UserDetail.sixteen}</MenuItem>
                                     <MenuItem value="other">{UserFormData[language].UserDetail.eighteen}</MenuItem>
                                 </Select>
@@ -723,9 +724,9 @@ const UserForm = () => {
                         )}
                     </AccordionDetails>
                 </AccordionWrapper>
-
+   
                 {/* Address Accordion */}
-                <AccordionWrapper expanded={addressExpanded} onChange={handleAddressExpand}>
+                <AccordionWrapper className='address_accordion' expanded={addressExpanded} onChange={handleAddressExpand}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography variant="h6">Address</Typography>
                     </AccordionSummary>
@@ -834,7 +835,7 @@ const UserForm = () => {
 
                 {/* Educatiom Accordion */}
 
-                <AccordionWrapper expanded={educationExpanded} onChange={handleEducationExpand}>
+                <AccordionWrapper expanded={educationExpanded} onChange={handleEducationExpand} className='education'>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}> <Typography variant="h6">Education details</Typography></AccordionSummary>
                     <AccordionDetails>
                         <Grid container spacing={2}>
@@ -974,6 +975,7 @@ const UserForm = () => {
                                 {/* Radio Buttons for PG/Diploma */}
                                 <FormControl component="fieldset">
                                     <RadioGroup
+                                    className='radio_button'
                                         row
                                         aria-label="education-type"
                                         name="education_type"
@@ -981,11 +983,13 @@ const UserForm = () => {
                                         onChange={handleEducationChange}
                                     >
                                         <FormControlLabel
+                                        className='pg_button1'
                                             value="pg"
                                             control={<Radio />}
                                             label="PG"
                                         />
                                         <FormControlLabel
+                                        className='pg_button2'
                                             value="diploma"
                                             control={<Radio />}
                                             label="Diploma"
@@ -1212,7 +1216,7 @@ const UserForm = () => {
                     </AccordionDetails>
                 </AccordionWrapper>
                 {/* job preference */}
-                <AccordionWrapper expanded={jobPreferenceExpanded} onChange={handlejobPreferenceExpand}>
+                <AccordionWrapper expanded={jobPreferenceExpanded} onChange={handlejobPreferenceExpand} className='job_preference'>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}> <Typography variant="h6">Job Preference</Typography></AccordionSummary>
                     <AccordionDetails>
                         <Grid container spacing={2}>
@@ -1313,6 +1317,8 @@ const UserForm = () => {
 
             {/* <button onClick={() => handleChangeLanguage('en')}>Switch to English</button>
       <button onClick={() => handleChangeLanguage('es')}>Cambiar a Español</button> */}
+
+
         </FormContainer>
     );
 };
