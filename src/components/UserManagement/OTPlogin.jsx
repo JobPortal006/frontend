@@ -4,7 +4,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../UserManagement/OTPlogin.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "@firebase/auth";
-import { auth } from '../Firebase/firebase.js';
+import { auth } from '../FireBase/firebase';
 import { useNavigate } from "react-router";
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios'; // Import axios
