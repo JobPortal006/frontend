@@ -15,15 +15,19 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Divider } from "@mui/material";
-import glogo from "./Login Image/google-icon.svg";
-import jllogo from "./Login Image/JL logo design.jpg";
-import "../components/login.css";
+import glogo from "../Login Image/google-icon.svg";
+import jllogo from "../Login Image/JL logo design.jpg";
+import "../UserManagement/login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { auth, provider } from "./FireBase/firebase.js";
+import { auth, provider } from "../Firebase/firebase.js";
 import { signInWithPopup } from "@firebase/auth";
-import { emailBlur, handlePasswordBlur, handleSubmit } from "./Validtion.jsx";
-import validation from "../components/login.json";
+import {
+  emailBlur,
+  handlePasswordBlur,
+  handleSubmit,
+} from "../UserManagement/ValidtionLogin.jsx";
+import validation from "../Json/login.json";
 
 const defaultTheme = createTheme();
 
@@ -51,6 +55,7 @@ const LogIn = () => {
   };
 
   const [value, setValue] = React.useState("");
+  
 
   const googleClick = () => {
     signInWithPopup(auth, provider)
@@ -58,7 +63,10 @@ const LogIn = () => {
         setValue(data.user.email);
 
         localStorage.setItem("email", data.user.email);
-        localStorage.setItem("googleToken",data._tokenResponse.oauthAccessToken);
+        localStorage.setItem(
+          "googleToken",
+          data._tokenResponse.oauthAccessToken
+        );
 
         const googleToken = localStorage.getItem("googleToken");
         console.log(googleToken, "Google_Token=========>");
@@ -71,7 +79,7 @@ const LogIn = () => {
         console.error("Google Sign-In Error:", error.message);
       });
   };
-
+  
   const handleForget = () => {
     navigate("/ForgetPassword");
   };
@@ -94,9 +102,6 @@ const LogIn = () => {
       setPasswordError,
       navigate
     );
-
-    // const storedToken = localStorage.getItem("loginToken");
-    // setOutputData(storedToken !== '');
 
     let headers = new Headers();
     const dataOne = { email, password };

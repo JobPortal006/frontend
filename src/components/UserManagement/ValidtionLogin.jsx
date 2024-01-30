@@ -1,10 +1,4 @@
-import axios from "axios";
-import validation from "../components/login.json";
-import { useEffect } from "react";
-
-// const handlePassword = () =>{
-//   navigate('/SignUp');
-// }
+import validation from "../Json/login.json";
 
 const mailOne = validation.email.one;
 const mailTwo = validation.email.two;

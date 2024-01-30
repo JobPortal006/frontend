@@ -142,29 +142,6 @@ const Password = () => {
   };
 
 
- 
-  // const handlePassword = async () =>{
-
-  // let headers = new Headers();
-  // headers.append('Content-Type', 'application/json');
-  // headers.append('Accept', 'application/json');
-  // headers.append('Origin','http://192.168.1.41:8000/updatepassword/');
-  // const apiUrl = 'http://192.168.1.41:8000/updatepassword/';
-
-  //   let data;
-  //   try {
-  //     const response = await axios.post(apiUrl, {password, confirmPassword }, headers);
-  //     data = response;
-  //     console.log(data, "post data response===>");
-
-  
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-    
-    
-  //   }
-
   const handlePassword = async () => {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

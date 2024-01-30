@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-import SearchBar from '../searchBar';
+import SearchBar from '../UserManagement/searchBar';
 
 const Home = () => {
 const navigate = useNavigate();

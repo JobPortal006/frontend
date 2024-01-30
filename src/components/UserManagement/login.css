@@ -7,15 +7,15 @@
 .dont-account {
   margin-top: 20px;
   margin-left: 110px;
-  font-family: 'Roboto Slab', serif;
+  font-family: "Roboto Slab", serif;
 }
 
-.dont-account span{
-    color: rgb(70, 70, 240);
+.dont-account span {
+  color: rgb(70, 70, 240);
 }
 
-.dont-account span:hover{
-    text-decoration: underline;
+.dont-account span:hover {
+  text-decoration: underline;
 }
 
 main {

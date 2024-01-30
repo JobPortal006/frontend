@@ -14,14 +14,14 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import GoogleLogo from '../components/signup-image/google-icon.svg'; 
+import GoogleLogo from '../signup-image/google-icon.svg'; 
 import axios from 'axios';
 
-import mainimage from "../components/signup-image/img.png";
+import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { auth, provider } from '../components/FireBase/firebase.js';
+import { auth, provider } from '../Firebase/firebase';
 import {signInWithPopup} from 'firebase/auth';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';

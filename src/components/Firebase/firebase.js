@@ -17,15 +17,14 @@
 // const auth = getAuth(app);
 // const provider = new GoogleAuthProvider();
 
-
 // export { auth, provider };
 
-
+// <<-------------------------------------------------------------------------------->>
 
 // <---Prathap--->
 
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { initializeApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { initializeApp } from "firebase/app";
 
 const Config = {
   apiKey: "AIzaSyAEMF4GZhvfO0ASM7moJgFkkv3tL_15TAA",
@@ -34,14 +33,11 @@ const Config = {
   storageBucket: "otp-otp-4a574.appspot.com",
   messagingSenderId: "745831201499",
   appId: "1:745831201499:web:fd9f61f4082dde0f16aafe",
-  measurementId: "G-HRMKLG3XCK"
+  measurementId: "G-HRMKLG3XCK",
 };
 
 const app = initializeApp(Config);
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-
 export { auth, provider };
-
-

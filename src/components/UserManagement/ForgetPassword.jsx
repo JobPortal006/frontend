@@ -1,11 +1,11 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { TextField } from "@mui/material";
 import { Button } from "@mui/material";
-import "../components/forgetpassword.css";
+import "../UserManagement/forgetpassword.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ForgetPassword = () => {
@@ -29,94 +29,72 @@ const ForgetPassword = () => {
 
   const navigate = useNavigate();
 
-  const handlePassword = () =>{
-    navigate('/SignUp');
-  }
+  const handlePassword = () => {
+    navigate("/SignUp");
+  };
 
   const Notify = () => (
-    <div >
-      <Button
-      
-        variant="contained"
-        color="secondary"
-        onClick= {handlePassword}
-      >
+    <div>
+      <Button variant="contained" color="secondary" onClick={handlePassword}>
         SignUp
       </Button>
     </div>
   );
 
-
-
   const handleSubmit = async () => {
-   
-   
-    
-
-
     let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Accept', 'application/json');
-    headers.append('Origin','http://192.168.1.36:8000/forgetpassword/');
-    const apiUrl = 'http://192.168.1.36:8000/forgetpassword/';
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    headers.append("Origin", "http://192.168.1.36:8000/forgetpassword/");
+    const apiUrl = "http://192.168.1.36:8000/forgetpassword/";
 
-      let data;
-      try {
-        const response = await axios.post(apiUrl, { email }, headers);
-        data = response.data.status;
-        console.log(data, "post data response===>");
+    let data;
+    try {
+      const response = await axios.post(apiUrl, { email }, headers);
+      data = response.data.status;
+      console.log(data, "post data response===>");
+    } catch (error) {
+      console.log(error);
+    }
 
-    
-      } catch (error) {
-        console.log(error);
-      }
-      
-      console.log(data);
-      if (!validateEmail(email)) {
-        setEmailError("Please enter a valid email");
-        return;
-      } else if (data) {
-        toast.success("Check Your Mail", {
-         
-          style: {
-            border: "2px solid #4caf50",
-            padding: "16px",
-            color: "#4caf50",
-            backgroundColor: "#f0f0f0",
-            
-          },
-          iconTheme: {
-            primary: "#4caf50",
-            secondary: "#f0f0f0",
-            
-          },
-        });
-      } else {
-        toast.error("Click Here to", {
-          icon: (
-            <div style={{ marginLeft: "150px"}}>
-              <Notify />
-            </div>
-          ),
-          position: "top-center",
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-  
-        setEmailError("Your Email is Not Registered");
-      }
-      console.log("Submitted email:", email);
+    console.log(data);
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email");
+      return;
+    } else if (data) {
+      toast.success("Check Your Mail", {
+        style: {
+          border: "2px solid #4caf50",
+          padding: "16px",
+          color: "#4caf50",
+          backgroundColor: "#f0f0f0",
+        },
+        iconTheme: {
+          primary: "#4caf50",
+          secondary: "#f0f0f0",
+        },
+      });
+    } else {
+      toast.error("Click Here to", {
+        icon: (
+          <div style={{ marginLeft: "150px" }}>
+            <Notify />
+          </div>
+        ),
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
 
+      setEmailError("Your Email is Not Registered");
+    }
+    console.log("Submitted email:", email);
   };
-
-
-  
-
 
   return (
     <div className="pass-container">
