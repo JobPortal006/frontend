@@ -1,4 +1,7 @@
-import * as React from "react";
+// LogIn.jsx
+
+import React, { useEffect } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,95 +14,144 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Divider } from "@mui/material";
 import glogo from "../Login Image/google-icon.svg";
 import jllogo from "../Login Image/JL logo design.jpg";
 import "../UserManagement/login.css";
-import { useNavigate } from 'react-router-dom';
-import { useEffect,useState } from "react";
-import {signInWithPopup} from 'firebase/auth';
-import {auth,provider} from '../FireBase/firebaseloginusingGoogle';
-
-
-
-
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { auth, provider } from "../FireBase/firebase.js";
+import { signInWithPopup } from "@firebase/auth";
+import {
+  emailBlur,
+  handlePasswordBlur,
+  handleSubmit,
+} from "../UserManagement/ValidtionLogin.jsx";
+import validation from "../Json/login.json";
 
 const defaultTheme = createTheme();
 
-
 const LogIn = () => {
+  const navigate = useNavigate();
 
-   const navigate = useNavigate();
-
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [emailError, setEmailError] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState('');
-
-  
-
-// for login with the google
-
-
-const [value,setValue]=useState('')
-
-const googleClick = () => {
-
-  signInWithPopup(auth, provider)
-    .then((data) => {
-      // console.log(data)
-      setValue(data.user.email);
-      localStorage.setItem('email', data.user.email);
-      localStorage.setItem('googleToken', data._tokenResponse.oauthAccessToken);
-
-    })
-    .catch((error) => {
-      console.error('Google Sign-In Error:', error.message);
-    });
-};
-
-
-
-const handleSignupClick = () => {
-  navigate('/signup');
-};
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Validate email
-    if (!email) {
-      setEmailError('Please enter an email.');
-      return;
-    }
-    // Validate password
-    if (!password) {
-      setPasswordError('Please enter a password.');
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),  
-    });
-    console.log('Form submitted:', { email, password });
+  const handleSignupClick = () => {
+    navigate("/signup");
   };
-  const token= localStorage.getItem('googleToken');
 
-  useEffect(()=>{
-    // setValue(localStorage.getItem('email'))
-    console.log(token,"token----->");
-    if(token){
-      navigate('/home');
-    }
-  });  
+  const handleOTP = () => {
+    navigate("/OTPlogin");
+  };
 
-  return ( <>
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [emailError, setEmailError] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
+
+  const [rememberMe, setRememberMe] = React.useState(false);
+  const [outputData, setOutputData] = React.useState("");
+
+  const handleRememberMe = (event) => {
+    setRememberMe(event.target.checked);
+  };
+
+  const [value, setValue] = React.useState("");
   
+
+  const googleClick = () => {
+    signInWithPopup(auth, provider)
+      .then((data) => {
+        setValue(data.user.email);
+
+        localStorage.setItem("email", data.user.email);
+        localStorage.setItem(
+          "googleToken",
+          data._tokenResponse.oauthAccessToken
+        );
+
+        const googleToken = localStorage.getItem("googleToken");
+        console.log(googleToken, "Google_Token=========>");
+
+        if (data._tokenResponse.oauthAccessToken !== undefined) {
+          navigate("/home");
+        }
+      })
+      .catch((error) => {
+        console.error("Google Sign-In Error:", error.message);
+      });
+  };
+  
+  const handleForget = () => {
+    navigate("/ForgetPassword");
+  };
+
+  const token = localStorage.getItem("googleToken");
+  const otpToken = localStorage.getItem("otpToken");
+
+  useEffect(() => {
+    if (token !== null || otpToken !== null) {
+      navigate("/home");
+    }
+  });
+
+  const handleLoginSubmit = async (event) => {
+    await handleSubmit(
+      event,
+      email,
+      password,
+      setEmailError,
+      setPasswordError,
+      navigate
+    );
+
+    let headers = new Headers();
+    const dataOne = { email, password };
+
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    headers.append("Origin", "http://192.168.1.36:8000/login/");
+    const apiUrl = "http://192.168.1.36:8000/login/";
+
+    try {
+      const response = await axios.post(apiUrl, dataOne, headers);
+      localStorage.setItem("loginToken", response?.data?.message?.token);
+      console.log("LoginToken========>", response.data.message.token);
+
+      const outPut = response.data.status;
+      const storedToken = localStorage.getItem("loginToken");
+      setOutputData(outPut);
+      console.log(outPut, "post data response===>");
+      console.log(dataOne);
+      console.log(response.data);
+
+      if (storedToken !== null && outPut === true) {
+        navigate("/home");
+
+        console.log("====================================");
+        console.log(outPut, "navigation=====>");
+        console.log("====================================");
+      } else {
+        console.log(outPut, "navigation=====>");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //     const storedToken = localStorage.getItem("loginToken");
+
+  // if (storedToken !== null && outputData === true) {
+  //   navigate("/home");
+
+  //   console.log('====================================');
+  //   console.log(outputData, "navigation=====>");
+  //   console.log('====================================');
+  // }
+
+  // }, [outputData, navigate]);
+
+  return (
     <ThemeProvider theme={defaultTheme}>
-
-      <Container component="main" maxWidth="xs" >
-
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
@@ -109,15 +161,24 @@ const handleSignupClick = () => {
             alignItems: "center",
           }}
         >
-          <Avatar src={jllogo} sx={{ m: 1, mt:1, bgcolor: "secondary.main", width: 56, height: 65 }} >
+          <Avatar
+            src={jllogo}
+            sx={{
+              m: 1,
+              mt: 1,
+              bgcolor: "secondary.main",
+              width: 56,
+              height: 65,
+            }}
+          >
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5" sx={{mt:-1}}>
-            LogIn
+          <Typography component="h1" variant="h5" sx={{ mt: -1 }}>
+            {validation.Context.one}
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleLoginSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
@@ -128,45 +189,52 @@ const handleSignupClick = () => {
               label="Email"
               name="email"
               autoComplete="email"
-              autoFocus
-               value={email}
-
+              value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                setEmailError(''); 
+                setEmailError(""); // Reset the error when typing
               }}
+              onBlur={() => emailBlur(email, setEmailError, setPasswordError)}
               error={!!emailError}
               helperText={emailError}
             />
             <TextField
               margin="normal"
-
               fullWidth
               name="password"
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
-
               value={password}
-
               onChange={(e) => {
                 setPassword(e.target.value);
-                setPasswordError(''); // Reset the error when typing
+                setPasswordError("");
               }}
+              onBlur={() => handlePasswordBlur(email, setEmailError)}
               error={!!passwordError}
               helperText={passwordError}
-
             />
 
             <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
               <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
+                control={
+                  <Checkbox
+                    checked={rememberMe}
+                    onChange={handleRememberMe}
+                    value="remember"
+                    color="primary"
+                  />
+                }
+                label={validation.Context.eight}
               />
 
-              <Link href="#" variant="body2" style={{marginLeft:'120px'}}>
-                Forgot password?
+              <Link
+                variant="body2"
+                style={{ marginLeft: "100px", cursor: "pointer" }}
+                onClick={handleForget}
+              >
+                {validation.Context.two}
               </Link>
             </Grid>
 
@@ -176,20 +244,22 @@ const handleSignupClick = () => {
               variant="contained"
               sx={{ mt: 1, mb: 2 }}
             >
-              LogIn
+              {validation.Context.one}
             </Button>
-            <Divider style={{ textAlign: "center" }}>OR</Divider>
+            <Divider style={{ textAlign: "center" }}>
+              {validation.Context.five}
+            </Divider>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={handleOTP}
             >
-              LogIn via OTP
+              {validation.Context.three}
             </Button>
           </Box>
         </Box>
-        <Button 
+        <Button
           variant="outlined"
           color="primary"
           onClick={googleClick}
@@ -198,31 +268,25 @@ const handleSignupClick = () => {
             width: "100%",
             alignItems: "center",
             justifyContent: "center",
-            gap: "20px", 
+            gap: "20px",
           }}
         >
           <img src={glogo} alt="Google Logo" className="g-logo" />
-          Continue with Google
+          {validation.Context.four}
         </Button>
-
         <Grid container className="dont-account">
-              <Grid item>
-
-                <p href="#" variant="body2">
-                  "Don't have an account? <span style={{cursor:'pointer',textDecoration:'underline'}} onClick={ handleSignupClick}>Sign Up"</span>
-                </p>
-
-              </Grid>
-            </Grid>
+          <Grid item>
+            <p href="#" variant="body2" style={{ marginLeft: "-2.5rem" }}>
+              {validation.Context.six}{" "}
+              <span style={{ cursor: "pointer" }} onClick={handleSignupClick}>
+                {validation.Context.seven}
+              </span>
+            </p>
+          </Grid>
+        </Grid>
       </Container>
     </ThemeProvider>
-  </>
   );
 };
 
 export default LogIn;
-
-
-
-
-

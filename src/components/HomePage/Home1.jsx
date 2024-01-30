@@ -1,7 +1,6 @@
 import React from 'react';
 import { Typography, Paper, Grid } from '@mui/material';
-import YourImage from './Login Image/JL logo design.jpg'; // Adjust the path accordingly
-import SearchBar from './searchBar';
+import SearchBar from '../searchBar';
 
 const Home1 = () => {
   return (
@@ -23,16 +22,7 @@ const Home1 = () => {
               alignItems: 'center',
             }}
           >
-            <img
-              src={YourImage}
-              alt="Your Image"
-              style={{
-                maxWidth: '100%',
-                maxHeight: '100%',
-                borderRadius: '10px', // Example: Add border-radius for a rounded look
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Example: Add a subtle shadow
-              }}
-            />
+            
           </Paper>
         </Grid>
       </Grid>

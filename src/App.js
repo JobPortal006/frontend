@@ -1,36 +1,36 @@
-
-import './App.css';
-import Navbar from './components/NavBar/Navbar.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import LogIn from './components/UserManagement/Login.jsx';
-import SignUp1 from './components/UserManagement/Signup1.jsx';
-import { BrowserRouter as Router, Route, Routes, BrowserRouter} from 'react-router-dom';
-import Home from './components/HomePage/home.jsx';
-import CreateAccount from './components/UserManagement/CreateAccount.jsx';
+import "./App.css";
+import Navbar from "./components/NavBar/Navbar.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import LogIn from "./components/UserManagement/Login.jsx";
+import SignUp1 from "./components/UserManagement/Signup1.jsx";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  BrowserRouter,
+} from "react-router-dom";
+import Home from "./components/HomePage/home.jsx";
+import CreateAccount from "./components/UserManagement/CreateAccount.jsx";
+import OTPlogin from "./components/UserManagement/OTPlogin.jsx";
+import ForgetPassword from "./components/UserManagement/ForgetPassword.jsx";
+import Password from "./components/UserManagement/Password.jsx";
 
 function App() {
-
   return (
-    <>
-    <BrowserRouter>
-    <Navbar />
-     <Routes>
-     <Route index path='/home' element={<Home />} />
-     <Route path="/login" element={<LogIn />} />
-     <Route path='/signup' element={<SignUp1 />} />
-     <Route path='/CreateAccount' element={<CreateAccount />} />
-
-
-     </Routes>
-  </BrowserRouter>
-    </>
-    
-     
-     
+    <div>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route index path="/home" element={<Home />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/signup" element={<SignUp1 />} />
+          <Route path="/CreateAccount" element={<CreateAccount />} />
+          <Route path="/OTPlogin" element={<OTPlogin />} />
+          <Route path="/ForgetPassword" element={<ForgetPassword />} />
+          <Route path="/Password" element={<Password />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
-  }
+}
 export default App;
-
-
-
-

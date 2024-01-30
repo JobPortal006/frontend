@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -10,19 +11,19 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import GoogleLogo from '../signup-image/google-icon.svg'; 
 import axios from 'axios';
-
 import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
-
-import { auth, provider } from '../FireBase/firebaseloginusingGoogle';
+import { auth, provider } from '../FireBase/firebase.js';
 import {signInWithPopup} from 'firebase/auth';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+
 
 
 export default function FixedContainer() {
@@ -114,16 +115,32 @@ export default function FixedContainer() {
 
 
 
-  const handleTogglePasswordVisibility = (field) => {
-    if (field === 'password') {
-      setShowPassword(!showPassword);
-    } else if (field === 'confirm_password') {
-      setShowconfirm_password(!showconfirm_password);
-    }
+
+  // const handleTogglePasswordVisibility = (field) => {
+  //   if (field === 'password') {
+  //     setShowPassword(!showPassword);
+  //   } else if (field === 'confirm_password') {
+  //     setShowconfirm_password(!showconfirm_password);
+  //   }
+  
+  //   if (name === 'mobile') {
+  //     const numericValue = value.replace(/\D/g, '');
+  //     setFormData({ ...formData, [name]: numericValue });
+  //   } else {
+  //     setFormData({ ...formData, [name]: value });
+  //   }
+  
+  //   setErrors({ ...errors, [name]: '' });
+  // };
+  
+  
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
 
     // Basic validation using regular expressions
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -176,6 +193,7 @@ export default function FixedContainer() {
 
       headers.append('Content-Type', 'application/json');
       headers.append('Accept', 'application/json');
+
       headers.append('Origin','http://192.168.1.62:8000/insert/');
       const apiUrl = 'http://192.168.1.62:8000/insert/';
 
@@ -212,8 +230,10 @@ export default function FixedContainer() {
     }
   });
 
+  
+
   return (
-    <>
+    
     <React.Fragment>
       <CssBaseline />
       <Container  fixed >
@@ -388,6 +408,6 @@ export default function FixedContainer() {
     </React.Fragment>
     
     
-    </>
+    
   );
 }
