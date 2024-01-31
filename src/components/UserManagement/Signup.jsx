@@ -19,7 +19,7 @@ import axios from 'axios';
 import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { auth, provider } from '../Firebase/firebase';
+import { auth, provider } from "../../components/FireBase/firebase.js";
 import {signInWithPopup} from 'firebase/auth';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
