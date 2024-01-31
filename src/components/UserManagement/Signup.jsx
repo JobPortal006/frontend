@@ -18,9 +18,11 @@ import RadioGroup from '@mui/material/RadioGroup';
 import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { auth, provider } from '../../components/Firebase/firebase';
-// import { signInWithPopup } from 'firebase/auth';
-import { useEffect } from 'react';
+
+import { auth, provider } from "../../components/Firebase/firebase";
+import {signInWithPopup} from 'firebase/auth';
+import { useEffect } from "react";
+
 import { useNavigate } from 'react-router-dom';
 // import Recruiter from './Recruiter';
 // import Jobposting from './Jobposting';

@@ -108,8 +108,8 @@ const LogIn = () => {
 
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-    headers.append("Origin", "http://192.168.1.36:8000/login/");
-    const apiUrl = "http://192.168.1.36:8000/login/";
+    headers.append("Origin", "http://192.168.1.38:8000/login/");
+    const apiUrl = "http://192.168.1.38:8000/login/";
 
     try {
       const response = await axios.post(apiUrl, dataOne, headers);
@@ -224,6 +224,7 @@ const LogIn = () => {
                     onChange={handleRememberMe}
                     value="remember"
                     color="primary"
+                    id="checkBox"
                   />
                 }
                 label={validation.Context.eight}
@@ -278,7 +279,7 @@ const LogIn = () => {
           <Grid item>
             <p href="#" variant="body2" style={{ marginLeft: "-2.5rem" }}>
               {validation.Context.six}{" "}
-              <span style={{ cursor: "pointer" }} onClick={handleSignupClick}>
+              <span id="signup_btn" style={{ cursor: "pointer" }} onClick={handleSignupClick}>
                 {validation.Context.seven}
               </span>
             </p>

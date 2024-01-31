@@ -97,7 +97,7 @@ const Navbar = () => {
         <div className="Navbar__right">
           {isLoggedIn || storedToken || otpToken? (
             <>
-              <button className="Navbar__button" onClick={logout}>
+              <button className="Navbar__button" id='Nav_btn' onClick={logout}>
               {translations.logout.one}
               </button>
               <button className="Navbar__button" onClick={CreateAccount}>
