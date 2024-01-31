@@ -1,12 +1,17 @@
-import React from "react";
-import Registrationform from "../Json/Registrationform.json";
+import React from 'react'
+import Registrationform from '../Regestrationform'
+import Userform from './userform'
+
 
 const CreateAccount = () => {
   return (
     <div>
-      <Registrationform />
+
+      {/* <Registrationform /> */}
+      <Userform />
     </div>
-  );
-};
+  )
+}
 
 export default CreateAccount;
+

@@ -16,11 +16,9 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import GoogleLogo from '../signup-image/google-icon.svg'; 
 import axios from 'axios';
-
 import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
-
 import { auth, provider } from "../../components/FireBase/firebase.js";
 import {signInWithPopup} from 'firebase/auth';
 import { useEffect } from "react";

@@ -4,9 +4,11 @@ import React from 'react';
 import '../NavBar/Navbar.css';
 import { FaUserCircle, FaBell } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import NavbarData from "../Json/NavBarJsonData.json";
 // ... (previous imports)
 
 const Navbar = () => {
+  const translations = NavbarData.english;
     const navigate = useNavigate();
   
     const handleLoginClick = () => {
@@ -46,24 +48,24 @@ const Navbar = () => {
           {(isLoggedIn || otpToken || storedToken ) ? (
             <ul>
               <li className="Navbar__dropdown" onClick={home}>
-                Home
+              {translations.home.one}
                 <div className="Navbar__dropdown-content"></div>
               </li>
               <li className="Navbar__dropdown">
-                Employer
+              {translations.employer.one}
                 <div className="Navbar__dropdown-content">
                   <ul>
-                    <li>Employer details</li>
-                    <li>Add job posting</li>
+                  <li>{translations.employerdetails.one}</li>
+                    <li>{translations.employerdetails.two}</li>
                   </ul>
                 </div>
               </li>
               <li className="Navbar__dropdown">
-                Candidate Jobs
+              {translations.candidatejobs.one}
                 <div className="Navbar__dropdown-content">
                   <ul>
-                    <li>Browse job</li>
-                    <li>Job categories</li>
+                  <li>{translations.candidatejobsdetails.one}</li>
+                    <li>{translations.candidatejobsdetails.two}</li>
                   </ul>
                 </div>
               </li>
@@ -71,20 +73,20 @@ const Navbar = () => {
           ) : (
             <ul>
               <li className="Navbar__dropdown">
-                Employer
+              {translations.employer.one}
                 <div className="Navbar__dropdown-content">
                   <ul>
-                    <li>Employer details</li>
-                    <li>Add job posting</li>
+                  <li>{translations.employerdetails.one}</li>
+                    <li>{translations.employerdetails.two}</li>
                   </ul>
                 </div>
               </li>
               <li className="Navbar__dropdown">
-                Candidate Jobs
+              {translations.candidatejobs.one}
                 <div className="Navbar__dropdown-content">
                   <ul>
-                    <li>Browse job</li>
-                    <li>Job categories</li>
+                  <li>{translations.candidatejobsdetails.one}</li>
+                    <li>{translations.candidatejobsdetails.two}</li>
                   </ul>
                 </div>
               </li>
@@ -96,10 +98,10 @@ const Navbar = () => {
           {isLoggedIn || storedToken || otpToken? (
             <>
               <button className="Navbar__button" onClick={logout}>
-                Logout
+              {translations.logout.one}
               </button>
               <button className="Navbar__button" onClick={CreateAccount}>
-                Create an account
+              {translations.create_an_account.one}
               </button>
               <FaUserCircle className="Navbar__user-icon" style={{ fontSize: '20px' }} />
               <FaBell className="Navbar__notification-icon" />
@@ -107,10 +109,10 @@ const Navbar = () => {
           ) : (
             <>
               <button className="Navbar__button" onClick={handleLoginClick} disabled={isLoggedIn}>
-                Login
+              {translations.login.one}
               </button>
               <button className="Navbar__button" onClick={handleSignupClick} disabled={isLoggedIn}>
-                Recruiters Login
+              {translations.requiters_login.one}
               </button>
             </>
           )}
