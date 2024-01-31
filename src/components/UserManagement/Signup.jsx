@@ -25,7 +25,7 @@ import { useNavigate } from 'react-router-dom';
 // import Recruiter from './Recruiter';
 // import Jobposting from './Jobposting';
 // import validationMessages from './validationMessages.json';
-// import regexPatterns from './regexPatterns.json';
+// import regexPatterns from './regexPatterns.json';   
 import formLabels from '../Json/signupformlabel.json';
 import {
   handleInputChange,
