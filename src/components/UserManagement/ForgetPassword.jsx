@@ -116,7 +116,6 @@ const ForgetPassword = () => {
               label="Email"
               name="email"
               autoComplete="email"
-              autoFocus
               value={email}
               onChange={handleEmailChange}
               error={!!emailError}
