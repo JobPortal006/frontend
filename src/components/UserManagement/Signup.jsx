@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -11,38 +10,44 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import GoogleLogo from '../signup-image/google-icon.svg'; 
-import axios from 'axios';
+import GoogleLogo from '../signup-image/google-icon.svg';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { auth, provider } from '../Firebase/firebase';
-import {signInWithPopup} from 'firebase/auth';
-import { useEffect } from "react";
+import { auth, provider } from '../../components/Firebase/firebase';
+// import { signInWithPopup } from 'firebase/auth';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-
+// import Recruiter from './Recruiter';
+// import Jobposting from './Jobposting';
+// import validationMessages from './validationMessages.json';
+// import regexPatterns from './regexPatterns.json';
+import formLabels from '../Json/signupformlabel.json';
+import {
+  handleInputChange,
+  handleTogglePasswordVisibility,
+  handleSubmit,
+  handleGoogleSignIn
+} from '../validation/signupvalidation';
 
 export default function FixedContainer() {
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
-    first_name: '',
-    last_name: '',
+    signupBy: '',
     email: '',
-    phone: '',
+    mobileNumber: '',
     password: '',
     confirm_password: '',
     agreeTerms: false,
   });
 
   const [errors, setErrors] = React.useState({
-    first_name: '',
-    last_name: '',
     email: '',
-    phone: '',
+    mobileNumber: '',
     password: '',
     confirm_password: '',
     agreeTerms: '',
@@ -51,290 +56,112 @@ export default function FixedContainer() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showconfirm_password, setShowconfirm_password] = React.useState(false);
 
- const handleInputChange = (e) => {
-  const { name, value, type, checked } = e.target;
-  let errorMessage = '';
-
-  const containsSpace = /\s/.test(value);
-  
-    if (containsSpace) {
-      setErrors({ ...errors, [name]: 'please enter the valid value' });
-      return;
-    }
-
-    if (name === 'phoneNumber') {
-            const numericValue = value.replace(/\D/g, '');
-            setFormData({ ...formData, [name]: numericValue });
-          } else {
-            setFormData({ ...formData, [name]: value });
-          }
-        
-
-  if (['first_name', 'last_name', 'email', 'phone'].includes(name) && /\s/.test(value)) {
-    errorMessage = `${name.charAt(0).toUpperCase() + name.slice(1)} should not contain spaces.`;
-  }
-
-  if ((name === 'first_name' || name === 'last_name') && /[^a-zA-Z]/.test(value)) {
-    errorMessage = `Only alphabetic characters are allowed for ${name === 'first_name' ? 'first name' : 'last name'}.`;
-  }
-
-  if (name === 'email' && /\s/.test(value)) {
-    errorMessage = 'Email should not contain spaces.';
-  }
-
-  if (name === 'phone') {
-    const numericValue = value.replace(/\D/g, ''); 
-    if (numericValue.length !== 10) {
-      errorMessage = 'Please enter a valid 10-digit phone number.';
-    }
-  }
-
-  // Validation for checkbox
-  if (type === 'checkbox') {
-    setFormData({
-      ...formData,
-      [name]: checked,
-    });
-    setErrors({
-      ...errors,
-      [name]: '',
-    });
-    return;
-  }
-
-  setFormData({
-    ...formData,
-    [name]: value,
-  });
-
-  setErrors({
-    ...errors,
-    [name]: errorMessage,
-  });
-};
-
-
-
-
-  // const handleTogglePasswordVisibility = (field) => {
-  //   if (field === 'password') {
-  //     setShowPassword(!showPassword);
-  //   } else if (field === 'confirm_password') {
-  //     setShowconfirm_password(!showconfirm_password);
-  //   }
-  
-  //   if (name === 'mobile') {
-  //     const numericValue = value.replace(/\D/g, '');
-  //     setFormData({ ...formData, [name]: numericValue });
-  //   } else {
-  //     setFormData({ ...formData, [name]: value });
-  //   }
-  
-  //   setErrors({ ...errors, [name]: '' });
-  // };
-  
-  
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const handleInputChangeWrapper = (e) => {
+    handleInputChange(formData, setFormData, errors, setErrors, e);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-
-    // Basic validation using regular expressions
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^[0-9]{10}$/;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-    const newErrors = {
-      first_name: '',
-      last_name: '',
-      email: '',
-      phone: '',
-      password: '',
-      confirm_password: '',
-      agreeTerms: '',
-    };
-
-    if (!formData.first_name.trim()) {
-      newErrors.first_name = 'First name is required';
-    }
-
-    if (!formData.last_name.trim()) {
-      newErrors.last_name = 'Last name is required';
-    }
-
-    if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-
-    if (!phoneRegex.test(formData.phone)) {
-      newErrors.phone = 'Please enter a valid 10-digit phone number';
-    }
-
-    if (!passwordRegex.test(formData.password)) {
-      newErrors.password = 'Password should be at least 8 characters and include at least one uppercase letter, one lowercase letter, one digit, and one special character.';
-    }
-
-    if (formData.password !== formData.confirm_password) {
-      newErrors.confirm_password = 'Passwords do not match';
-    }
-
-    if (!formData.agreeTerms) {
-      newErrors.agreeTerms = 'Please agree to the terms and conditions';
-    }
-
-    setErrors(newErrors);
-
-    if (!Object.values(newErrors).some(error => error !== '')) {
-      console.log('Form submitted:', formData);
-      let headers = new Headers();
-
-      headers.append('Content-Type', 'application/json');
-      headers.append('Accept', 'application/json');
-
-      headers.append('Origin','http://192.168.1.62:8000/insert/');
-      const apiUrl = 'http://192.168.1.62:8000/insert/';
-
-
-        axios.post(apiUrl,formData,headers).then(response => console.log(response,"post data response===>")).catch(e => console.log(e));
-
-    }
+  const handleTogglePasswordVisibilityWrapper = (field) => {
+    handleTogglePasswordVisibility(field, showPassword, setShowPassword, showconfirm_password, setShowconfirm_password);
   };
-   
 
-  const [value,setValue]=React.useState('')
-
-  const handleGoogleSignIn = () => {
-  
-    signInWithPopup(auth, provider)
-      .then((data) => {
-        // console.log(data)
-        setValue(data.user.email);
-        localStorage.setItem('email', data.user.email);
-        localStorage.setItem('googleToken', data._tokenResponse.oauthAccessToken);
-  
-      }) 
-      .catch((error) => {
-        console.error('Google Sign-In Error:', error.message);
-      });
+  const handleSubmitWrapper = (e) => {
+    handleSubmit(formData, setErrors, setShowPassword, setShowconfirm_password, e);
   };
-  const token= localStorage.getItem('googleToken');
-  
-  useEffect(()=>{
-    // setValue(localStorage.getItem('email'))
-    console.log(token,"token----->");
-    if(token){
+
+  const handleGoogleSignInWrapper = () => {
+    handleGoogleSignIn(auth, provider, setValue, navigate);
+  };
+
+  const [value,setValue] = React.useState('');
+
+  const token = localStorage.getItem('googleToken');
+
+  useEffect(() => {
+    if (token) {
       navigate('/login');
     }
-  });
-
-  
+  }, [token, navigate]);
 
   return (
-    
-    <React.Fragment>
+    <>
       <CssBaseline />
-      <Container  fixed >
+      <Container fixed>
         <Grid container spacing={2} sx={{ flexDirection: { xs: 'column', sm: 'row' }, padding: '15px', borderRadius: '1px', boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)', }}>
-          {/* Left side with image and text */}
-          <Grid item xs={12} sm={6} sx={{ bgcolor:'#7f3fff'}} >
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '80vh', textAlign: 'center', position: 'relative' }}>
-              {/* <img src={cornerImage1} alt="Corner Image" style={{ position: 'absolute', top: '10px', left: '0', width: '60px', height: '50px' }} />
-              <img src={cornerImage2} alt="Corner Image" style={{ position: 'absolute', top: '0', right: '0', width: '50px', height: '50px' }} />
-              <img src={cornerImage3} alt="Corner Image" style={{ position: 'absolute', bottom: '0', left: '0', width: '50px', height: '50px' }} />
-              <img src={cornerImage4} alt="Corner Image" style={{ position: 'absolute', top: '100%', right: '0', width: '50px', height: '100px' }} /> */}
+          <Grid item xs={12} sm={6} sx={{ bgcolor: '#7f3fff' }} >
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '80vh', textAlign: 'center', position: 'relative' }}>
               <Typography variant="h4" component="div">
-                <img src={mainimage} style={{ width: '50%', height: 'auto' }} alt="signup-main" />
+                <img src={mainimage} style={{ width: '50%', height: 'auto' }} alt={formLabels.mainImage.altText} />
                 <Typography variant='h4'>
-                  Let's make it happen together
+                  {formLabels.mainImage.headerText}
                 </Typography>
                 <Typography variant='h6'>
-                  Create Your Account And Get Connected!
+                  {formLabels.mainImage.subHeaderText}
                 </Typography>
               </Typography>
-              </Box>
+            </Box>
           </Grid>
-          {/* Right side with a colored background */}
           <Grid item xs={12} sm={6} >
             <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2%' }}>
               <Typography variant="h4" component="div" mb={3}>
-                Create Account 
+                {formLabels.formLabels.createAccount}
               </Typography>
-              <form onSubmit={handleSubmit}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      label="First Name"
-                      variant="outlined"
-                      fullWidth
-                      name="first_name"
-                      value={formData.first_name}
-                      onChange={handleInputChange}
-                      error={Boolean(errors.first_name)}
-                      helperText={errors.first_name}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      label="Last Name"
-                      variant="outlined"
-                      fullWidth
-                      name="last_name"
-                      value={formData.last_name}
-                      onChange={handleInputChange}
-                      error={Boolean(errors.last_name)}
-                      helperText={errors.last_name}
-                    />
-                  </Grid>
-                </Grid>
+              <form onSubmit={handleSubmitWrapper}>
+                <RadioGroup
+                  row
+                  aria-label="signupBy"
+                  name="signupBy"
+                  value={formData.signupBy}
+                  onChange={handleInputChangeWrapper}
+                >
+                  <FormControlLabel value="User" control={<Radio />} label={formLabels.formLabels.usersignupBy} />
+                  <FormControlLabel value="Recruiter" control={<Radio />} label={formLabels.formLabels.recruitersignupBy} />
+                </RadioGroup>
                 <TextField
-                  label="Email"
+                  label={formLabels.formLabels.email}
                   variant="outlined"
                   fullWidth
                   margin="normal"
                   name="email"
                   value={formData.email}
-                  onChange={handleInputChange}
+                  onChange={handleInputChangeWrapper}
                   error={Boolean(errors.email)}
                   helperText={errors.email}
                 />
                 <TextField
-                  label="Phone"
+                  label={formLabels.formLabels.mobileNumber}
                   type="tel"
                   variant="outlined"
                   fullWidth
                   margin="normal"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  error={Boolean(errors.phone)}
-                  helperText={errors.phone}
-                   InputProps={{
-                     startAdornment: (
-                 <InputAdornment position="start">
-                    +91
-                 </InputAdornment>
-                   ),
-                   }}
+                  name="mobileNumber"
+                  value={formData.mobileNumber}
+                  onChange={handleInputChangeWrapper}
+                  error={Boolean(errors.mobileNumber)}
+                  helperText={errors.mobileNumber}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        +91
+                      </InputAdornment>
+                    ),
+                  }}
                 />
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6} style={{ marginTop: '15px' }}>
                     <TextField
-                      label="Password"
+                      label={formLabels.formLabels.password}
                       type={showPassword ? 'text' : 'password'}
                       variant="outlined"
                       fullWidth
                       name="password"
                       value={formData.password}
-                      onChange={handleInputChange}
+                      onChange={handleInputChangeWrapper}
                       error={Boolean(errors.password)}
                       helperText={errors.password}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <IconButton onClick={() => handleTogglePasswordVisibility('password')} edge="end">
+                            <IconButton onClick={() => handleTogglePasswordVisibilityWrapper('password')} edge="end">
                               {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                             </IconButton>
                           </InputAdornment>
@@ -344,19 +171,19 @@ export default function FixedContainer() {
                   </Grid>
                   <Grid item xs={12} sm={6} style={{ marginTop: '15px' }}>
                     <TextField
-                      label="Confirm Password"
+                      label={formLabels.formLabels.confirmPassword}
                       type={showconfirm_password ? 'text' : 'password'}
                       variant="outlined"
                       fullWidth
                       name="confirm_password"
                       value={formData.confirm_password}
-                      onChange={handleInputChange}
+                      onChange={handleInputChangeWrapper}
                       error={Boolean(errors.confirm_password)}
                       helperText={errors.confirm_password}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <IconButton onClick={() => handleTogglePasswordVisibility('confirm_password')} edge="end">
+                            <IconButton onClick={() => handleTogglePasswordVisibilityWrapper('confirm_password')} edge="end">
                               {showconfirm_password ? <VisibilityIcon /> : <VisibilityOffIcon />}
                             </IconButton>
                           </InputAdornment>
@@ -369,12 +196,12 @@ export default function FixedContainer() {
                   control={
                     <Checkbox
                       checked={formData.agreeTerms}
-                      onChange={handleInputChange}
+                      onChange={handleInputChangeWrapper}
                       name="agreeTerms"
                       color="primary"
                     />
                   }
-                  label="By registering, you agree to our terms & conditions & privacy policy"
+                  label={formLabels.formLabels.termsLabel}
                   style={{ marginTop: '10px' }}
                 />
                 {errors.agreeTerms && (
@@ -383,31 +210,32 @@ export default function FixedContainer() {
                   </Typography>
                 )}
                 <Button type="submit" variant="contained" color="primary" fullWidth style={{ marginTop: '2%' }}>
-                  Sign Up
+                  {formLabels.formLabels.submitButton}
                 </Button>
                 <Divider variant="middle" sx={{ my: 3 }}>
-                  or Register with
+                  {formLabels.formLabels.dividerText}
                 </Divider>
                 <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={handleGoogleSignIn}
-                    fullWidth
-                    sx={{ marginTop: '8px' }}
-                  ><img src={GoogleLogo} alt="Google Logo" style={{width:'5%', marginRight:'2%'}} />
-                    Continue with Google
+                  variant="outlined"
+                  color="primary"
+                  onClick={handleGoogleSignInWrapper}
+                  fullWidth
+                  sx={{ marginTop: '8px' }}
+                >
+                  <img src={GoogleLogo} alt="Google Logo" style={{ width: '5%', marginRight: '2%' }} />
+                  {formLabels.formLabels.googleButton}
                 </Button>
                 <Typography variant="body2" align="center" sx={{ marginTop: '10px' }}>
-                     Have an account? <Link to="/login">Sign In</Link>
+                  {formLabels.formLabels.haveAccountText} <Link href="#">{formLabels.formLabels.signInLink}</Link>
                 </Typography>
               </form>
             </Box>
           </Grid>
         </Grid>
       </Container>
-    </React.Fragment>
-    
-    
-    
+      {/* <Recruiter />
+      <br />
+      <Jobposting /> */}
+    </>
   );
 }
