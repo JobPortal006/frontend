@@ -1,39 +1,36 @@
 
-
 const { test, expect } = require('@playwright/test');
 
-test('Sign up on the website', async ({ page }) => {
-  // Your test actions go here
-  await page.goto('http://localhost:3000/signup'); // Replace with your app's URL
-  await page.screenshot({ path: 'e1.png' });
+test('Sign up on the website and navigate to login', async ({ page }) => {
+  // Navigate to the signup page
+  await page.goto('http://localhost:3000');
+  await page.click('#hii');
 
-  // Select the "Recruiter" option
-  await page.check('input[name="signupBy"][value="Recruiter"]');
-  
+  // Click the "Sign Up" link or button
+  await page.locator(':text("Sign Up")').click();
 
-  // Fill in the email field
-  await page.fill('input[name="email"]', 'example@email.com');
-
-
-  // Fill in the mobile number field
-  await page.fill('input[name="mobileNumber"]', '1234567890');
-
-
-  // Fill in the password field
-  await page.fill('input[name="password"]', 'yourpassword');
- 
-
-  // Fill in the confirm password field
-  await page.fill('input[name="confirm_password"]', 'yourpassword');
-  
-
-  // Agree to the terms
+  // Fill in the signup form
+  await page.check('input[name="signup_by"][value="User"]');
+  await page.fill('input[name="email"]', 'rde666@gmail.com');
+  await page.fill('input[name="mobile_number"]', '1234567890');
+  await page.fill('input[name="password"]', 'Rourpasswo007@');
+  await page.fill('input[name="confirm_password"]', 'Rourpasswo007@');
   await page.check('input[name="agreeTerms"]');
 
+  // Click the "SIGN UP" button
+  console.log('Before signup click:', page.url());
+  await page.click('button:has-text("SIGN UP")');
 
-  // Click the submit button
+  // Wait for navigation to the login page
+  await page.waitForNavigation();
+
+  console.log('After signup click:', page.url());
+
+  await page.fill('input[name="email"]', 'rde666@gmail.com');
+  await page.fill('input[name="password"]', 'Rourpasswo007@');
+
+  // Click the "LOGIN" button
   await page.click('button[type="submit"]');
 
+  await page.click('button:has-text("Search")');
 });
-
-
