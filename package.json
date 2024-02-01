@@ -66,5 +66,9 @@
   "presets": [
     "@babel/preset-env",
     "@babel/preset-react"
-  ]
+  ],
+  "devDependencies": {
+    "@playwright/test": "^1.41.1",
+    "@types/node": "^20.11.13"
+  }
 }

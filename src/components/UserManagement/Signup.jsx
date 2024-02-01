@@ -84,6 +84,8 @@ export default function FixedContainer() {
     }
   }, [token, navigate]);
 
+ 
+
   return (
     <>
       <CssBaseline />
@@ -228,7 +230,7 @@ export default function FixedContainer() {
                   {formLabels.formLabels.googleButton}
                 </Button>
                 <Typography variant="body2" align="center" sx={{ marginTop: '10px' }}>
-                  {formLabels.formLabels.haveAccountText} <Link href="#">{formLabels.formLabels.signInLink}</Link>
+                  {formLabels.formLabels.haveAccountText} <Link to="/login">{formLabels.formLabels.signInLink}</Link>
                 </Typography>
               </form>
             </Box>
