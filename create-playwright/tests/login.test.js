@@ -52,8 +52,8 @@ test("Login Page", async ({ page }) => {
   await page.goto(
     "https://accounts.google.com/o/oauth2/auth/oauthchooseaccount?response_type=code&client_id=745831201499-qus2fqp1019dc4h58e37m2nq29eropfq.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fotp-otp-4a574.firebaseapp.com%2F__%2Fauth%2Fhandler&state=AMbdmDn3HAOnoOsJq0b8RhE8mJYnjJoVa8AjshhsAqjZIB1QuHmuMOeJtxacJO1uLNLzfHFL_RLO8rHou3j6exRVHTDpijqSeX3hiqxuzp35wkSUlPHzkWhjIcuvmMOPZFYLKwYjS3u4Y1hYHqBLGBq4xU49Cs6jvXzQBeAJM3-_uuHi3nGnCsqELgDT0GwM7YWN4wnU8FAYIWVknTlizZGO4ESGVKAVXLANLpFJlMUteVNT6tszyNR16eETg8GQcChY5hO2YOsk7rZV8e-Ip8p5ypzGvYbN_Cg0h5UG9T_hsq8cNYCntiHYdhWp9M4mpoVaD_jXQ1I&scope=openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20profile&context_uri=http%3A%2F%2Flocalhost%3A3000&service=lso&o2v=1&theme=glif&flowName=GeneralOAuthFlow"
   );
-  await page.fill('input[type="email"]', "jeevaelango94@gmail.com");
+  await page.fill('input[type="email"]', "jeevaelango886@gmail.com");
   await page.click(':text("Next")');
-
+await page.waitForTimeout(50000)
  
 });

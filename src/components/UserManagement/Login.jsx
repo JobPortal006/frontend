@@ -29,7 +29,7 @@ import {
 } from "../UserManagement/ValidtionLogin.jsx";
 import validation from "../Json/login.json";
 
-const defaultTheme = createTheme();
+
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ const LogIn = () => {
   const handleOTP = () => {
     navigate("/OTPlogin");
   };
+  const defaultTheme = createTheme();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -252,6 +253,7 @@ const LogIn = () => {
             </Divider>
             <Button
               fullWidth
+              id="otp_btn"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={handleOTP}

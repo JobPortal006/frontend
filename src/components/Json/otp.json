@@ -14,7 +14,7 @@
 
         "four" : "Login via OTP",
 
-        "five" : "30px",
+        "five" : "phone_input",
         "six" : "in",
         "seven" : "+",
 
@@ -28,14 +28,15 @@
         "three" : "success",
 
         "four" : "Send OTP",
-        "five" :"Verify OTP"
+        "five" :"Verify OTP",
+        "six" : "Enter OTP"
     },
 
     "field" : {
         "one" : "10px",
         "two"  :"300px",
         "three" : "outlined",
-        "four" : "small",
-        "five" : "Enter OTP"
+        "four" : "small"
+        
     }
 }
