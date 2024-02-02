@@ -11,7 +11,7 @@ test('Sign up on the website and navigate to login', async ({ page }) => {
 
   // Fill in the signup form
   await page.check('input[name="signup_by"][value="User"]');
-  await page.fill('input[name="email"]', 'rde666@gmail.com');
+  await page.fill('input[name="email"]', 'rdee666@gmail.com');
   await page.fill('input[name="mobile_number"]', '1234567890');
   await page.fill('input[name="password"]', 'Rourpasswo007@');
   await page.fill('input[name="confirm_password"]', 'Rourpasswo007@');
@@ -26,7 +26,7 @@ test('Sign up on the website and navigate to login', async ({ page }) => {
 
   console.log('After signup click:', page.url());
 
-  await page.fill('input[name="email"]', 'rde666@gmail.com');
+  await page.fill('input[name="email"]', 'rdee666@gmail.com');
   await page.fill('input[name="password"]', 'Rourpasswo007@');
 
   // Click the "LOGIN" button

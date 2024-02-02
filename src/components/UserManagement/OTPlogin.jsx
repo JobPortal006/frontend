@@ -25,7 +25,7 @@ const OTPlogin = () => {
         'Accept': 'application/json',
       };
 
-      const response = await axios.post("http://192.168.1.36:8000/loginWithOTP/", { mobile_number }, { headers: headers });
+      const response = await axios.post("http://192.168.1.38:8000/loginWithOTP/", { mobile_number }, { headers: headers });
       const otpverify = response.data.status;
       
       console.log(response, "OTP_Response====>");
