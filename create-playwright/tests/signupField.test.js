@@ -4,7 +4,7 @@ const { test, expect } = require('@playwright/test');
 test('Sign up on the website and navigate to login', async ({ page }) => {
   // Navigate to the signup page
   await page.goto('http://localhost:3000');
-  await page.click('#hii');
+  await page.click('#Nav_log_btn');
 
   // Click the "Sign Up" link or button
   await page.locator(':text("Sign Up")').click();
