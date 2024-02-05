@@ -310,7 +310,7 @@ const UserForm = () => {
         let updatedAddressDetails = { ...address };
         if (event.target.name === 'street' || event.target.name === 'city' || event.target.name === 'country' || 
         event.target.name === 'state') {
-            if (/[^A-Za-z]/.test(event.target.value)) {
+            if (/[^A-Za-z\s]/.test(event.target.value)) {
                 setErrors({
                     ...errors,
                     [type]: {
@@ -1333,6 +1333,7 @@ const UserForm = () => {
                 {/* Professional Details Accordion */}
                 <AccordionWrapper
                     expanded={professionalDetailsExpanded}
+                    className='professional_details'
                     onChange={() => setProfessionalDetailsExpanded(!professionalDetailsExpanded)}
                 >
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -1349,6 +1350,7 @@ const UserForm = () => {
                                         value="experienced"
                                         checked={experienceOption === 'experienced'}
                                         onChange={() => setExperienceOption('experienced')}
+                                        className='exprence'
                                     />
                                     {/* non-breaking space  */}
                                     &nbsp;  Experience

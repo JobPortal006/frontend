@@ -6,7 +6,7 @@ test('Education Details Accordion', async ({ page }) => {
 
   // Your component selectors
   const accordionWrapperSelector = '.education';
-  const educationTypeSelector = '.pg_button1';
+  const educationTypeSelector = 'input[value="pg"]';
   const pgCollegeNameInputSelector = 'input[name="pg_college_name"]';
   const pgCollegeStartYearInputSelector = 'input[name="pg_college_start_year"]';
   const pgCollegeEndYearInputSelector = 'input[name="pg_college_end_year"]';
