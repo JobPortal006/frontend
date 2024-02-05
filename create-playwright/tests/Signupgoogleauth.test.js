@@ -30,7 +30,7 @@ await newPage.waitForNavigation();
 // const newContext1 = await browser.newContext();  // Create a new context
 // const newPage1 = await newContext1.newPage(); 
 
-await newPage1.waitForSelector('input[type="password"]');
-    await newPage1.fill('input[type="password"]', '9942479398');
+// await newPage1.waitForSelector('input[type="password"]');
+//     await newPage1.fill('input[type="password"]', '9942479398');
 });
 

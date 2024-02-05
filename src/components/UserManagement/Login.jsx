@@ -14,7 +14,7 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Divider } from "@mui/material";
+import { Alert, Divider } from "@mui/material";
 import glogo from "../Login Image/google-icon.svg";
 import jllogo from "../Login Image/JL logo design.jpg";
 import "../UserManagement/login.css";
@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { auth, provider } from "../Firebase/firebase.js";
 import { signInWithPopup } from "@firebase/auth";
+// import { toast, Toaster } from 'react-hot-toast';
 import {
   emailBlur,
   handlePasswordBlur,
@@ -34,26 +35,29 @@ import validation from "../Json/login.json";
 const LogIn = () => {
   const navigate = useNavigate();
 
+  // Navigate to SighUp page
   const handleSignupClick = () => {
     navigate("/signup");
   };
 
+  // Navigatio ot OPT page
   const handleOTP = () => {
     navigate("/OTPlogin");
   };
+
   const defaultTheme = createTheme();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [emailError, setEmailError] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
-
   const [rememberMe, setRememberMe] = React.useState(false);
   const [outputData, setOutputData] = React.useState("");
 
   const handleRememberMe = (event) => {
     setRememberMe(event.target.checked);
   };
+
 
   const [value, setValue] = React.useState("");
   
@@ -64,10 +68,7 @@ const LogIn = () => {
         setValue(data.user.email);
 
         localStorage.setItem("email", data.user.email);
-        localStorage.setItem(
-          "googleToken",
-          data._tokenResponse.oauthAccessToken
-        );
+        localStorage.setItem( "googleToken",data._tokenResponse.oauthAccessToken);
 
         const googleToken = localStorage.getItem("googleToken");
         console.log(googleToken, "Google_Token=========>");
@@ -81,6 +82,7 @@ const LogIn = () => {
       });
   };
   
+  // Navigate to forget password
   const handleForget = () => {
     navigate("/ForgetPassword");
   };
@@ -94,6 +96,7 @@ const LogIn = () => {
     }
   });
 
+  // Validations
   const handleLoginSubmit = async (event) => {
     await handleSubmit(
       event,
@@ -132,6 +135,7 @@ const LogIn = () => {
         console.log("====================================");
       } else {
         console.log(outPut, "navigation=====>");
+        alert('Enter the Valid Email or Password')
       }
     } catch (error) {
       console.log(error);
@@ -152,6 +156,7 @@ const LogIn = () => {
 
   return (
     <ThemeProvider theme={defaultTheme}>
+    {/*<Toaster toastOptions={{ duration: 4000 }} /> */}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -193,7 +198,7 @@ const LogIn = () => {
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
-                setEmailError(""); // Reset the error when typing
+                setEmailError(""); 
               }}
               onBlur={() => emailBlur(email, setEmailError, setPasswordError)}
               error={!!emailError}

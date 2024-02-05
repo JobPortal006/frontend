@@ -16,6 +16,7 @@ const OTPlogin = () => {
   const [otp, setOtp] = useState("");
   const navigate = useNavigate();
 
+  // Sending the OTP 
   const sendOtp = async () => {
     try {
       const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {});
@@ -32,7 +33,7 @@ const OTPlogin = () => {
       console.log(response, "OTP_Response====>");
       console.log(otpverify, "otpverify======>");
 
-      // Continue with Firebase OTP verification if your API call was successful
+      // Continue with Firebase OTP verification if the API call was successful
       if(otpverify){
         await recaptcha.verify();
         const confirmationResult = await signInWithPhoneNumber(auth, mobile_number, recaptcha);
@@ -47,6 +48,7 @@ const OTPlogin = () => {
     }
   };
 
+  // Verifying the Otp
   const verifyOtp = async () => {
     try {
       const confirmationResult = await confirmation.confirm(otp);

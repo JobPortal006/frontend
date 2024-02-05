@@ -4,6 +4,7 @@ const { test, expect } = require("@playwright/test");
 test("Login Page", async ({ page }) => {
   await page.goto("http://localhost:3000/");
 
+  // Clicking the login button in Navigation Bar
   await page.waitForSelector("#Nav_log_btn");
   await page.locator("#Nav_log_btn").click();
   expect(page.url()).toBe("http://localhost:3000/login");
@@ -22,7 +23,7 @@ test("Login Page", async ({ page }) => {
 
   // Fill the form with some data
   await emailField.fill("jeevaelango886@gmail.com");
-  await passwordField.fill("vimal");
+  await passwordField.fill("@Jeeva2002");
   await rememberMeCheckBox.click();
 
   // Submit the form by clicking a button
