@@ -19,7 +19,7 @@ test("Login To OTP", async ({page})=>{
     await page.waitForSelector(':text("Send OTP")')
 
     // Entering the Phone number in the input box  
-    await page.locator("input[placeholder='1 (702) 123-4567']").fill("6380532243");
+    await page.locator("input[placeholder='1 (702) 123-4567']").fill("9952469144");
     await page.locator(':text("Send OTP")').click();
     await page.waitForTimeout(10000);
 

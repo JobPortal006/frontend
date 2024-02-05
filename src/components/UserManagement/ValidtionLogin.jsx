@@ -5,6 +5,7 @@ const mailTwo = validation.email.two;
 const mailThree = validation.email.three;
 const passOne = validation.password.one;
 
+
 export const emailBlur = (email, setEmailError, setPasswordError) => {
   const trimmedEmail = email.trim();
   if (!trimmedEmail) {

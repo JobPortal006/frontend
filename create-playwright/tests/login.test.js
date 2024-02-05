@@ -23,7 +23,7 @@ test("Login Page", async ({ page }) => {
 
   // Fill the form with some data
   await emailField.fill("jeevaelango886@gmail.com");
-  await passwordField.fill("vimal");
+  await passwordField.fill("@Jeeva2002");
   await rememberMeCheckBox.click();
 
   // Submit the form by clicking a button
