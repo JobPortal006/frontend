@@ -35,7 +35,7 @@ test("Login to ForgetPassword", async ({page})=>{
     await page.waitForSelector("#email");
     await page.waitForSelector(':text("Submit")');
 
-    await page.locator("#email").fill("jeevaelango94@gmail.com");
+    await page.locator("#email").fill("jeevaelango886@gmail.com");
     await page.locator(':text("Submit")').click();
     await page.waitForTimeout(10000);
 
