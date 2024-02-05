@@ -9,6 +9,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from "react-toastify";
+import cnfmPass from "../Json/password.json";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -92,7 +93,7 @@ const Password = () => {
         onClick={reDirect}
         style={{marginTop:'100px'}}
       >
-        Login
+        {cnfmPass.context.one}
       </Button>
    
   );
@@ -102,18 +103,18 @@ const Password = () => {
     event.preventDefault();
 
     if (password === '') {
-      setMessage('Please enter the password');
+      setMessage(cnfmPass.validation.one);
     } else if (password.length < 8) {
-      setMessage('Password should be at least 8 characters long');
+      setMessage(cnfmPass.validation.two);
     }else if (!/[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password)) {
-      setMessage('Password should contain at least one special character');
+      setMessage(cnfmPass.validation.three);
     } else if (!/\d/.test(password)) {
-      setMessage('Password should contain at least one number');
+      setMessage(cnfmPass.validation.four);
     } else if (password !== confirmPassword) {
-      setMessage("Passwords don't match");
+      setMessage(cnfmPass.validation.five);
     } else {
       console.log('Password:', password, confirmPassword);
-      toast.success("Password Updated", {
+      toast.success(cnfmPass.validation.six, {
          
         icon: (
           <div style={{marginLeft:'100px',marginTop:'-30px'}}>
@@ -163,15 +164,15 @@ const Password = () => {
   return (
     <div className={classes.root}>
       <form className={classes.form} onSubmit={handleSubmit}>
-        <h2>Update Password</h2>
+        <h2>{cnfmPass.context.two}</h2>
 
-        <label className={classes.label} htmlFor="password">Password</label>
+        <label className={classes.label} htmlFor="password">{cnfmPass.context.three}</label>
         <div className={classes.passwordContainer}>
           <TextField
             type={showPassword ? 'text' : 'password'}
-            id="password"
-            name="password"
-            placeholder="Enter Your Password"
+            id={cnfmPass.label.one}
+            name={cnfmPass.label.one}
+            placeholder={cnfmPass.label.two}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             InputProps={{
@@ -186,13 +187,13 @@ const Password = () => {
           />
         </div>
 
-        <label className={classes.label} htmlFor="cnfrm-password">Confirm Password</label>
+        <label className={classes.label} htmlFor="cnfrm-password">{cnfmPass.context.four}</label>
         <div className={classes.passwordContainer}>
           <TextField
             type={showConfirmPassword ? 'text' : 'password'}
-            id="cnfrm-password"
-            name="confirm_password"
-            placeholder="Re-Enter Your Password"
+            id={cnfmPass.label.four}
+            name={cnfmPass.label.five}
+            placeholder={cnfmPass.label.six}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             InputProps={{
@@ -209,7 +210,7 @@ const Password = () => {
 
         {message && <p className={classes.error}>{message}</p>}
         <Button type="submit" className={classes.submitButton} style={{ backgroundColor: '#ccb4fb' }} onClick={handlePassword}>
-          Submit
+          {cnfmPass.btn.two}
         </Button>
 
          <ToastContainer

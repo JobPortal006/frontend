@@ -20,7 +20,7 @@ import jllogo from "../Login Image/JL logo design.jpg";
 import "../UserManagement/login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { auth, provider } from "../../components/Firebase/firebase";
+import { auth, provider } from "../Firebase/firebase.js";
 import { signInWithPopup } from "@firebase/auth";
 import {
   emailBlur,
@@ -29,7 +29,7 @@ import {
 } from "../UserManagement/ValidtionLogin.jsx";
 import validation from "../Json/login.json";
 
-const defaultTheme = createTheme();
+
 
 const LogIn = () => {
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ const LogIn = () => {
   const handleOTP = () => {
     navigate("/OTPlogin");
   };
+  const defaultTheme = createTheme();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -76,7 +77,7 @@ const LogIn = () => {
         }
       })
       .catch((error) => {
-        console.error("Google Sign-In Error:", error.message);
+        console.error(validation.Console.one, error.message);
       });
   };
   
@@ -185,10 +186,10 @@ const LogIn = () => {
             <TextField
               margin="normal"
               fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
+              id={validation.style.elevn}
+              label={validation.style.twelve}
+              name={validation.style.elevn}
+              autoComplete={validation.style.elevn}
               value={email}
               onChange={(e) => {
                 setEmail(e.target.value);
@@ -201,11 +202,11 @@ const LogIn = () => {
             <TextField
               margin="normal"
               fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              name={validation.style.thirteen}
+              label={validation.style.fourteen}
+              type={validation.style.thirteen}
+              id={validation.style.thirteen}
+              autoComplete={validation.style.fifteen}
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
@@ -223,8 +224,8 @@ const LogIn = () => {
                     checked={rememberMe}
                     onChange={handleRememberMe}
                     value="remember"
-                    color="primary"
-                    id="checkBox"
+                    color={validation.grid.two}
+                    id={validation.grid.elevn}
                   />
                 }
                 label={validation.Context.eight}
@@ -252,6 +253,7 @@ const LogIn = () => {
             </Divider>
             <Button
               fullWidth
+              id={validation.grid.twelve}
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               onClick={handleOTP}
@@ -262,7 +264,7 @@ const LogIn = () => {
         </Box>
         <Button
           variant="outlined"
-          color="primary"
+          color={validation.grid.two}
           onClick={googleClick}
           sx={{
             display: "flex",
@@ -272,10 +274,10 @@ const LogIn = () => {
             gap: "20px",
           }}
         >
-          <img src={glogo} alt="Google Logo" className="g-logo" />
+          <img src={glogo} alt={validation.last.one} className={validation.last.two} />
           {validation.Context.four}
         </Button>
-        <Grid container className="dont-account">
+        <Grid container className={validation.last.three}>
           <Grid item>
             <p href="#" variant="body2" style={{ marginLeft: "-2.5rem" }}>
               {validation.Context.six}{" "}

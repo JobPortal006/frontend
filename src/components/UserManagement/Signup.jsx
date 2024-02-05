@@ -19,7 +19,7 @@ import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { auth, provider } from "../../components/Firebase/firebase";
+import { auth, provider } from "../Firebase/firebase";
 import {signInWithPopup} from 'firebase/auth';
 import { useEffect } from "react";
 
@@ -83,6 +83,8 @@ export default function FixedContainer() {
       navigate('/login');
     }
   }, [token, navigate]);
+
+ 
 
   return (
     <>
@@ -228,7 +230,7 @@ export default function FixedContainer() {
                   {formLabels.formLabels.googleButton}
                 </Button>
                 <Typography variant="body2" align="center" sx={{ marginTop: '10px' }}>
-                  {formLabels.formLabels.haveAccountText} <Link href="#">{formLabels.formLabels.signInLink}</Link>
+                  {formLabels.formLabels.haveAccountText} <Link to="/login">{formLabels.formLabels.signInLink}</Link>
                 </Typography>
               </form>
             </Box>

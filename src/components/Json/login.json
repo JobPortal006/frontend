@@ -10,6 +10,10 @@
       "two": "Please enter a valid password"
     },
 
+    "Console" :{
+      "one" : "Google Sign-In Error:"
+    },
+
     "Context":{
       "one": "LogIn",
       "two": "Forget password?",
@@ -56,7 +60,9 @@
       "eight" : "contained",
 
       "nine" : "outlined",
-      "ten" : "100%"
+      "ten" : "100%",
+      "elevn" : "checkBox",
+      "twelve" : "otp_btn"
     },
 
     "last" : {

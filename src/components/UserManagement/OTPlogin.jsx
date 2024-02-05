@@ -4,10 +4,11 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../UserManagement/OTPlogin.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "@firebase/auth";
-import { auth } from "../../components/Firebase/firebase";
+import { auth } from "../Firebase/firebase";
 import { useNavigate } from "react-router";
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios'; // Import axios
+import otpnum from "../Json/otp.json";
 
 const OTPlogin = () => {
   const [mobile_number, setPhone] = useState("");
@@ -25,7 +26,7 @@ const OTPlogin = () => {
         'Accept': 'application/json',
       };
 
-      const response = await axios.post("http://192.168.1.36:8000/loginWithOTP/", { mobile_number }, { headers: headers });
+      const response = await axios.post("http://192.168.1.38:8000/loginWithOTP/", { mobile_number }, { headers: headers });
       const otpverify = response.data.status;
       
       console.log(response, "OTP_Response====>");
@@ -36,13 +37,13 @@ const OTPlogin = () => {
         await recaptcha.verify();
         const confirmationResult = await signInWithPhoneNumber(auth, mobile_number, recaptcha);
         setConfirmation(confirmationResult);
-        toast.success("OTP sent successfully!");
+        toast.success(otpnum.validation.one);
       }else{
-        toast.error('Register your Mobile Number');
+        toast.error(otpnum.validation.two);
       }
     } catch (err) {
       console.error(err);
-      toast.error('Failed to send OTP');
+      toast.error(otpnum.validation.three);
     }
   };
 
@@ -54,13 +55,13 @@ const OTPlogin = () => {
       localStorage.setItem('otpToken', getToken)
       if (confirmationResult?.user?.accessToken !== undefined) {
         console.log('OTP verified successfully:', confirmationResult?.user?.accessToken);
-        toast.success('Redirecting to Login Page')
+        toast.success(otpnum.validation.four)
         navigate('/home');
       } else {
         console.log('Failed to verify OTP');
       }
     } catch (err) {
-      toast.error('OTP is Error');
+      toast.error(otpnum.validation.five);
       console.error(err);
     }
   };
@@ -73,25 +74,27 @@ const OTPlogin = () => {
   });
 
   return (
-    <div className="otp-login">
+    <div className={otpnum.phone.one}>
       <Toaster toastOptions={{ duration: 4000 }} />
-      <div className="otp-contained">
-        <h2 style={{ marginLeft: '3rem' }}>Login via OTP</h2>
+      <div className={otpnum.phone.two}>
+        <h2 style={{ marginLeft: '3rem' }}>{otpnum.phone.four}</h2>
+        
         <PhoneInput
           style={{ marginTop: '30px' }}
           country={"in"}
           value={mobile_number}
+          className={otpnum.phone.five}
           onChange={(mobile_number) => setPhone("+" + mobile_number)}
         />
 
-        <div style={{ marginTop: '1rem' }} id="recaptcha"></div>
+        <div style={{ marginTop: '1rem' }} id={otpnum.phone.nine}></div>
 
         <Button
           onClick={sendOtp}
           sx={{ marginTop: "10px" }}
           variant="contained"
         >
-          Send OTP
+          {otpnum.button.four}
         </Button>
 
         <br />
@@ -100,16 +103,16 @@ const OTPlogin = () => {
           sx={{ marginTop: "10px", width: "300px" }}
           variant="outlined"
           size="small"
-          label="Enter OTP"
+          label={otpnum.button.six}
         ></TextField>
         <br />
         <Button
           onClick={verifyOtp}
           sx={{ marginTop: "10px" }}
           variant="contained"
-          color="success"
+          color={otpnum.button.three}
         >
-          Verify OTP
+          {otpnum.button.five}
         </Button>
       </div>
     </div>

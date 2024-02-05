@@ -108,7 +108,7 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <button className="Navbar__button" onClick={handleLoginClick} disabled={isLoggedIn}>
+              <button className="Navbar__button" id='Nav_log_btn' onClick={handleLoginClick} disabled={isLoggedIn}>
               {translations.login.one}
               </button>
               <button className="Navbar__button" onClick={handleSignupClick} disabled={isLoggedIn}>

@@ -128,8 +128,8 @@ export const handleSubmit = (formData, setErrors, setShowPassword, setShowconfir
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Origin','http://192.168.1.41:8000/signup/');
-    const apiUrl = 'http://192.168.1.41:8000/signup/';
+    headers.append('Origin','http://192.168.1.38:8000/signup/');
+    const apiUrl = 'http://192.168.1.38:8000/signup/';
 
     axios.post(apiUrl, formData, headers)
       .then(response => console.log(response, "post data response===>"))
