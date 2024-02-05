@@ -298,14 +298,52 @@ const UserForm = () => {
 
     // Handle changes in address fields
     const handleAddressChange = (type, event) => {
-        setAddress((prevAddress) => ({
-            ...prevAddress,
+        // Clear previous errors for the specific address type
+        setErrors({
+            ...errors,
             [type]: {
-                ...prevAddress[type],
+                ...errors[type],
+                [event.target.name]: '',
+            },
+        });
+    
+        let updatedAddressDetails = { ...address };
+        if (event.target.name === 'street' || event.target.name === 'city' || event.target.name === 'country' || 
+        event.target.name === 'state') {
+            if (/[^A-Za-z]/.test(event.target.value)) {
+                setErrors({
+                    ...errors,
+                    [type]: {
+                        ...errors[type],
+                        [event.target.name]: 'Only alphabets allowed for street and city',
+                    },
+                });
+                return;
+            }
+        } else if (event.target.name === 'pincode') {
+            if (/[^0-9]/.test(event.target.value)) {
+                setErrors({
+                    ...errors,
+                    [type]: {
+                        ...errors[type],
+                        [event.target.name]: 'Invalid pincode (must be 6 digits)',
+                    },
+                });
+                return;
+            }
+        }
+    
+        updatedAddressDetails = {
+            ...updatedAddressDetails,
+            [type]: {
+                ...updatedAddressDetails[type],
                 [event.target.name]: event.target.value,
             },
-        }));
+        };
+    
+        setAddress(updatedAddressDetails);
     };
+    
     // Handle changes in education fields
      const handleEducationChange = (event) => {
         setErrors({
@@ -823,6 +861,8 @@ const UserForm = () => {
                                     fullWidth
                                     margin="dense"
                                     required
+                                    error={Boolean(errors.permanent && errors.permanent.street)}
+                                    helperText={errors.permanent && errors.permanent.street}
                                 />
                                 <TextField
                                     label="City"
@@ -832,6 +872,8 @@ const UserForm = () => {
                                     fullWidth
                                     margin="dense"
                                     required
+                                    error={Boolean(errors.permanent && errors.permanent.city)}
+                                    helperText={errors.permanent && errors.permanent.city}
                                 />
                                 <TextField
                                     label="Pincode"
@@ -841,6 +883,8 @@ const UserForm = () => {
                                     fullWidth
                                     margin="dense"
                                     required
+                                    error={Boolean(errors.permanent && errors.permanent.pincode)}
+                                    helperText={errors.permanent && errors.permanent.pincode}
                                 />
 
                                 <TextField
@@ -851,6 +895,8 @@ const UserForm = () => {
                                     fullWidth
                                     margin="dense"
                                     required
+                                    error={Boolean(errors.permanent && errors.permanent.country)}
+                                    helperText={errors.permanent && errors.permanent.country}
                                 />
                                 <TextField
                                     label="State"
@@ -860,6 +906,8 @@ const UserForm = () => {
                                     fullWidth
                                     margin="dense"
                                     required
+                                    error={Boolean(errors.permanent && errors.permanent.state)}
+                                    helperText={errors.permanent && errors.permanent.state}
                                 />
 
                             </Grid>
@@ -872,6 +920,8 @@ const UserForm = () => {
                                     onChange={(e) => handleAddressChange('current', e)}
                                     fullWidth
                                     margin="dense"
+                                    error={Boolean(errors.current && errors.current.street)}
+                                    helperText={errors.current && errors.current.street}
                                 />
                                 <TextField
                                     label="City"
@@ -880,6 +930,8 @@ const UserForm = () => {
                                     onChange={(e) => handleAddressChange('current', e)}
                                     fullWidth
                                     margin="dense"
+                                    error={Boolean(errors.current && errors.current.city)}
+                                    helperText={errors.current && errors.current.city}
                                 />
                                 <TextField
                                     label="Pincode"
@@ -888,6 +940,8 @@ const UserForm = () => {
                                     onChange={(e) => handleAddressChange('current', e)}
                                     fullWidth
                                     margin="dense"
+                                    error={Boolean(errors.current && errors.current.pincode)}
+                                    helperText={errors.current && errors.current.pincode}
                                 />
 
                                 <TextField
@@ -897,6 +951,8 @@ const UserForm = () => {
                                     onChange={(e) => handleAddressChange('current', e)}
                                     fullWidth
                                     margin="dense"
+                                    error={Boolean(errors.current && errors.current.country)}
+                                    helperText={errors.current && errors.current.country}
                                 />
                                 <TextField
                                     label="State"
@@ -905,6 +961,8 @@ const UserForm = () => {
                                     onChange={(e) => handleAddressChange('current', e)}
                                     fullWidth
                                     margin="dense"
+                                    error={Boolean(errors.current && errors.current.state)}
+                                    helperText={errors.current && errors.current.state}
                                 />
 
                             </Grid>
