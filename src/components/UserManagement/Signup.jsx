@@ -33,7 +33,7 @@ import {
   handleSubmit,
   handleGoogleSignIn
 } from '../validation/signupvalidation';
-import Jobposting from '../../Jobposting';
+import Jobposting from './Jobposting';
 
 export default function FixedContainer() {
 
