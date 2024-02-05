@@ -1271,7 +1271,7 @@ const UserForm = () => {
                                             helperText={errors.diploma_college_name}
                                         />
                                         <TextField
-                                            label="Dipoma-college-start-year"
+                                            label="Diploma-college-start-year"
                                             name="diploma_college_start_year"
                                             value={education.diploma_college_start_year}
                                             onChange={handleEducationChange}
@@ -1281,7 +1281,7 @@ const UserForm = () => {
                                             helperText={errors.diploma_college_start_year}
                                         />
                                         <TextField
-                                            label="Dipoma-college-end-year"
+                                            label="Diploma-college-end-year"
                                             name="diploma_college_end_year"
                                             value={education.diploma_college_end_year}
                                             onChange={handleEducationChange}
@@ -1291,7 +1291,7 @@ const UserForm = () => {
                                             helperText={errors.diploma_college_end_year}
                                         />
                                         <TextField
-                                            label="Dipoma-college-percentage"
+                                            label="Diploma-college-percentage"
                                             name="diploma_college_percentage"
                                             value={education.diploma_college_percentage}
                                             onChange={handleEducationChange}
@@ -1304,7 +1304,7 @@ const UserForm = () => {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <TextField
-                                            label="Dipoma-college-department"
+                                            label="Diploma-college-department"
                                             name="diploma_college_department"
                                             value={education.diploma_college_department}
                                             onChange={handleEducationChange}
@@ -1314,7 +1314,7 @@ const UserForm = () => {
                                             helperText={errors.diploma_college_department}
                                         />
                                         <TextField
-                                            label="Dipoma-college-degree"
+                                            label="Diploma-college-degree"
                                             name="diploma_college_degree"
                                             value={education.diploma_college_degree}
                                             onChange={handleEducationChange}
