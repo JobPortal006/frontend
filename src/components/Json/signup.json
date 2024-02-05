@@ -1,13 +1,13 @@
 {
     "fields": {
       "role": {
-        "required": "Please select a role."
+        "required1": "Please select either User or Recruiter"
       },
       "email": {
         "invalid": "Please enter a valid email address.",
         "containsSpace": "Email should not contain spaces."
       },
-      "mobileNumber": {
+      "mobile_number": {
         "invalid": "Please enter a valid 10-digit phone number.",
         "containsSpace": "Phone number should not contain spaces."
       },
