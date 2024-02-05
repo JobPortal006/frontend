@@ -1,7 +1,7 @@
 {
     "fields": {
       "role": {
-        "required": "Please select a role."
+        "required1": "Please select either User or Recruiter"
       },
       "email": {
         "invalid": "Please enter a valid email address.",

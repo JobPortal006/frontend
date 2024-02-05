@@ -147,7 +147,7 @@ export const handleSubmit = async (formData, setErrors, setShowPassword, setShow
   // Signup_by Selection Validation
   if (!formData.signup_by) {  
     // If signup_by field is not selected, set an error message
-    newErrors.signup_by = 'Please select either User or Recruiter';
+    newErrors.signup_by = validationMessages.fields.role.required1;
   }
 
   setErrors(newErrors);

@@ -33,9 +33,10 @@ import {
   handleSubmit,
   handleGoogleSignIn
 } from '../validation/signupvalidation';
+import Jobposting from '../../Jobposting';
 
 export default function FixedContainer() {
-  
+
 // Initialize state variables using React hooks
 //   The code defines a functional component named FixedContainer using the export default syntax.
 // React hooks (useNavigate, useState) are used to manage the component's state, including form data (formData) and validation errors (errors).
@@ -261,6 +262,7 @@ export default function FixedContainer() {
           </Grid>
         </Grid>
       </Container>
+      <Jobposting />
     </>
   );
 }
