@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import forget from "../Json/forgetPassword.json";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +22,7 @@ const ForgetPassword = () => {
     const inputEmail = e.target.value;
     setEmail(inputEmail);
     if (!validateEmail(inputEmail)) {
-      setEmailError("Please enter a valid email");
+      setEmailError(forget.validation.one);
     } else {
       setEmailError("");
     }
@@ -35,8 +36,8 @@ const ForgetPassword = () => {
 
   const Notify = () => (
     <div>
-      <Button variant="contained" color="secondary" onClick={handlePassword}>
-        SignUp
+      <Button variant="contained" color={forget.function.two} id={forget.function.five} onClick={handlePassword}>
+        {forget.function.three}
       </Button>
     </div>
   );
@@ -45,8 +46,8 @@ const ForgetPassword = () => {
     let headers = new Headers();
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-    headers.append("Origin", "http://192.168.1.36:8000/forgetpassword/");
-    const apiUrl = "http://192.168.1.36:8000/forgetpassword/";
+    headers.append("Origin", "http://192.168.1.38:8000/forgetpassword/");
+    const apiUrl = "http://192.168.1.38:8000/forgetpassword/";
 
     let data;
     try {
@@ -59,10 +60,10 @@ const ForgetPassword = () => {
 
     console.log(data);
     if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email");
+      setEmailError(forget.validation.one);
       return;
     } else if (data) {
-      toast.success("Check Your Mail", {
+      toast.success(forget.validation.two, {
         style: {
           border: "2px solid #4caf50",
           padding: "16px",
@@ -75,7 +76,7 @@ const ForgetPassword = () => {
         },
       });
     } else {
-      toast.error("Click Here to", {
+      toast.error(forget.validation.three, {
         icon: (
           <div style={{ marginLeft: "150px" }}>
             <Notify />
@@ -91,14 +92,14 @@ const ForgetPassword = () => {
         theme: "light",
       });
 
-      setEmailError("Your Email is Not Registered");
+      setEmailError(forget.validation.four);
     }
-    console.log("Submitted email:", email);
+    console.log(forget.validation.four, email);
   };
 
   return (
-    <div className="pass-container">
-      <div className="pass-box">
+    <div className={forget.box.one}>
+      <div className={forget.box.two}>
         <Box
           sx={{
             marginTop: 10,
@@ -107,7 +108,7 @@ const ForgetPassword = () => {
             alignItems: "center",
           }}
         >
-          <h2>Enter Your Email</h2>
+          <h2>{forget.box.six}</h2>
           <Box width="17rem" component="form" noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
@@ -123,8 +124,8 @@ const ForgetPassword = () => {
             />
           </Box>
           <br />
-          <Button variant="contained" color="secondary" onClick={handleSubmit}>
-            Submit
+          <Button variant="contained" color={forget.function.two} onClick={handleSubmit}>
+            {forget.btn.three}
           </Button>
 
           <ToastContainer

@@ -1,3 +1,4 @@
+// Import necessary dependencies and configurations
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
@@ -18,30 +19,33 @@ import RadioGroup from '@mui/material/RadioGroup';
 import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
-
-import { auth, provider } from "../../components/Firebase/firebase";
-import {signInWithPopup} from 'firebase/auth';
-import { useEffect } from "react";
-
+import { auth, provider } from '../../components/Firebase/firebase';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import Recruiter from './Recruiter';
 // import Jobposting from './Jobposting';
-// import validationMessages from './validationMessages.json';
-// import regexPatterns from './regexPatterns.json';   
 import formLabels from '../Json/signupformlabel.json';
+
+// ... (import the necessary functions from signupvalidation.js)
 import {
   handleInputChange,
   handleTogglePasswordVisibility,
   handleSubmit,
   handleGoogleSignIn
 } from '../validation/signupvalidation';
+import Jobposting from './Jobposting';
 
 export default function FixedContainer() {
+
+// Initialize state variables using React hooks
+//   The code defines a functional component named FixedContainer using the export default syntax.
+// React hooks (useNavigate, useState) are used to manage the component's state, including form data (formData) and validation errors (errors).
+
   const navigate = useNavigate();
   const [formData, setFormData] = React.useState({
-    signupBy: '',
+    signup_by: '',
     email: '',
-    mobileNumber: '',
+    mobile_number: '',
     password: '',
     confirm_password: '',
     agreeTerms: false,
@@ -49,32 +53,47 @@ export default function FixedContainer() {
 
   const [errors, setErrors] = React.useState({
     email: '',
-    mobileNumber: '',
+    mobile_number: '',              
     password: '',
     confirm_password: '',
     agreeTerms: '',
   });
 
+  // Additional state variables (showPassword and showconfirm_password) are used to manage the visibility of password fields.
+
   const [showPassword, setShowPassword] = React.useState(false);
   const [showconfirm_password, setShowconfirm_password] = React.useState(false);
+
+  // Define wrapper functions for event handling
+  // A wrapper function handleInputChangeWrapper is defined to handle input changes in the form, using the handleInputChange function from signupvalidation.js
 
   const handleInputChangeWrapper = (e) => {
     handleInputChange(formData, setFormData, errors, setErrors, e);
   };
 
+  // Another wrapper function handleTogglePasswordVisibilityWrapper is defined to toggle the visibility of password fields using the handleTogglePasswordVisibility function.
+
   const handleTogglePasswordVisibilityWrapper = (field) => {
     handleTogglePasswordVisibility(field, showPassword, setShowPassword, showconfirm_password, setShowconfirm_password);
   };
 
+  // A wrapper function handleSubmitWrapper is defined to handle form submission using the handleSubmit function from signupvalidation.js.
+  
   const handleSubmitWrapper = (e) => {
-    handleSubmit(formData, setErrors, setShowPassword, setShowconfirm_password, e);
+    handleSubmit(formData, setErrors, setShowPassword, setShowconfirm_password, e,navigate);
   };
 
+  // A wrapper function handleSubmitWrapper is defined to handle form submission using the handleSubmit function from signupvalidation.js.
   const handleGoogleSignInWrapper = () => {
     handleGoogleSignIn(auth, provider, setValue, navigate);
   };
 
   const [value,setValue] = React.useState('');
+
+
+// Check if a Google token is present in local storage and navigate to the login page
+// The component uses the useEffect hook to check if a Google token is present in local storage (localStorage.getItem('googleToken')).
+// If a token is found, it navigates to the login page.
 
   const token = localStorage.getItem('googleToken');
 
@@ -84,6 +103,8 @@ export default function FixedContainer() {
     }
   }, [token, navigate]);
 
+
+  // JSX structure for the component
   return (
     <>
       <CssBaseline />
@@ -110,14 +131,20 @@ export default function FixedContainer() {
               <form onSubmit={handleSubmitWrapper}>
                 <RadioGroup
                   row
-                  aria-label="signupBy"
-                  name="signupBy"
-                  value={formData.signupBy}
+                  aria-label="signup_by"
+                  name="signup_by"
+                  value={formData.signup_by}
                   onChange={handleInputChangeWrapper}
+                  error={Boolean(errors.signup_by)}
                 >
-                  <FormControlLabel value="User" control={<Radio />} label={formLabels.formLabels.usersignupBy} />
-                  <FormControlLabel value="Recruiter" control={<Radio />} label={formLabels.formLabels.recruitersignupBy} />
+                  <FormControlLabel value="User" control={<Radio />} label={formLabels.formLabels.usersignup_by} />
+                  <FormControlLabel value="Recruiter" control={<Radio />} label={formLabels.formLabels.recruitersignup_by} />
                 </RadioGroup>
+                {errors.signup_by && (
+                  <Typography variant="body2" color="error">
+                    {errors.signup_by}
+                  </Typography>
+                )}
                 <TextField
                   label={formLabels.formLabels.email}
                   variant="outlined"
@@ -130,16 +157,16 @@ export default function FixedContainer() {
                   helperText={errors.email}
                 />
                 <TextField
-                  label={formLabels.formLabels.mobileNumber}
+                  label={formLabels.formLabels.mobile_number}
                   type="tel"
                   variant="outlined"
                   fullWidth
                   margin="normal"
-                  name="mobileNumber"
-                  value={formData.mobileNumber}
+                  name="mobile_number"
+                  value={formData.mobile_number}
                   onChange={handleInputChangeWrapper}
-                  error={Boolean(errors.mobileNumber)}
-                  helperText={errors.mobileNumber}
+                  error={Boolean(errors.mobile_number)}
+                  helperText={errors.mobile_number}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -228,16 +255,14 @@ export default function FixedContainer() {
                   {formLabels.formLabels.googleButton}
                 </Button>
                 <Typography variant="body2" align="center" sx={{ marginTop: '10px' }}>
-                  {formLabels.formLabels.haveAccountText} <Link href="#">{formLabels.formLabels.signInLink}</Link>
+                  {formLabels.formLabels.haveAccountText} <Link to="/login">{formLabels.formLabels.signInLink}</Link>
                 </Typography>
               </form>
             </Box>
           </Grid>
         </Grid>
       </Container>
-      {/* <Recruiter />
-      <br />
-      <Jobposting /> */}
+      <Jobposting />
     </>
   );
 }
