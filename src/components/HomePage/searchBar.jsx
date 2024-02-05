@@ -58,7 +58,10 @@ const SearchBar = () => {
     };
   
     return (
+ 
+     
       <div className={classes.root}>
+          
         <div className={classes.searchContainer}>
           <TextField
             className={classes.searchInput}
@@ -112,6 +115,8 @@ const SearchBar = () => {
           </Button>
         </div>
       </div>
+      
+ 
     );
   };
   
