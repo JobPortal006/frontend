@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 test('Sign up on the website and navigate to login, then open a new tab with Google OAuth link', async ({ page, browser }) => {
     // Navigate to the signup page
     await page.goto('http://localhost:3000');
-    await page.click('#hii');
+    await page.click('#Nav_log_btn');
   
     // Click the "Sign Up" link or button
     await page.locator(':text("Sign Up")').click();
@@ -30,7 +30,7 @@ await newPage.waitForNavigation();
 // const newContext1 = await browser.newContext();  // Create a new context
 // const newPage1 = await newContext1.newPage(); 
 
-await newPage1.waitForSelector('input[type="password"]');
-    await newPage1.fill('input[type="password"]', '9942479398');
+// await newPage1.waitForSelector('input[type="password"]');
+//     await newPage1.fill('input[type="password"]', '9942479398');
 });
 
