@@ -83,6 +83,18 @@ const UserForm = () => {
         college_percentage: '',
         department: '',
         degree: '',
+        pg_college_name: '',
+        pg_college_start_year: '',
+        pg_college_end_year: '',
+        pg_college_percentage: '',
+        pg_college_department: '',
+        pg_college_degree: '',
+        diploma_college_name: '',
+        diploma_college_start_year: '',
+        diploma_college_end_year: '',
+        diploma_college_department: '',
+        diploma_college_degree: '',
+        diploma_college_percentage: ''
 
 
     });
@@ -199,6 +211,34 @@ const UserForm = () => {
             department: '',
             prefered_locations: '',
         },
+        education: {
+            sslc_school_name: '',
+            sslc_start_year: '',
+            sslc_end_year: '',
+            sslc_percentage: '',
+            hsc_school_name: '',
+            hsc_start_year: '',
+            hsc_end_year: '',
+            hsc_percentage: '',
+            college_name: '',
+            college_start_year: '',
+            college_end_year: '',
+            college_percentage: '',
+            department: '',
+            degree: '',
+            pg_college_name: '',
+            pg_college_start_year: '',
+            pg_college_end_year: '',
+            pg_college_percentage: '',
+            pg_college_department: '',
+            pg_college_degree: '',
+            diploma_college_name: '',
+            diploma_college_start_year: '',
+            diploma_college_end_year: '',
+            diploma_college_department: '',
+            diploma_college_degree: '',
+            diploma_college_percentage: ''
+        }
     });
     // Handle changes in user details fields
     const handleUserDetailsChange = (event) => {
@@ -267,12 +307,51 @@ const UserForm = () => {
         }));
     };
     // Handle changes in education fields
-    const handleEducationChange = (event) => {
-        setEducation({
-            ...education,
-            [event.target.name]: event.target.value,
+     const handleEducationChange = (event) => {
+        setErrors({
+            ...errors,
+            [event.target.name]: '',
         });
+
+        let updatedEducation = { ...education };
+
+        if (event.target.name === 'sslc_school_name' || event.target.name === 'hsc_school_name' || event.target.name === 'college_name'
+            || event.target.name === 'department' || event.target.name === 'degree' || event.target.name === 'pg_college_name'
+            || event.target.name === 'pg_college_department' || event.target.name === 'pg_college_degree' || event.target.name === 'diploma_college_name'
+            || event.target.name === 'diploma_college_department' || event.target.name === 'diploma_college_degree') {
+            if (/[^A-Za-z\s]/.test(event.target.value)) {
+                // Invalid input, set error message
+                setErrors({
+                    ...errors,
+                    [event.target.name]: 'Only alphabets and spaces allowed',
+                });
+                return;
+            }
+        }
+        if (event.target.name === 'sslc_start_year' || event.target.name === 'sslc_end_year' ||
+            event.target.name === 'hsc_start_year' || event.target.name === 'hsc_end_year' ||
+            event.target.name === 'sslc_percentage' || event.target.name === 'hsc_percentage' || event.target.name === 'college_percentage' ||
+            event.target.name === 'pg_college_percentage' || event.target.name === 'diploma_college_percentage' || event.target.name === 'college_start_year'
+            || event.target.name === 'college_end_year' || event.target.name === 'pg_college_start_year' || event.target.name === 'pg_college_end_year'
+            || event.target.name === 'diploma_college_start_year'|| event.target.name === 'diploma_college_end_year') {
+            if (/[^0-9]/.test(event.target.value)) {
+                // Invalid input, set error message
+                setErrors({
+                    ...errors,
+                    [event.target.name]: 'Only numbers allowed',
+                });
+                return;
+            }
+        }
+
+        updatedEducation = {
+            ...updatedEducation,
+            [event.target.name]: event.target.value,
+        };
+
+        setEducation(updatedEducation);
     };
+
 
     const handlejobPreferenceChange = (event) => {
         // Clear previous error messages
@@ -615,10 +694,10 @@ const UserForm = () => {
                 <option value="en">English</option>
                 <option value="tamil">Tamil</option>
             </select>
-  
+
             <form ref={formRef} onSubmit={handleSubmit} >
                 {/* User Details Accordion */}
-                <AccordionWrapper  expanded={userDetailsExpanded} onChange={handleUserDetailsExpand}  className='user_details'> 
+                <AccordionWrapper expanded={userDetailsExpanded} onChange={handleUserDetailsExpand} className='user_details'>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                         <Typography variant="h6">{UserFormData[language].UserDetail.one}</Typography>
                     </AccordionSummary>
@@ -694,7 +773,7 @@ const UserForm = () => {
 
                                 >
                                     <MenuItem value="" disabled>{UserFormData[language].UserDetail.twelve}</MenuItem>
-                                    <MenuItem  className='male' value="male">{UserFormData[language].UserDetail.fourteen}</MenuItem>
+                                    <MenuItem className='male' value="male">{UserFormData[language].UserDetail.fourteen}</MenuItem>
                                     <MenuItem value="female">{UserFormData[language].UserDetail.sixteen}</MenuItem>
                                     <MenuItem value="other">{UserFormData[language].UserDetail.eighteen}</MenuItem>
                                 </Select>
@@ -724,7 +803,7 @@ const UserForm = () => {
                         )}
                     </AccordionDetails>
                 </AccordionWrapper>
-   
+
                 {/* Address Accordion */}
                 <AccordionWrapper className='address_accordion' expanded={addressExpanded} onChange={handleAddressExpand}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -849,6 +928,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.sslc_school_name)}
+                                    helperText={errors.sslc_school_name}
                                 />
                                 <TextField
                                     label="SSLC-start-year"
@@ -857,6 +939,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.sslc_start_year)}
+                                    helperText={errors.sslc_start_year}
                                 />
                                 <TextField
                                     label="SSLC-end-year"
@@ -865,6 +950,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.sslc_end_year)}
+                                    helperText={errors.sslc_end_year}
                                 />
                                 <TextField
                                     label="SSLC-percentage"
@@ -873,6 +961,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.sslc_percentage)}
+                                    helperText={errors.sslc_percentage}
                                 />
                             </Grid>
 
@@ -885,6 +976,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.hsc_school_name)}
+                                    helperText={errors.hsc_school_name}
                                 />
                                 <TextField
                                     label="HSC-start-year"
@@ -893,6 +987,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.hsc_start_year)}
+                                    helperText={errors.hsc_start_year}
                                 />
                                 <TextField
                                     label="HSC-end-year"
@@ -901,6 +998,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.hsc_end_year)}
+                                    helperText={errors.hsc_end_year}
                                 />
                                 <TextField
                                     label="HSC-percentage"
@@ -909,6 +1009,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.hsc_percentage)}
+                                    helperText={errors.hsc_percentage}
                                 />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -921,6 +1024,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.college_name)}
+                                    helperText={errors.college_name}
                                 />
                                 <TextField
                                     label="College-start-year"
@@ -929,6 +1035,10 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.college_start_year)}
+                                    helperText={errors.college_start_year}
+
                                 />
                                 <TextField
                                     label="College-end-year"
@@ -937,6 +1047,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.college_end_year)}
+                                    helperText={errors.college_end_year}
                                 />
                                 <TextField
                                     label="College-percentage"
@@ -945,6 +1058,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.college_percentage)}
+                                    helperText={errors.college_percentage}
                                 />
                             </Grid>
 
@@ -958,6 +1074,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.department)}
+                                    helperText={errors.department}
                                 />
                                 <TextField
                                     label="Degree"
@@ -966,6 +1085,9 @@ const UserForm = () => {
                                     onChange={handleEducationChange}
                                     fullWidth
                                     margin="dense"
+                                    required
+                                    error={Boolean(errors.degree)}
+                                    helperText={errors.degree}
                                 />
                             </Grid>
 
@@ -975,7 +1097,7 @@ const UserForm = () => {
                                 {/* Radio Buttons for PG/Diploma */}
                                 <FormControl component="fieldset">
                                     <RadioGroup
-                                    className='radio_button'
+                                        className='radio_button'
                                         row
                                         aria-label="education-type"
                                         name="education_type"
@@ -983,13 +1105,13 @@ const UserForm = () => {
                                         onChange={handleEducationChange}
                                     >
                                         <FormControlLabel
-                                        className='pg_button1'
+                                            className='pg_button1'
                                             value="pg"
                                             control={<Radio />}
                                             label="PG"
                                         />
                                         <FormControlLabel
-                                        className='pg_button2'
+                                            className='pg_button2'
                                             value="diploma"
                                             control={<Radio />}
                                             label="Diploma"
@@ -1010,6 +1132,9 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+
+                                            error={Boolean(errors.pg_college_name)}
+                                            helperText={errors.pg_college_name}
                                         />
                                         <TextField
                                             label="PG-College-start-year"
@@ -1018,6 +1143,9 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+
+                                            error={Boolean(errors.pg_college_start_year)}
+                                            helperText={errors.pg_college_start_year}
                                         />
                                         <TextField
                                             label="PG-College-end-year"
@@ -1026,6 +1154,9 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+
+                                            error={Boolean(errors.pg_college_end_year)}
+                                            helperText={errors.pg_college_end_year}
                                         />
                                         <TextField
                                             label="PG-College-percentage"
@@ -1034,6 +1165,9 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+
+                                            error={Boolean(errors.pg_college_percentage)}
+                                            helperText={errors.pg_college_percentage}
                                         />
                                         {/* Add other PG fields here */}
                                     </Grid>
@@ -1045,6 +1179,9 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+
+                                            error={Boolean(errors.pg_college_department)}
+                                            helperText={errors.pg_college_department}
                                         />
                                         <TextField
                                             label="PG-College-degree"
@@ -1053,6 +1190,9 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+
+                                            error={Boolean(errors.pg_college_degree)}
+                                            helperText={errors.pg_college_degree}
                                         />
                                     </Grid>
                                 </>
@@ -1069,6 +1209,8 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+                                            error={Boolean(errors.diploma_college_name)}
+                                            helperText={errors.diploma_college_name}
                                         />
                                         <TextField
                                             label="Dipoma-college-start-year"
@@ -1077,6 +1219,8 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+                                            error={Boolean(errors.diploma_college_start_year)}
+                                            helperText={errors.diploma_college_start_year}
                                         />
                                         <TextField
                                             label="Dipoma-college-end-year"
@@ -1085,6 +1229,8 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+                                            error={Boolean(errors.diploma_college_end_year)}
+                                            helperText={errors.diploma_college_end_year}
                                         />
                                         <TextField
                                             label="Dipoma-college-percentage"
@@ -1093,6 +1239,8 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+                                            error={Boolean(errors.diploma_college_percentage)}
+                                            helperText={errors.diploma_college_percentage}
                                         />
                                         {/* Add other Diploma fields here */}
                                     </Grid>
@@ -1104,6 +1252,8 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+                                            error={Boolean(errors.diploma_college_department)}
+                                            helperText={errors.diploma_college_department}
                                         />
                                         <TextField
                                             label="Dipoma-college-degree"
@@ -1112,6 +1262,8 @@ const UserForm = () => {
                                             onChange={handleEducationChange}
                                             fullWidth
                                             margin="dense"
+                                            error={Boolean(errors.diploma_college_degree)}
+                                            helperText={errors.diploma_college_degree}
                                         />
                                     </Grid>
                                 </>
