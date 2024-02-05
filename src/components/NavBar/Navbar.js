@@ -100,7 +100,7 @@ const Navbar = () => {
               <button className="Navbar__button" id='Nav_btn' onClick={logout}>
               {translations.logout.one}
               </button>
-              <button className="Navbar__button" onClick={CreateAccount}>
+              <button className="Navbar__button" type='submit' onClick={CreateAccount}>
               {translations.create_an_account.one}
               </button>
               <FaUserCircle className="Navbar__user-icon" style={{ fontSize: '20px' }} />

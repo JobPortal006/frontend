@@ -1,6 +1,8 @@
 const { test, expect } = require('@playwright/test');
 
 test('User Details Accordion', async ({ page }) => {
+
+    
   // Navigate to the page or component containing the User Details Accordion
   await page.goto('http://localhost:3000/CreateAccount', { timeout: 90000 });
 
