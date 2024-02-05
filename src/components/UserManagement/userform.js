@@ -848,13 +848,13 @@ const UserForm = () => {
                         <Typography variant="h6">Address</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography variant="h6"> Permanent Address</Typography>
+                        <Typography variant="h6"> Permanent and current Address:</Typography>
 
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={6} >
                                 {/* First Column */}
                                 <TextField
-                                    label="Street"
+                                    label="Parmanent Street"
                                     name="street"
                                     value={address.permanent.street}
                                     onChange={(e) => handleAddressChange('permanent', e)}
@@ -865,7 +865,7 @@ const UserForm = () => {
                                     helperText={errors.permanent && errors.permanent.street}
                                 />
                                 <TextField
-                                    label="City"
+                                    label=" Parmanent City"
                                     name="city"
                                     value={address.permanent.city}
                                     onChange={(e) => handleAddressChange('permanent', e)}
@@ -876,7 +876,7 @@ const UserForm = () => {
                                     helperText={errors.permanent && errors.permanent.city}
                                 />
                                 <TextField
-                                    label="Pincode"
+                                    label="Parmanent incode"
                                     name="pincode"
                                     value={address.permanent.pincode}
                                     onChange={(e) => handleAddressChange('permanent', e)}
@@ -888,7 +888,7 @@ const UserForm = () => {
                                 />
 
                                 <TextField
-                                    label="Country"
+                                    label="Parmanent Country"
                                     name="country"
                                     value={address.permanent.country}
                                     onChange={(e) => handleAddressChange('permanent', e)}
@@ -899,7 +899,7 @@ const UserForm = () => {
                                     helperText={errors.permanent && errors.permanent.country}
                                 />
                                 <TextField
-                                    label="State"
+                                    label="Parmanent State"
                                     name="state"
                                     value={address.permanent.state}
                                     onChange={(e) => handleAddressChange('permanent', e)}
@@ -912,9 +912,9 @@ const UserForm = () => {
 
                             </Grid>
                             <Grid item xs={12} sm={6} >
-                                <Typography variant="h6">Current Address</Typography>
+                                {/* <Typography variant="h6">Current Address</Typography> */}
                                 <TextField
-                                    label="Street"
+                                    label="Current Street"
                                     name="street"
                                     value={address.current.street}
                                     onChange={(e) => handleAddressChange('current', e)}
@@ -924,7 +924,7 @@ const UserForm = () => {
                                     helperText={errors.current && errors.current.street}
                                 />
                                 <TextField
-                                    label="City"
+                                    label="Current City"
                                     name="city"
                                     value={address.current.city}
                                     onChange={(e) => handleAddressChange('current', e)}
@@ -934,7 +934,7 @@ const UserForm = () => {
                                     helperText={errors.current && errors.current.city}
                                 />
                                 <TextField
-                                    label="Pincode"
+                                    label="Current Pincode"
                                     name="pincode"
                                     value={address.current.pincode}
                                     onChange={(e) => handleAddressChange('current', e)}
@@ -945,7 +945,7 @@ const UserForm = () => {
                                 />
 
                                 <TextField
-                                    label="Country"
+                                    label="Current Country"
                                     name="country"
                                     value={address.current.country}
                                     onChange={(e) => handleAddressChange('current', e)}
@@ -955,7 +955,7 @@ const UserForm = () => {
                                     helperText={errors.current && errors.current.country}
                                 />
                                 <TextField
-                                    label="State"
+                                    label="Current State"
                                     name="state"
                                     value={address.current.state}
                                     onChange={(e) => handleAddressChange('current', e)}
