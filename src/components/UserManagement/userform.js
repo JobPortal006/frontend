@@ -876,7 +876,7 @@ const UserForm = () => {
                                     helperText={errors.permanent && errors.permanent.city}
                                 />
                                 <TextField
-                                    label="Parmanent incode"
+                                    label="Parmanent pincode"
                                     name="pincode"
                                     value={address.permanent.pincode}
                                     onChange={(e) => handleAddressChange('permanent', e)}
