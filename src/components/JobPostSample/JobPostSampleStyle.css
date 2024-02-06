@@ -1,0 +1,50 @@
+.job-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.job-card {
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.job-card:hover {
+  transform: translateY(-5px);
+}
+
+.job-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.job-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+}
+
+.detail {
+  margin-bottom: 8px;
+}
+
+.detail-label {
+  font-weight: bold;
+  color: #666;
+}
+
+.job-details .company-name {
+  font-style: italic;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .job-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust as needed */
+  }
+}

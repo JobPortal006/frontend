@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../UserManagement/searchBar';
-import '../HomePage/design.css'
+import '../HomePage/design.css';
+import JobPostSample from'../JobPostSample/JobPostSample'
 
 const Home = () => {
 const navigate = useNavigate();
@@ -25,6 +26,7 @@ const navigate = useNavigate();
         </svg>
     </div>
       <SearchBar />
+      <JobPostSample />
     </div>
   )
 }
