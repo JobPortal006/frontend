@@ -14,15 +14,18 @@ import CreateAccount from "./components/UserManagement/CreateAccount.jsx";
 import OTPlogin from "./components/UserManagement/OTPlogin.jsx";
 import ForgetPassword from "./components/UserManagement/ForgetPassword.jsx";
 import Password from "./components/UserManagement/Password.jsx";
+import PostJob from "./components/sprint 2/PostJob.jsx";
+// <Route path="/login" element={<LogIn />} />
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Navbar />
+        <PostJob />
         <Routes>
           <Route index path="/home" element={<Home />} />
-          <Route path="/login" element={<LogIn />} />
+          
           <Route path="/signup" element={<SignUp1 />} />
           <Route path="/CreateAccount" element={<CreateAccount />} />
           <Route path="/OTPlogin" element={<OTPlogin />} />
