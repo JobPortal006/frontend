@@ -19,7 +19,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import mainimage from "../signup-image/img.png";
 import { Divider } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { auth, provider } from '../../components/Firebase/firebase';
+import { auth, provider } from '../../components/FireBase/firebase';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import Recruiter from './Recruiter';
