@@ -268,6 +268,7 @@ const PostJob = () => {
   ];
 
   const [postJob, setJobPost] = useState({
+    company_name:"",
     job_title: "",
     job_description: "",
     employee_type: "",
@@ -327,9 +328,9 @@ const PostJob = () => {
               id="company-name"
               label="Company Name"
               name="Company Name"
-              value={postJob.job_title}
+              value={postJob.company_name}
               onChange={(e) =>
-                setJobPost({ ...postJob, job_title: e.target.value })
+                setJobPost({ ...postJob, company_name: e.target.value })
               }
             />
             <br />
@@ -344,9 +345,9 @@ const PostJob = () => {
               id="job-title"
               label="Job Title"
               name="Job Title"
-              value={postJob.job_description}
+              value={postJob.job_title}
               onChange={(e) =>
-                setJobPost({ ...postJob, job_description: e.target.value })
+                setJobPost({ ...postJob, job_title: e.target.value })
               }
             />
 
@@ -420,7 +421,7 @@ const PostJob = () => {
               onChange={(event, newEvent) => {
                 setSkills(newEvent);
               }}
-              renderInput={(params) => <TextField {...params} label="Skills" />}
+              renderInput={(para) => <TextField {...para} label="Skills" />}
             />
             <br />
             <label>Qualification*</label>
