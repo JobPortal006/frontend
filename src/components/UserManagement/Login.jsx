@@ -14,13 +14,13 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Alert, Divider } from "@mui/material";
+import {  Divider } from "@mui/material";
 import glogo from "../Login Image/google-icon.svg";
 import jllogo from "../Login Image/JL logo design.jpg";
 import "../UserManagement/login.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { auth, provider } from '../../components/FireBase/firebase';
+import { auth, provider } from '../../components/Firebase/firebase.js';
 import { signInWithPopup } from "@firebase/auth";
 // import { toast, Toaster } from 'react-hot-toast';
 import {

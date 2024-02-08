@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Autocomplete } from "@mui/material";
+import axios from "axios";
 
 const PostJob = () => {
   const employmentType = [
@@ -53,8 +54,8 @@ const PostJob = () => {
   const [jobCategory, setJobCategory] = useState("");
   const [skills, setSkills] = useState([]);
 
-
-  const handleSubmit = (event) => {
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const jobPostData = {
       ...jobPost,
@@ -63,7 +64,37 @@ const PostJob = () => {
       skill_set: skills,
     };
     console.log(jobPostData);
-    // Perform any action with formData, such as sending it to a server
+
+
+    let headers = new Headers();
+   
+    headers.append("Content-Type", "application/json");
+    headers.append("Accept", "application/json");
+    headers.append("Origin", "http://192.168.1.38:8000/job_post/");
+    const apiUrl = "http://192.168.1.38:8000/job_post/";
+
+    try{
+        const response = await axios.post(apiUrl, jobPostData, headers);
+        console.log(response, "post JobData ===>");
+        console.log(response.data.status,  "Job Post Status==========>");
+
+        if(response.data.status === true){
+            console.log('Job posted Successfully');
+            window.location.reload();
+
+            alert('Job posted Successfully');
+           
+        }else{
+            console.log('Error in posting the Job')
+        }
+
+       
+
+    }catch(error){
+        console.log(error);
+    }
+
+
   };
 
   return (
@@ -82,9 +113,9 @@ const PostJob = () => {
         >
           <Box
             component="form"
-            noValidate
+            noValidate="false"
             style={{ marginTop: "1rem" }}
-            onSubmit={handleSubmit}
+           
           >
             <h3>Job Details</h3>
             <br />
@@ -216,7 +247,7 @@ const PostJob = () => {
                   name="Experience"
                   value={jobPost.experience}
                   onChange={(e)=>setJobPost({...jobPost, experience:e.target.value})}
-                />
+                   />
               </Grid>
               <Grid item xs={4} sm={4} md={4} xl={4} xxl={4}>
                 <label>No.of.Vacancies*</label>
@@ -245,15 +276,19 @@ const PostJob = () => {
             </Grid>
             <br />
             <div>
-              <Button variant="contained" color="secondary" type="submit">
+              <Button variant="contained" color="secondary" onClick={handleSubmit}>
                 Submit
               </Button>
             </div>
           </Box>
         </Box>
       </Container>
+      
     </div>
   );
 };
 
 export default PostJob;
+
+
+
