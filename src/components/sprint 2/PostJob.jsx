@@ -17,7 +17,7 @@ const PostJob = () => {
     "InternShip",
   ];
 
-  const jobCategories = [
+  const Role = [
     "Engineering",
     "Marketing",
     "Sales",
@@ -63,7 +63,7 @@ const PostJob = () => {
     job_title: "",
     job_description: "",
     employee_type: "",
-    job_category: "",
+    job_role: "",
     location: "",
     skill_set: [],
     qualification: "",
@@ -73,7 +73,7 @@ const PostJob = () => {
   });
 
   const [employment, setEmployment] = useState("");
-  const [jobCategory, setJobCategory] = useState("");
+  const [jobRole, setJobRole] = useState("");
   const [skills, setSkills] = useState([]);
   const[experience, setExperience] = useState("");
 
@@ -83,7 +83,7 @@ const PostJob = () => {
     job_title: false,
     job_description: false,
     employee_type: false,
-    job_category: false,
+    job_role: false,
     location: false,
     qualification: false,
     experience: false,
@@ -114,9 +114,9 @@ const PostJob = () => {
     } else if (name === "employee_type") {
       setEmployment(updatedValue);
       setErrors({ ...errors, employee_type: !updatedValue }); 
-    } else if (name === "job_category") {
-      setJobCategory(updatedValue);
-      setErrors({ ...errors, job_category: !updatedValue }); 
+    } else if (name === "job_role") {
+      setJobRole(updatedValue);
+      setErrors({ ...errors, job_role: !updatedValue }); 
     } else if (name === "skills") {
       setSkills(value);
     }
@@ -147,7 +147,7 @@ const PostJob = () => {
      const isAnyFieldEmpty =
     Object.values(errors).some((error) => error) ||
     !employment === null ||
-    !jobCategory ||
+    !jobRole ||
     !experience ||
     skills.length === 0 || null;
 
@@ -163,7 +163,7 @@ const PostJob = () => {
         ...jobPost,
         experience : experience,
         employee_type: employment,
-        job_category: jobCategory,
+        job_role: jobRole,
         skill_set: skills,
     };
 
@@ -213,7 +213,7 @@ const PostJob = () => {
             noValidate="false"
             style={{ marginTop: "1rem" }}
           >
-            <h3>Job Details</h3>
+            <h3>Post a Job</h3>
             <br />
             <label>Company Name*</label>
             <br />
@@ -293,21 +293,21 @@ const PostJob = () => {
                 />
               </Grid>
               <Grid item xs={12} sm={6} md={6} xl={6} xxl={6}>
-                <label>Job Category*</label>
+                <label>Role*</label>
                 <Autocomplete
                   sx={{ mt: 2 }}
-                  options={jobCategories}
-                  value={jobCategory}
+                  options={Role}
+                  value={jobRole}
                   onChange={(event, newValue) => {
-                    setJobCategory(newValue);
-                    setErrors({ ...errors, jobCategory: newValue === null }); 
+                    setJobRole(newValue);
+                    setErrors({ ...errors, jobRole: newValue === null }); 
                   }}
                   renderInput={(job) => (
-                    <TextField {...job} label="Job Category"
-                    error={errors.jobCategory}
+                    <TextField {...job} label="Role"
+                    error={errors.jobRole}
                     
-                    onBlur={(e)=>handleBlur("jobCategory", e.target.value)}
-                    helperText={errors.jobCategory ? "JobCategory is Required" : null || ""} 
+                    onBlur={(e)=>handleBlur("jobRole", e.target.value)}
+                    helperText={errors.jobRole ? "Role is Required" : null || ""} 
                    />
                     
                   )}

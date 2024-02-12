@@ -15,6 +15,7 @@ import OTPlogin from "./components/UserManagement/OTPlogin.jsx";
 import ForgetPassword from "./components/UserManagement/ForgetPassword.jsx";
 import Password from "./components/UserManagement/Password.jsx";
 import PostJob from "./components/sprint 2/PostJob.jsx";
+import Filter from "./components/sprint 2/Filter.jsx";
 // <Route path="/login" element={<LogIn />} />
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar />
-        <PostJob />
+        <Filter />
         <Routes>
           <Route index path="/home" element={<Home />} />
           
@@ -31,6 +32,7 @@ function App() {
           <Route path="/OTPlogin" element={<OTPlogin />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/Password" element={<Password />} />
+          <Route path="/Filter" element={<Filter/>} />
         </Routes>
       </BrowserRouter>
     </div>
