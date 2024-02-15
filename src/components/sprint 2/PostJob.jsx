@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Autocomplete } from "@mui/material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const PostJob = () => {
   const employmentType = [
@@ -57,6 +59,21 @@ const PostJob = () => {
     "30+ years", 
   ];
  
+  const salaryType = [
+    "Less than 2 LPA",
+    "2 - 4 LPA",
+    "4 - 6 LPA",
+    "6 - 8 LPA",
+    "8 - 10 LPA",
+    "10 - 14 LPA",
+    "15 - 18 LPA",
+    "19 - 22 LPA",
+    "23 - 26 LPA",
+    "27 - 30 LPA",
+    "More than  30 LPA",
+  ]
+  
+  const navigate = useNavigate();
 
   const [jobPost, setJobPost] = useState({
     company_name: "",
@@ -76,6 +93,7 @@ const PostJob = () => {
   const [jobRole, setJobRole] = useState("");
   const [skills, setSkills] = useState([]);
   const[experience, setExperience] = useState("");
+  const [salary, setSalary] = useState("")
 
 
   const [errors, setErrors] = useState({
@@ -149,6 +167,7 @@ const PostJob = () => {
     !employment === null ||
     !jobRole ||
     !experience ||
+    !salary ||
     skills.length === 0 || null;
 
   if (isAnyFieldEmpty) {
@@ -165,6 +184,7 @@ const PostJob = () => {
         employee_type: employment,
         job_role: jobRole,
         skill_set: skills,
+        salary_range : salary,
     };
 
       console.log(jobPostData);
@@ -177,12 +197,16 @@ const PostJob = () => {
 
       try {
         const response = await axios.post(apiUrl, jobPostData, headers);
+       
+       
         console.log(response, "post JobData ===>");
         console.log(response.data.status, "Job Post Status==========>");
 
         if (response.data.status === true) {
+          const id = response.data.data ;
           console.log("Job posted Successfully");
-        //   window.location.reload()
+          // window.location.reload();
+          navigate("/MyJob", { state: { id } });
         } else {
           console.log("Error in posting the Job");
           alert("Please fill in all required fields")
@@ -193,6 +217,8 @@ const PostJob = () => {
       }
     
   };
+
+
 
   return (
     <div>
@@ -397,7 +423,9 @@ const PostJob = () => {
                   id="job-vacancy"
                   label="Vacancy"
                   name="no_of_vacancies"
+                  type="number"
                   value={jobPost.no_of_vacancies}
+                  inputProps={{ min: 1 }}
                   onChange={(e) =>
                     handleChange(e, e.target.value, "no_of_vacancies")
                   }
@@ -409,24 +437,28 @@ const PostJob = () => {
                 />
               </Grid>
               <Grid item xs={6} sm={6} md={4} xl={4} xxl={4}>
-                <label>Salary Range*</label>
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  id="job-salary"
-                  label="Salary Range"
-                  name="salary_range"
-                  value={jobPost.salary_range}
-                  onChange={(e) =>
-                    handleChange(e, e.target.value, "salary_range")
-                  }onBlur={(e)=>handleBlur("salary_range", e.target.value)}
-                  error={errors.salary_range}
-                  helperText={
-                    errors.salary_range ? "Salary Range is required" : ""
-                  }
-                />
+              <label>Salary</label>
+              <Autocomplete 
+              sx={{mt:2}}
+              fullWidth
+              options={salaryType}
+              value={salary}
+              onChange={(event, newValue) => {
+                setSalary(newValue);
+                setErrors({ ...errors, salary_range: newValue === null }); 
+              }}
+              renderInput={(range) => (
+                <TextField {...range} label="Salary Range" 
+                error={errors.salary}
+                helperText={errors.salary ? "Salary is Required" : ""} 
+                onBlur={(e)=>handleBlur("Salary Range", e.target.value)}/>)}
+              
+              
+              
+              />
               </Grid>
             </Grid>
+           
             <br />
             <div>
               <Button

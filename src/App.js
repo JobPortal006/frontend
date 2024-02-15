@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./components/NavBar/Navbar.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-import LogIn from "./components/UserManagement/Login.jsx";
+// import LogIn from "./components/UserManagement/Login.jsx";
 import SignUp1 from "./components/UserManagement/Signup1.jsx";
 import {
   BrowserRouter as Router,
@@ -16,6 +16,7 @@ import ForgetPassword from "./components/UserManagement/ForgetPassword.jsx";
 import Password from "./components/UserManagement/Password.jsx";
 import PostJob from "./components/sprint 2/PostJob.jsx";
 import Filter from "./components/sprint 2/Filter.jsx";
+import MyJob from "./components/sprint 2/MyJob.jsx";
 // <Route path="/login" element={<LogIn />} />
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar />
-        <Filter />
+        <PostJob />
+       
         <Routes>
           <Route index path="/home" element={<Home />} />
           
@@ -33,6 +35,7 @@ function App() {
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/Password" element={<Password />} />
           <Route path="/Filter" element={<Filter/>} />
+          <Route path="/MyJob" element={<MyJob/>} />
         </Routes>
       </BrowserRouter>
     </div>

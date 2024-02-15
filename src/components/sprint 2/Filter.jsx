@@ -11,7 +11,7 @@ import {
 import { Box, List, ListItemButton, ListItemText } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-
+import "../sprint 2/filter.css";
 const Filter = () => {
   const [showAll, setShowAll] = useState(false);
   //   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -45,9 +45,25 @@ const Filter = () => {
     "InternShip",
   ];
 
+  const salaryType = [
+    "Less than 2 LPA",
+    "2 - 4 LPA",
+    "4 - 6 LPA",
+    "6 - 8 LPA",
+    "8 - 10 LPA",
+    "11 - 14 LPA",
+    "15 - 18 LPA",
+    "19 - 22 LPA",
+    "23 - 26 LPA",
+    "27 - 30 LPA",
+    "More than  30 LPA",
+  ];
+
   const renderOptions = showAll
     ? experienceOptions
     : experienceOptions.slice(0, 5);
+
+  const render = showAll ? salaryType : salaryType.slice(0, 5);
 
   //   const handleOptionClick = (option) => {
   //     const newSelectedOptions = selectedOptions.includes(option)
@@ -56,10 +72,6 @@ const Filter = () => {
   //     setSelectedOptions(newSelectedOptions);
   //     console.log('Selected options:', newSelectedOptions);
   //   };
-
-  useEffect(() => {
-    console.log("Selected options:", renderOptions);
-  }, [renderOptions]);
 
   const [locations, setLocations] = useState([]);
 
@@ -71,6 +83,7 @@ const Filter = () => {
           console.error("Failed to fetch locations");
         }
         const data = await response.json();
+        console.log(data, "<====Location====>");
         setLocations(
           data.map((location) => ({ ...location, selected: false }))
         );
@@ -95,6 +108,54 @@ const Filter = () => {
     setLocations(newLocations);
   };
 
+  const [selectedEmploymentType, setSelectedEmploymentType] = useState("");
+
+  const handleEmploymentTypeChange = (event) => {
+    setSelectedEmploymentType(event.target.value);
+    console.log("Selected employment type:", event.target.value);
+  };
+
+  const [jobRoles, setJobRoles] = useState([]);
+
+  useEffect(() => {
+    const fetchJobRoles = async () => {
+      try {
+        const response = await fetch("http://192.168.1.38:8000/job_role/");
+        if (!response.ok) {
+          console.error("Failed to fetch job roles");
+          return;
+        }
+        const data = await response.json();
+        console.log(data, "<====Roles====>");
+        setJobRoles(data.map((role) => ({ ...role, selected: false })));
+      } catch (error) {
+        console.error("Error fetching job roles:", error.message);
+      }
+    };
+
+    fetchJobRoles();
+  }, []);
+
+  useEffect(() => {
+    console.log(
+      "Selected job roles:",
+      jobRoles.filter((role) => role.selected)
+    );
+  }, [jobRoles]);
+
+  const handleRoleClick = (index) => {
+    const updatedRoles = [...jobRoles];
+    updatedRoles[index].selected = !updatedRoles[index].selected;
+    setJobRoles(updatedRoles);
+  };
+
+  const [selectedSalaryType, setSelectedSalaryType] = useState("");
+
+  const handleSalaryTypeChange = (event) => {
+    setSelectedSalaryType(event.target.value);
+    console.log("Selected salary type:", event.target.value);
+  };
+
   return (
     <div style={{ width: "30%", marginLeft: "1rem" }}>
       <div>
@@ -102,7 +163,7 @@ const Filter = () => {
         <h3>Experience level</h3>
         <div>
           <FormGroup>
-            <Grid container>
+            <Grid container >
               {renderOptions.map((option, index) => (
                 <Grid item xs={6} key={index}>
                   {" "}
@@ -128,7 +189,7 @@ const Filter = () => {
       </div>
       <div>
         <h3>Locations</h3>
-        <Box sx={{ height: 300, overflow: "auto" }}>
+        <Box sx={{ width:"80%", height: 300, overflow: "auto" }}>
           <List>
             {locations.map((location, index) => (
               <ListItemButton
@@ -143,16 +204,75 @@ const Filter = () => {
         </Box>
       </div>
 
+      <div >
+        <h3> Employment Type </h3>
+        
+        <FormGroup>
+          <RadioGroup
+            style={{ marginLeft: "1rem" }}
+            name="employment-type"
+            value={selectedEmploymentType}
+            onChange={handleEmploymentTypeChange}
+            defaultValue=""
+          >
+            {employmentType.map((type, index) => (
+              <FormControlLabel
+                key={index}
+                value={type}
+                control={<Radio />}
+                label={type}
+              />
+            ))}
+          </RadioGroup>
+        </FormGroup>
+        
+      </div>
+
       <div>
-      <h3 variant="h6">Employment Type</h3>
-      <FormGroup>
-        <RadioGroup name="employment-type" defaultValue="">
-          {employmentType.map((type, index) => (
-            <FormControlLabel key={index} value={type} control={<Radio />} label={type} />
+        <h3>Job Roles</h3>
+        <Box sx={{width:"80%", height: 300, overflow: "auto" }}>
+          <List>
+            {jobRoles.map((role, index) => (
+              <ListItemButton
+                key={index}
+                onClick={() => handleRoleClick(index)}
+              >
+                <Checkbox checked={role.selected} />
+                <ListItemText primary={role.role} />
+              </ListItemButton>
+            ))}
+          </List>
+        </Box>
+      </div>
+
+      <div>
+        <h3>Salary Range</h3>
+        <RadioGroup
+          style={{ marginLeft: "1rem" }}
+          name="salary-type"
+          value={selectedSalaryType}
+          onChange={handleSalaryTypeChange}
+        >
+          {render.map((type, index) => (
+            <FormControlLabel
+              key={index}
+              value={type}
+              control={<Radio />}
+              label={type}
+            />
           ))}
         </RadioGroup>
-      </FormGroup>
-    </div>
+        {salaryType.length > 5 && (
+          <IconButton
+            onClick={() => setShowAll(!showAll)}
+            color="primary"
+            sx={{ fontSize: 15 }}
+          >
+            {showAll ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            {showAll ? "Hide" : "Show More"}
+          </IconButton>
+        )}
+      </div>
     </div>
   );
 };
