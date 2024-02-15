@@ -3,6 +3,7 @@ import Navbar from "./components/NavBar/Navbar.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LogIn from "./components/UserManagement/Login.jsx";
 import SignUp1 from "./components/UserManagement/Signup1.jsx";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -14,6 +15,9 @@ import CreateAccount from "./components/UserManagement/CreateAccount.jsx";
 import OTPlogin from "./components/UserManagement/OTPlogin.jsx";
 import ForgetPassword from "./components/UserManagement/ForgetPassword.jsx";
 import Password from "./components/UserManagement/Password.jsx";
+import JobPostSample from "./components/JobPostSample/JobPostSample.js";
+import JobDetails from "./components/JobPostSample/jobdiscriptions.js";
+import UserProfile from "./components/UserManagement/UserProfile.js";
 
 function App() {
   return (
@@ -28,6 +32,11 @@ function App() {
           <Route path="/OTPlogin" element={<OTPlogin />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
           <Route path="/Password" element={<Password />} />
+          <Route path="/JobSearch" element={<JobPostSample />} />
+          <Route path="/JobDetails" element={<JobDetails />} />
+
+          <Route path="/UserProfile" element={<UserProfile />}/>
+
         </Routes>
       </BrowserRouter>
     </div>

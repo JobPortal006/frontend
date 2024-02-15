@@ -31,6 +31,9 @@ const Navbar = () => {
     const CreateAccount=()=>{
         navigate('/CreateAccount')
     };
+    const profile=()=>{
+        navigate('/UserProfile')
+    }
   
     const isLoggedIn = !!localStorage.getItem('googleToken');
     const otpToken = !!localStorage.getItem('otpToken');
@@ -103,7 +106,7 @@ const Navbar = () => {
               <button className="Navbar__button" type='submit' onClick={CreateAccount}>
               {translations.create_an_account.one}
               </button>
-              <FaUserCircle className="Navbar__user-icon" style={{ fontSize: '20px' }} />
+              <FaUserCircle className="Navbar__user-icon" style={{ fontSize: '20px' }}   onClick={profile}  />
               <FaBell className="Navbar__notification-icon" />
             </>
           ) : (
