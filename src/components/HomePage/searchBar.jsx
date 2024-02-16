@@ -644,7 +644,7 @@ const SearchBar = ({ isJobSearchPage }) => {
       };
 
       try {
-        const response = await fetch('http://192.168.1.38:8000/view_jobs/', {
+        const response = await fetch('http://192.168.1.38:8000/search_jobs/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -693,7 +693,7 @@ const SearchBar = ({ isJobSearchPage }) => {
               {...params}
               className={classes.searchInput}
               variant="standard"
-              label="Search-skill"
+              label="Search-skills/Title"
               color="secondary"
               required
               error={skillError && skillValues.length === 0}

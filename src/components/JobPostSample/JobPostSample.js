@@ -114,8 +114,36 @@ function JobPostSample(props) {
   const navigate = useNavigate();
 
     const [jobs, setJobs] = useState([]);
+    console.log(jobs,"jobs")
     const [loading, setLoading] = useState(false); // Track loading state
 
+    // useEffect(() => { 
+    //     async function fetchJobs() {
+    //         try {
+    //             setLoading(true); // Set loading state when fetching jobs starts
+    //             const response = await fetch('http://192.168.1.38:8000/get_view_jobs/');
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to fetch jobs');
+    //             }
+    //             const data = await response.json();
+    //             console.log(data);
+    //             console.log(data.data[0],'1-------------');
+    //             if (data && Array.isArray(data?.data) && Array.isArray(data?.data[0])) {
+    //                 setJobs(data.data[0]);
+    //             } else {
+    //                 console.error('Invalid data format received from API ===>pradhap api ');
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching jobs:', error);
+    //         } finally {
+    //             setLoading(false); // Reset loading state when fetching jobs completes
+    //         }
+    //     }   
+    //     fetchJobs();
+    // }, []);
+
+
+    //pradhap======>
     useEffect(() => { 
         async function fetchJobs() {
             try {
@@ -124,12 +152,13 @@ function JobPostSample(props) {
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');
                 }
-                const data = await response.json();
-                console.log(data);
-                if (data && Array.isArray(data.data) && Array.isArray(data.data[0])) {
-                    setJobs(data.data[0]);
+                const responseData = await response.json();
+                console.log(responseData);
+                const { status, statusCode, message, data } = responseData;
+                if (status && statusCode === 200 && Array.isArray(data) && data.length > 0) {
+                    setJobs(data); // Update jobs state with the fetched data
                 } else {
-                    console.error('Invalid data format received from API');
+                    console.error('Invalid data format received from API:', message);
                 }
             } catch (error) {
                 console.error('Error fetching jobs:', error);
@@ -139,6 +168,7 @@ function JobPostSample(props) {
         }   
         fetchJobs();
     }, []);
+    
 
     const handleJobSelect = async (selectedJob) => {
         try {
@@ -185,7 +215,7 @@ function JobPostSample(props) {
                                     <span className="detail-label"><FontAwesomeIcon icon={faMoneyBillAlt} /> Salary:</span> {job.salary_range}
                                 </div>
                                 <div className="detail">
-                                    <span className="detail-label"><FontAwesomeIcon icon={faUser} /> Job Type:</span> {job.employment_type}
+                                    <span className="detail-label"><FontAwesomeIcon icon={faUser} /> Job Type:</span> {job.employee_type}
                                 </div>
                                 <div className="detail">
                                     <span className="detail-label"><FontAwesomeIcon icon={faTools} /> Qualification:</span> {job.job_role}
