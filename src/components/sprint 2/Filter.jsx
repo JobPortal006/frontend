@@ -14,6 +14,7 @@ import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import "../sprint 2/filter.css";
 const Filter = () => {
   const [showAll, setShowAll] = useState(false);
+  const [Show, setShow] = useState(false);
   //   const [selectedOptions, setSelectedOptions] = useState([]);
 
   const experienceOptions = [
@@ -59,11 +60,9 @@ const Filter = () => {
     "More than  30 LPA",
   ];
 
-  const renderOptions = showAll
-    ? experienceOptions
-    : experienceOptions.slice(0, 5);
+  const renderOptions = showAll ? experienceOptions : experienceOptions.slice(0, 5);
 
-  const render = showAll ? salaryType : salaryType.slice(0, 5);
+  const render = Show ? salaryType : salaryType.slice(0, 5);
 
   //   const handleOptionClick = (option) => {
   //     const newSelectedOptions = selectedOptions.includes(option)
@@ -264,12 +263,12 @@ const Filter = () => {
         </RadioGroup>
         {salaryType.length > 5 && (
           <IconButton
-            onClick={() => setShowAll(!showAll)}
+            onClick={() => setShow(!Show)}
             color="primary"
             sx={{ fontSize: 15 }}
           >
-            {showAll ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            {showAll ? "Hide" : "Show More"}
+            {Show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            {Show ? "Hide" : "Show More"}
           </IconButton>
         )}
       </div>

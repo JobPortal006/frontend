@@ -12,7 +12,7 @@ const Navbar = () => {
     const navigate = useNavigate();
   
     const handleLoginClick = () => {
-      navigate('/login');
+      navigate('/PostJob');
     };
   
     const handleSignupClick = () => {
