@@ -33,6 +33,7 @@ import {
   handleSubmit,
   handleGoogleSignIn
 } from '../validation/signupvalidation';
+import { Employerregister } from '../EmployeerManagement/Employerregister';
 
 export default function FixedContainer() {
 
@@ -261,6 +262,7 @@ export default function FixedContainer() {
           </Grid>
         </Grid>
       </Container>
+      <Employerregister />
     </>
   );
 }

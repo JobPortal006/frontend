@@ -18,12 +18,16 @@ import Password from "./components/UserManagement/Password.jsx";
 import JobPostSample from "./components/JobPostSample/JobPostSample.js";
 import JobDetails from "./components/JobPostSample/jobdiscriptions.js";
 import UserProfile from "./components/UserManagement/UserProfile.js";
+import SideNavbar from "./components/Dashboard/Sidebar";
+import UserDash from "./components/Dashboard/UserDash";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Navbar />
+        {/* <SideNavbar/> */}
+        {/* <UserDash /> */}
         <Routes>
           <Route index path="/home" element={<Home />} />
           <Route path="/login" element={<LogIn />} />
