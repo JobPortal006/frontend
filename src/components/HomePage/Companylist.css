@@ -1,0 +1,60 @@
+
+
+
+
+
+   .container {
+    width: 100%;
+    max-width: 1000px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .company-list {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    animation: scrollRightToLeft 20s linear infinite;
+  
+
+  }
+  
+  .company-item {
+    /* width: calc(50% - 10px); */
+    width: auto;
+    margin-right: 20px;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+  }
+  
+  /* Ensure smooth scrolling transition */
+  .company-item:last-child {
+    margin-right: 0;
+  }
+  
+  .company-item:hover {
+    animation-play-state: paused;
+  }
+  
+  @keyframes scrollRightToLeft {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .card-content {
+    padding: 16px;
+  }
+  
+  .card-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .selected {
+    border: 2px solid #007bff; 
+  }
+  

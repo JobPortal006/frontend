@@ -110,7 +110,7 @@ const UserForm = () => {
     const [professionalDetails, setProfessionalDetails] = useState({
         isExperienced: true,
         numberOfCompanies: '',
-        companies: [{ companyName: '', job_role: '', skills: '', years_of_exprence: '' }],
+        companies: [{ company_name: '', job_role: '', skills: '', years_of_experience: '' }],
     });
 
 
@@ -150,7 +150,7 @@ const UserForm = () => {
         setProfessionalDetails({
             isExperienced,
             numberOfCompanies: '',
-            companies: isExperienced ? [{ companyName: '', position: '', startDate: '', endDate: '' }] : [],
+            companies: isExperienced ? [{ company_name: '', position: '', startDate: '', endDate: '' }] : [],
         });
         setProfessionalDetailsExpanded(isExperienced);
     };
@@ -553,7 +553,7 @@ const UserForm = () => {
     //     setProfessionalDetails({
     //         isExperienced: true,
     //         numberOfCompanies: '',
-    //         companies: [{ companyName: '', position: '', startDate: '', endDate: '' }],
+    //         companies: [{ company_name: '', position: '', startDate: '', endDate: '' }],
     //     });
     //     setExperienceOption('');
     //     setResume(null);
@@ -629,7 +629,7 @@ const UserForm = () => {
 
         try {
             // Make API call
-            const response = await axios.post('http://192.168.1.38:8000/userRegister/', dataToSend, {
+            const response = await axios.post('http://192.168.1.39:8000/userRegister/', dataToSend, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     // You may need to add other headers like authentication token if required
@@ -683,7 +683,7 @@ const UserForm = () => {
             setProfessionalDetails({
                 isExperienced: true,
                 numberOfCompanies: '',
-                companies: [{ companyName: '', position: '', startDate: '', endDate: '' }],
+                companies: [{ company_name: '', position: '', startDate: '', endDate: '' }],
             });
             setExperienceOption('');
             setResume(null);
@@ -724,7 +724,7 @@ const UserForm = () => {
     };
     const formRef = useRef(null);
     return (
-        <FormContainer >
+        <FormContainer style={{marginTop:'60px'}}>
             <Typography variant="h4" align="center" gutterBottom>
                 {UserFormData[language].UserDetail.one}
             </Typography>
@@ -1388,8 +1388,8 @@ const UserForm = () => {
                                                 <Typography variant="subtitle1">Company {index + 1}</Typography>
                                                 <TextField
                                                     label="Company Name"
-                                                    name="companyName"
-                                                    value={professionalDetails.companies[index]?.companyName || ''}
+                                                    name="company_name"
+                                                    value={professionalDetails.companies[index]?.company_name || ''}
                                                     onChange={(e) => handleProfessionalDetailsChange(e, index)}
                                                     fullWidth
                                                     margin="dense"
@@ -1412,8 +1412,8 @@ const UserForm = () => {
                                                 />
                                                 <TextField
                                                     label="Years of exprence"
-                                                    name="years_of_exprence"
-                                                    value={professionalDetails.companies[index]?.years_of_exprence || ''}
+                                                    name="years_of_experience"
+                                                    value={professionalDetails.companies[index]?.years_of_experience || ''}
                                                     onChange={(e) => handleProfessionalDetailsChange(e, index)}
                                                     fullWidth
                                                     margin="dense"

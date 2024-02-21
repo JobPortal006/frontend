@@ -13,7 +13,7 @@ const JobDetails = () => {
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
-        const response = await axios.get('http://192.168.1.38:8000/get_job_details/');
+        const response = await axios.get('http://192.168.1.39:8000/get_job_details/');
         if (response.data.status) {
           setJobData(response.data.data[0]);
           console.log('Fetched job data:', response.data.data[0]);

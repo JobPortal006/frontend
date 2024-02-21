@@ -27,9 +27,11 @@
 //     display: 'flex',
 //     alignItems: 'center',
 //     gap: theme.spacing(2),
-//     padding: theme.spacing(4),
-//     background: '#ffffff',
-//     borderRadius: 24,
+//     padding: theme.spacing(1),
+//     // background: '#ffffff',
+//     background:'#FAFBF5',
+//     // opacity:'90%',
+//     borderRadius: 10,
 //     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
 //     position: 'relative',
 //   },
@@ -43,10 +45,10 @@
 //   },
 //   button: {
 //     marginLeft: theme.spacing(2),
-//     background: '#ff4d4d',
+//     background: '#070808',
 //     color: '#ffffff',
 //     '&:hover': {
-//       background: '#ff3333',
+//       background: '#7F6669',
 //     },
 //   },
 //   icon: {
@@ -54,13 +56,18 @@
 //   },
 //   chip: {
 //     margin: theme.spacing(0.5),
+//     padding:'1px',
+//     // marginTop:'-7px',
 //   },
 //   expandButton: {
-//     marginLeft: theme.spacing(1),
+//     marginLeft: theme.spacing(0.5),
 //     cursor: 'pointer',
+//     marginTop:'-7px',
+
 //   },
 //   popover: {
 //     padding: theme.spacing(2),
+// padding:'7px'
     
 //   },
 
@@ -118,7 +125,7 @@
 //   useEffect(() => {
 //     async function fetchLocationSuggestions(input) {
 //       try {
-//         const response = await fetch(`http://192.168.1.38:8000/location/?q=${input}`);
+//         const response = await fetch(`http://192.168.1.39:8000/location/?q=${input}`);
 //         const data = await response.json();
 //         setLocationSuggestions(data.map((item) => item.location));
 //       } catch (error) {
@@ -137,7 +144,7 @@
 //   useEffect(() => {
 //     async function fetchSkillSuggestions(input) {
 //       try {
-//         const response = await fetch(`http://192.168.1.38:8000/skill_set/?q=${input}`);
+//         const response = await fetch(`http://192.168.1.39:8000/skill_set/?q=${input}`);
 //         const data = await response.json();
 
 //         if (data && Array.isArray(data)) {
@@ -170,7 +177,7 @@
 //   useEffect(() => {
 //     async function fetchExperienceSuggestions(input) {
 //       try {
-//         const response = await fetch(`http://192.168.1.38:8000/experience/?q=${input}`);
+//         const response = await fetch(`http://192.168.1.39:8000/experience/?q=${input}`);
 //         const data = await response.json();
 //         setExperienceSuggestions(data.map((item) => item.experience));
 //       } catch (error) {
@@ -221,7 +228,7 @@
 //       };
 
 //       try {
-//         const response = await fetch('http://192.168.1.38:8000/view_jobs/', {
+//         const response = await fetch('http://192.168.1.39:8000/view_jobs/', {
 //           method: 'POST',
 //           headers: {
 //             'Content-Type': 'application/json',
@@ -253,6 +260,8 @@
 //   };
 
 //   return (
+//     <div>
+          
 //     <div className={isJobSearchPage ? classes.jobSearchRoot : classes.root}>
 //       <div className={isJobSearchPage ? classes.jobSearchContainer : classes.searchContainer}>
   
@@ -397,6 +406,7 @@
 //         </div>
 //       </Popover>
 //     </div>
+//     </div>
 //   );
 // };
 
@@ -415,6 +425,7 @@ import { makeStyles, TextField, Button, Chip, Collapse, Popover } from '@materia
 import { MdSearch, MdExpandMore } from 'react-icons/md';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useNavigate } from 'react-router-dom';
+import Companylist from './Companylist';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -429,15 +440,15 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column', // Change flex direction to column for mobile
     alignItems: 'center',
-    gap: theme.spacing(2),
-    padding: theme.spacing(2), // Reduce padding for mobile
+    gap: theme.spacing(0.5),
+    padding: theme.spacing(1), // Reduce padding for mobile
     background: '#ffffff',
-    borderRadius: 24,
+    borderRadius: 20,
     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
     position: 'relative',
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row', // Change flex direction to row for larger screens
-      padding: theme.spacing(4), // Restore padding for larger screens
+      padding: theme.spacing(2), // Restore padding for larger screens
     },
   },
   searchInput: {
@@ -454,10 +465,10 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginLeft: theme.spacing(0), // Adjust margin for mobile
     marginTop: theme.spacing(2), // Adjust margin for mobile
-    background: '#ff4d4d',
+    background: '#050505',
     color: '#ffffff',
     '&:hover': {
-      background: '#ff3333',
+      background: '#877067',
     },
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(2), // Restore margin for larger screens
@@ -541,7 +552,7 @@ const SearchBar = ({ isJobSearchPage }) => {
   useEffect(() => {
     async function fetchLocationSuggestions(input) {
       try {
-        const response = await fetch(`http://192.168.1.38:8000/location/?q=${input}`);
+        const response = await fetch(`http://192.168.1.39:8000/location/?q=${input}`);
         const data = await response.json();
         setLocationSuggestions(data.map((item) => item.location));
       } catch (error) {
@@ -560,7 +571,7 @@ const SearchBar = ({ isJobSearchPage }) => {
   useEffect(() => {
     async function fetchSkillSuggestions(input) {
       try {
-        const response = await fetch(`http://192.168.1.38:8000/skill_set/?q=${input}`);
+        const response = await fetch(`http://192.168.1.39:8000/skill_set/?q=${input}`);
         const data = await response.json();
 
         if (data && Array.isArray(data)) {
@@ -593,7 +604,7 @@ const SearchBar = ({ isJobSearchPage }) => {
   useEffect(() => {
     async function fetchExperienceSuggestions(input) {
       try {
-        const response = await fetch(`http://192.168.1.38:8000/experience/?q=${input}`);
+        const response = await fetch(`http://192.168.1.39:8000/experience/?q=${input}`);
         const data = await response.json();
         setExperienceSuggestions(data.map((item) => item.experience));
       } catch (error) {
@@ -644,7 +655,7 @@ const SearchBar = ({ isJobSearchPage }) => {
       };
 
       try {
-        const response = await fetch('http://192.168.1.38:8000/search_jobs/', {
+        const response = await fetch('http://192.168.1.39:8000/view_jobs/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -676,6 +687,7 @@ const SearchBar = ({ isJobSearchPage }) => {
   };
 
   return (
+    <>
     <div className={isJobSearchPage ? classes.jobSearchRoot : classes.root}>
       <div className={isJobSearchPage ? classes.jobSearchContainer : classes.searchContainer}>
   
@@ -790,6 +802,7 @@ const SearchBar = ({ isJobSearchPage }) => {
         >
           Search
         </Button>
+        
       </div>
       <Popover 
         open={Boolean(expandedAnchorEl)}
@@ -819,7 +832,11 @@ const SearchBar = ({ isJobSearchPage }) => {
           ))}
         </div>
       </Popover>
+
     </div>
+    {/* <Companylist /> */}
+
+    </>
   );
 };
 

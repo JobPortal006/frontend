@@ -42,7 +42,7 @@ const Navbar = () => {
     
     console.log(isLoggedIn,"GoogleToke============<");
     return (
-      <div className="Navbar">
+      <div className="Navbar" >
         <div className="Navbar__left">
           <img src="your-logo.png" alt="Logo" className="Navbar__logo" />
         </div>

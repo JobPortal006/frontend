@@ -148,7 +148,7 @@ function JobPostSample(props) {
         async function fetchJobs() {
             try {
                 setLoading(true); // Set loading state when fetching jobs starts
-                const response = await fetch('http://192.168.1.38:8000/get_view_jobs/');
+                const response = await fetch('http://192.168.1.39:8000/get_view_jobs/');
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');
                 }
@@ -170,10 +170,12 @@ function JobPostSample(props) {
     }, []);
     
 
+    
+
     const handleJobSelect = async (selectedJob) => {
         try {
             setLoading(true); // Set loading state when fetching job details starts
-            const response = await fetch('http://192.168.1.38:8000/job_details/', {
+            const response = await fetch('http://192.168.1.39:8000/job_details/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -199,7 +201,7 @@ function JobPostSample(props) {
             {loading ? (
                 <div className="loading-popup">Loading...</div> // Render loading popup
             ) : (
-                <div className="job-container">
+                <div className="job-container" style={{marginTop:'60px'}}>
                     <SearchBar isJobSearchPage={true} />
                     {jobs.map((job, index) => (
                         <div key={index} className="job-card" onClick={() => handleJobSelect(job)}>
