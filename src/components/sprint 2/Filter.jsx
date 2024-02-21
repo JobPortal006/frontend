@@ -12,6 +12,12 @@ import { Box, List, ListItemButton, ListItemText } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import "../sprint 2/filter.css";
+import { Link } from "react-router-dom";
+import FilteredResults from "./FilteredResults";
+
+
+
+
 const Filter = () => {
   const [showAll, setShowAll] = useState(false);
   const [Show, setShow] = useState(false);
@@ -60,9 +66,29 @@ const Filter = () => {
     "More than  30 LPA",
   ];
 
+  
+
   const renderOptions = showAll ? experienceOptions : experienceOptions.slice(0, 5);
 
   const render = Show ? salaryType : salaryType.slice(0, 5);
+
+  const [selectedExperience, setSelectedExperience] = useState([]);
+
+// Function to handle changes in selected experience levels
+// const handleExperienceChange = (event) => {
+//   setSelectedExperience(event.target.value);
+//   console.log("Selected experience levels:", event.target.value);
+// };
+
+const handleExperienceClick = (option) => {
+  const newSelectedExperience = selectedExperience.includes(option)
+    ? selectedExperience.filter((exp) => exp !== option)
+    : [...selectedExperience, option]; 
+
+  setSelectedExperience(newSelectedExperience);
+};
+
+
 
   //   const handleOptionClick = (option) => {
   //     const newSelectedOptions = selectedOptions.includes(option)
@@ -74,10 +100,12 @@ const Filter = () => {
 
   const [locations, setLocations] = useState([]);
 
+  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://192.168.1.38:8000/location/");
+        const response = await fetch("http://192.168.1.39:8000/location/");
         if (!response) {
           console.error("Failed to fetch locations");
         }
@@ -119,7 +147,7 @@ const Filter = () => {
   useEffect(() => {
     const fetchJobRoles = async () => {
       try {
-        const response = await fetch("http://192.168.1.38:8000/job_role/");
+        const response = await fetch("http://192.168.1.39:8000/job_role/");
         if (!response.ok) {
           console.error("Failed to fetch job roles");
           return;
@@ -155,6 +183,49 @@ const Filter = () => {
     console.log("Selected salary type:", event.target.value);
   };
 
+
+
+  // Job Filter
+
+  const [filteredData, setFilteredData] = useState([]);
+
+  console.log(filteredData,"Filtered Data ==>");
+
+
+  const ApplyFilters = async() => {
+    
+   const filtered = {
+    location: locations.filter((location) => location.selected).map(location => location.location),
+    employee_type: selectedEmploymentType,
+    job_role: jobRoles.filter((role) => role.selected).map(role => role.role),
+    salary_range: selectedSalaryType,
+    experience: selectedExperience,
+    };
+    setFilteredData(filtered);
+    // location, employee_type, job_role, salary_range
+    try {
+      const response = await fetch("http://192.168.1.57:8000/filter_singleValue/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(filtered),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to post data to backend");
+      }else{
+      //  window.location.href = "/FilteredResults";
+
+      }
+      console.log("Data successfully posted to backend");
+    } catch (error) {
+      console.error("Error posting data to backend:", error.message);
+    }
+    // Navigate to filtered results page
+  };
+
+  
+
   return (
     <div style={{ width: "30%", marginLeft: "1rem" }}>
       <div>
@@ -165,10 +236,18 @@ const Filter = () => {
             <Grid container >
               {renderOptions.map((option, index) => (
                 <Grid item xs={6} key={index}>
+                
                   {" "}
                   {/* Divide into two columns */}
                   <div style={{ marginLeft: "1.5rem" }}>
-                    <FormControlLabel control={<Checkbox />} label={option} />
+                    <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedExperience.includes(option)}
+                        onChange={() => handleExperienceClick(option)}
+                      />
+                    }
+                    label={option} />
                   </div>
                 </Grid>
               ))}
@@ -272,6 +351,10 @@ const Filter = () => {
           </IconButton>
         )}
       </div>
+      <button onClick={ApplyFilters}>Apply Filters</button>
+      
+
+
     </div>
   );
 };

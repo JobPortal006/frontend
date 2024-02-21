@@ -18,6 +18,7 @@ import PostJob from "./components/sprint 2/PostJob.jsx";
 import Filter from "./components/sprint 2/Filter.jsx";
 import MyJob from "./components/sprint 2/MyJob.jsx";
 import EditMyJob from "./components/sprint 2/EditMyJob.jsx";
+import FilteredResults from "./components/sprint 2/FilteredResults.jsx";
 // <Route path="/login" element={<LogIn />} />
 
 function App() {
@@ -25,8 +26,8 @@ function App() {
     <div>
       <BrowserRouter>
         <Navbar />
-        
-       
+      
+      
         <Routes>
           <Route index path="/home" element={<Home />} />
           
@@ -39,6 +40,7 @@ function App() {
           <Route path="/MyJob" element={<MyJob/>} />
           <Route path="/PostJob" element={<PostJob />} />
           <Route path="/EditMyJob" element={<EditMyJob />} />
+          <Route path="/FilteredResults" element={<FilteredResults />} />
         </Routes>
       </BrowserRouter>
     </div>

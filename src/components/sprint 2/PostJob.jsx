@@ -192,8 +192,8 @@ const PostJob = () => {
       let headers = new Headers();
       headers.append("Content-Type", "application/json");
       headers.append("Accept", "application/json");
-      headers.append("Origin", "http://192.168.1.38:8000/job_post/");
-      const apiUrl = "http://192.168.1.38:8000/job_post/";
+      headers.append("Origin", "http://192.168.1.39:8000/job_post/");
+      const apiUrl = "http://192.168.1.39:8000/job_post/";
 
       try {
         const response = await axios.post(apiUrl, jobPostData, headers);

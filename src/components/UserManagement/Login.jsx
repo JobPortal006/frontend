@@ -112,8 +112,8 @@ const LogIn = () => {
 
     headers.append("Content-Type", "application/json");
     headers.append("Accept", "application/json");
-    headers.append("Origin", "http://192.168.1.38:8000/login/");
-    const apiUrl = "http://192.168.1.38:8000/login/";
+    headers.append("Origin", "http://192.168.1.39:8000/login/");
+    const apiUrl = "http://192.168.1.39:8000/login/";
 
     try {
       const response = await axios.post(apiUrl, dataOne, headers);

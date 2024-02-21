@@ -195,9 +195,10 @@ function MyJob() {
   const [employee_id, setEmployeeId] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
   const [pageLoaded, setPageLoaded] = useState(false); // State to track page load
+  const [update, setUpdate] = useState("");
 
-
-  console.log(employee_id,"employee_id");
+  // console.log(employee_id,"employee_id");
+  console.log(jobView,"jobView");
 
   
 
@@ -205,7 +206,7 @@ function MyJob() {
     async function fetchJobs() {
       try {
         const response = await fetch(
-          "http://192.168.1.38:8000/employer_post_jobs_view/"
+          "http://192.168.1.39:8000/employer_post_jobs/"
         );
         if (!response.ok) {
           throw new Error("Failed to fetch jobs");
@@ -218,9 +219,6 @@ function MyJob() {
           console.error("Invalid data format received from API");
         }
 
-        
-       
-  
       } catch (error) {
         console.error("Error fetching jobs:", error);
       }
@@ -230,42 +228,39 @@ function MyJob() {
 
   const location = useLocation();
 
-  useEffect(() => {
+  // useEffect(() => {
 
       // Auto reload one time when the page is first loaded
       
-
-     
-
-    if (location.state && location.state.id) {
-      const id = location.state.id;
-      setEmployeeId(id);
-      async function postID() {
-        try {
-          const response = await fetch(
-            "http://192.168.1.38:8000/employer_post_jobs/",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ employee_id: id }),
-            }
-          );
-          if (!response.ok) {
-            throw new Error("Failed to post id data to API");
+  //   if (location.state && location.state.id) {
+  //     const id = location.state.id;
+  //     setEmployeeId(id);
+  //     async function postID() {
+  //       try {
+  //         const response = await fetch(
+  //           "http://192.168.1.39:8000/employer_post_jobs/",
+  //           {
+  //             method: "POST",
+  //             headers: {
+  //               "Content-Type": "application/json",
+  //             },
+  //             body: JSON.stringify({ employee_id: id }),
+  //           }
+  //         );
+  //         if (!response.ok) {
+  //           throw new Error("Failed to post id data to API");
             
-          }
-          console.log("ID data posted successfully:", id);
+  //         }
+  //         console.log("ID data posted successfully:", id);
           
-        } catch (error) {
-          console.error("Error posting id data to API:", error);
-          window.location.reload();
-        }
-      }
-      postID();
-    }
-  }, [location.state]);
+  //       } catch (error) {
+  //         console.error("Error posting id data to API:", error);
+  //         // window.location.reload();
+  //       }
+  //     }
+  //     postID();
+  //   }
+  // }, [location.state]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -282,13 +277,48 @@ function MyJob() {
 
   const navigate = useNavigate();
 
-  const changeDirect =(job)=>{
-    navigate("/EditMyJob", { state: { job } })
+  const changeDirect =(jobView)=>{
+    navigate("/EditMyJob", { state: { jobView } })
   }
+
+  // UPDATE AND DELETE api
+
+//   useEffect(() => {
+    
+//   if (location.state && location.state.id) {
+//     const JobId = jobView.job_post_id;
+//     console.log(JobId, "JobId");
+//     setUpdate(JobId);
+//     async function postID() {
+//       try {
+//         const response = await fetch(
+//           "http://192.168.1.57:8000/update_job/",
+//           {
+//             method: "POST",
+//             headers: {
+//               "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({ job_id: JobId }),
+//           }
+//         );
+//         if (!response.ok) {
+//           throw new Error("Failed to post id data to API");
+          
+//         }
+//         console.log("ID data posted successfully:", JobId);
+        
+//       } catch (error) {
+//         console.error("Error posting id data to API:", error);
+//         // window.location.reload();
+//       }
+//     }
+//     postID();
+//   }
+// }, [location.state]);
+  
 
   return (
     <div>
-      {location.state.id}
       <h1>My Job</h1>
 
       <Grid
