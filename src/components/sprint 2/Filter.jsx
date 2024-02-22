@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from "react";
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  IconButton,
-  Grid,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
-import { Box, List, ListItemButton, ListItemText } from "@mui/material";
+import {Checkbox, FormControlLabel, FormGroup, IconButton, Grid, Radio, RadioGroup} from "@mui/material";
+import { Box, List, ListItemButton, ListItemText, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import "../sprint 2/filter.css";
-import { Link } from "react-router-dom";
 import FilteredResults from "./FilteredResults";
-
-
-
+// import { useNavigate } from "react-router-dom";
+import "../sprint 2/FilterPage.css";
 
 const Filter = () => {
   const [showAll, setShowAll] = useState(false);
   const [Show, setShow] = useState(false);
-  //   const [selectedOptions, setSelectedOptions] = useState([]);
+// const navigate = useNavigate();
 
   const experienceOptions = [
     "0-1 year",
@@ -66,41 +56,30 @@ const Filter = () => {
     "More than  30 LPA",
   ];
 
-  
-
-  const renderOptions = showAll ? experienceOptions : experienceOptions.slice(0, 5);
+  const renderOptions = showAll
+    ? experienceOptions
+    : experienceOptions.slice(0, 5);
 
   const render = Show ? salaryType : salaryType.slice(0, 5);
 
   const [selectedExperience, setSelectedExperience] = useState([]);
 
-// Function to handle changes in selected experience levels
-// const handleExperienceChange = (event) => {
-//   setSelectedExperience(event.target.value);
-//   console.log("Selected experience levels:", event.target.value);
-// };
+  // Function to handle changes in selected experience levels
+  // const handleExperienceChange = (event) => {
+  //   setSelectedExperience(event.target.value);
+  //   console.log("Selected experience levels:", event.target.value);
+  // };
 
-const handleExperienceClick = (option) => {
-  const newSelectedExperience = selectedExperience.includes(option)
-    ? selectedExperience.filter((exp) => exp !== option)
-    : [...selectedExperience, option]; 
+  const handleExperienceClick = (option) => {
+    const newSelectedExperience = selectedExperience.includes(option)
+      ? selectedExperience.filter((exp) => exp !== option)
+      : [...selectedExperience, option];
 
-  setSelectedExperience(newSelectedExperience);
-};
+    setSelectedExperience(newSelectedExperience);
+  };
 
-
-
-  //   const handleOptionClick = (option) => {
-  //     const newSelectedOptions = selectedOptions.includes(option)
-  //       ? selectedOptions.filter((selectedOption) => selectedOption !== option)
-  //       : [...selectedOptions, option];
-  //     setSelectedOptions(newSelectedOptions);
-  //     console.log('Selected options:', newSelectedOptions);
-  //   };
-
+  // Location Fetch
   const [locations, setLocations] = useState([]);
-
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -134,6 +113,8 @@ const handleExperienceClick = (option) => {
     newLocations[index].selected = !newLocations[index].selected;
     setLocations(newLocations);
   };
+
+  // Employment Fetch
 
   const [selectedEmploymentType, setSelectedEmploymentType] = useState("");
 
@@ -183,39 +164,36 @@ const handleExperienceClick = (option) => {
     console.log("Selected salary type:", event.target.value);
   };
 
-
-
   // Job Filter
 
   const [filteredData, setFilteredData] = useState([]);
 
-  console.log(filteredData,"Filtered Data ==>");
+  console.log(filteredData, "Filtered Data ==>");
 
-
-  const ApplyFilters = async() => {
-    
-   const filtered = {
-    location: locations.filter((location) => location.selected).map(location => location.location),
-    employee_type: selectedEmploymentType,
-    job_role: jobRoles.filter((role) => role.selected).map(role => role.role),
-    salary_range: selectedSalaryType,
-    experience: selectedExperience,
+  const ApplyFilters = async () => {
+    const filtered = {  location: locations.filter((location) => location.selected).map((location) => location.location),
+      employee_type: selectedEmploymentType,
+      job_role: jobRoles.filter((role) => role.selected).map((role) => role.role),
+      salary_range: selectedSalaryType,
+      experience: selectedExperience,
     };
     setFilteredData(filtered);
     // location, employee_type, job_role, salary_range
     try {
-      const response = await fetch("http://192.168.1.57:8000/filter_singleValue/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(filtered),
-      });
+      const response = await fetch(
+        "http://192.168.1.57:8000/filter_singleValue/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(filtered),
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to post data to backend");
-      }else{
-      //  window.location.href = "/FilteredResults";
-
+      } else {
+        
       }
       console.log("Data successfully posted to backend");
     } catch (error) {
@@ -224,138 +202,144 @@ const handleExperienceClick = (option) => {
     // Navigate to filtered results page
   };
 
-  
-
   return (
-    <div style={{ width: "30%", marginLeft: "1rem" }}>
-      <div>
-        <h1>Filter</h1>
-        <h3>Experience level</h3>
-        <div>
-          <FormGroup>
-            <Grid container >
-              {renderOptions.map((option, index) => (
-                <Grid item xs={6} key={index}>
-                
-                  {" "}
-                  {/* Divide into two columns */}
-                  <div style={{ marginLeft: "1.5rem" }}>
-                    <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={selectedExperience.includes(option)}
-                        onChange={() => handleExperienceClick(option)}
-                      />
-                    }
-                    label={option} />
-                  </div>
+    <Grid container>
+      <Grid item xs={4} sm={4} md={4} xl={4}>
+        <div className="job-filter" style={{ width: "70%" }}>
+          <div className="title">
+            <h1>Filter</h1>
+            <div className="job-experience">
+            <h3>Experience level</h3>
+              <FormGroup>
+                <Grid container>
+                  {renderOptions.map((option, index) => (
+                    <Grid item xs={6} key={index}>
+                      {" "}
+                      {/* Divide into two columns */}
+                      <div style={{ marginLeft: "1.5rem" }}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={selectedExperience.includes(option)}
+                              onChange={() => handleExperienceClick(option)}
+                            />
+                          }
+                          label={option}
+                        />
+                      </div>
+                    </Grid>
+                  ))}
                 </Grid>
+              </FormGroup>
+            </div>
+            {experienceOptions.length > 5 && (
+              <IconButton
+              className="show-more-button"
+                onClick={() => setShowAll(!showAll)}
+                color="primary"
+                sx={{ fontSize: 15 }}
+              >
+                {showAll ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                {showAll ? "Hide" : "Show More"}
+              </IconButton>
+            )}
+          </div>
+          <div className="job-location">
+            <h3>Locations</h3>
+            <Box sx={{ width: "100%", height: 300, overflow: "auto" }}>
+              <List>
+                {locations.map((location, index) => (
+                  <ListItemButton
+                    key={index}
+                    onClick={() => handleLocationClick(index)}
+                  >
+                    <Checkbox checked={location.selected} />
+                    <ListItemText primary={location.location} />
+                  </ListItemButton>
+                ))}
+              </List>
+            </Box>
+          </div>
+
+          <div className="job-employment">
+            <h3> Employment Type </h3>
+
+            <FormGroup>
+              <RadioGroup
+                style={{ marginLeft: "1rem" }}
+                name="employment-type"
+                value={selectedEmploymentType}
+                onChange={handleEmploymentTypeChange}
+                defaultValue=""
+              >
+                {employmentType.map((type, index) => (
+                  <FormControlLabel
+                    key={index}
+                    value={type}
+                    control={<Radio />}
+                    label={type}
+                  />
+                ))}
+              </RadioGroup>
+            </FormGroup>
+          </div>
+
+          <div className="job-roles">
+            <h3>Job Roles</h3>
+            <Box sx={{ width: "100%", height: 300, overflow: "auto" }}>
+              <List>
+                {jobRoles.map((role, index) => (
+                  <ListItemButton
+                    key={index}
+                    onClick={() => handleRoleClick(index)}
+                  >
+                    <Checkbox checked={role.selected} />
+                    <ListItemText primary={role.role} />
+                  </ListItemButton>
+                ))}
+              </List>
+            </Box>
+          </div>
+
+          <div className="job-salary">
+            <h3>Salary Range</h3>
+            <RadioGroup
+              style={{ marginLeft: "1rem" }}
+              name="salary-type"
+              value={selectedSalaryType}
+              onChange={handleSalaryTypeChange}
+            >
+              {render.map((type, index) => (
+                <FormControlLabel
+                  key={index}
+                  value={type}
+                  control={<Radio />}
+                  label={type}
+                />
               ))}
-            </Grid>
-          </FormGroup>
+            </RadioGroup>
+            {salaryType.length > 5 && (
+              <IconButton
+                onClick={() => setShow(!Show)}
+                color="primary"
+                sx={{ fontSize: 15 }}
+              >
+                {Show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                {Show ? "Hide" : "Show More"}
+              </IconButton>
+            )}
+          </div>
+          <div className="filter-btn">
+          <Button variant="outlined" onClick={ApplyFilters}>Apply Filters</Button>
+          </div>
         </div>
-        {experienceOptions.length > 5 && (
-          <IconButton
-            onClick={() => setShowAll(!showAll)}
-            color="primary"
-            sx={{ fontSize: 15 }}
-          >
-            {showAll ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            {showAll ? "Hide" : "Show More"}
-          </IconButton>
-        )}
-      </div>
-      <div>
-        <h3>Locations</h3>
-        <Box sx={{ width:"80%", height: 300, overflow: "auto" }}>
-          <List>
-            {locations.map((location, index) => (
-              <ListItemButton
-                key={index}
-                onClick={() => handleLocationClick(index)}
-              >
-                <Checkbox checked={location.selected} />
-                <ListItemText primary={location.location} />
-              </ListItemButton>
-            ))}
-          </List>
-        </Box>
-      </div>
-
-      <div >
-        <h3> Employment Type </h3>
-        
-        <FormGroup>
-          <RadioGroup
-            style={{ marginLeft: "1rem" }}
-            name="employment-type"
-            value={selectedEmploymentType}
-            onChange={handleEmploymentTypeChange}
-            defaultValue=""
-          >
-            {employmentType.map((type, index) => (
-              <FormControlLabel
-                key={index}
-                value={type}
-                control={<Radio />}
-                label={type}
-              />
-            ))}
-          </RadioGroup>
-        </FormGroup>
-        
-      </div>
-
-      <div>
-        <h3>Job Roles</h3>
-        <Box sx={{width:"80%", height: 300, overflow: "auto" }}>
-          <List>
-            {jobRoles.map((role, index) => (
-              <ListItemButton
-                key={index}
-                onClick={() => handleRoleClick(index)}
-              >
-                <Checkbox checked={role.selected} />
-                <ListItemText primary={role.role} />
-              </ListItemButton>
-            ))}
-          </List>
-        </Box>
-      </div>
-
-      <div>
-        <h3>Salary Range</h3>
-        <RadioGroup
-          style={{ marginLeft: "1rem" }}
-          name="salary-type"
-          value={selectedSalaryType}
-          onChange={handleSalaryTypeChange}
-        >
-          {render.map((type, index) => (
-            <FormControlLabel
-              key={index}
-              value={type}
-              control={<Radio />}
-              label={type}
-            />
-          ))}
-        </RadioGroup>
-        {salaryType.length > 5 && (
-          <IconButton
-            onClick={() => setShow(!Show)}
-            color="primary"
-            sx={{ fontSize: 15 }}
-          >
-            {Show ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-            {Show ? "Hide" : "Show More"}
-          </IconButton>
-        )}
-      </div>
-      <button onClick={ApplyFilters}>Apply Filters</button>
-      
-
-
-    </div>
+      </Grid>
+      <Grid item xs={8} sm={8} md={8} xl={8}>
+      <div className="filter-result">
+        <FilteredResults />
+        </div>
+      </Grid>
+    </Grid>
   );
 };
 
