@@ -1,13 +1,3 @@
-
-
-
-
-
-
-
-
-
-
 // import React, { useState, useEffect } from 'react';
 // import { makeStyles, TextField, Button, Chip, Collapse, Popover } from '@material-ui/core';
 // import { MdSearch, MdExpandMore } from 'react-icons/md';
@@ -25,30 +15,41 @@
 //   },
 //   searchContainer: {
 //     display: 'flex',
+//     flexDirection: 'column', // Change flex direction to column for mobile
 //     alignItems: 'center',
-//     gap: theme.spacing(2),
-//     padding: theme.spacing(1),
-//     // background: '#ffffff',
-//     background:'#FAFBF5',
-//     // opacity:'90%',
-//     borderRadius: 10,
+//     gap: theme.spacing(0.5),
+//     padding: theme.spacing(1), // Reduce padding for mobile
+//     background: '#ffffff',
+//     borderRadius: 20,
 //     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
 //     position: 'relative',
+//     [theme.breakpoints.up('sm')]: {
+//       flexDirection: 'row', // Change flex direction to row for larger screens
+//       padding: theme.spacing(2), // Restore padding for larger screens
+//     },
 //   },
 //   searchInput: {
 //     flex: 1,
 //     minWidth: 200,
+//     [theme.breakpoints.up('sm')]: {
+//       minWidth: 'unset', // Remove minWidth for larger screens
+//     },
 //   },
 //   formControl: {
 //     minWidth: 120,
 //     zIndex: 1,
 //   },
 //   button: {
-//     marginLeft: theme.spacing(2),
-//     background: '#070808',
+//     marginLeft: theme.spacing(0), // Adjust margin for mobile
+//     marginTop: theme.spacing(2), // Adjust margin for mobile
+//     background: '#050505',
 //     color: '#ffffff',
 //     '&:hover': {
-//       background: '#7F6669',
+//       background: '#877067',
+//     },
+//     [theme.breakpoints.up('sm')]: {
+//       marginLeft: theme.spacing(2), // Restore margin for larger screens
+//       marginTop: 0, // Restore margin for larger screens
 //     },
 //   },
 //   icon: {
@@ -56,33 +57,26 @@
 //   },
 //   chip: {
 //     margin: theme.spacing(0.5),
-//     padding:'1px',
-//     // marginTop:'-7px',
 //   },
 //   expandButton: {
-//     marginLeft: theme.spacing(0.5),
+//     marginLeft: theme.spacing(1),
 //     cursor: 'pointer',
-//     marginTop:'-7px',
-
 //   },
 //   popover: {
 //     padding: theme.spacing(2),
-// padding:'7px'
-    
 //   },
 
-  
 //   jobSearchRoot: {
 //     display: 'flex',
 //     flexDirection: 'column',
 //     alignItems: 'center',
 //     justifyContent: 'center',
-//     // height: '100vh',
 //     marginBottom: '20px',
 //     marginTop: '10px'
 //   },
 //   jobSearchContainer: {
 //     display: 'flex',
+//     flexDirection: 'column', // Change flex direction to column for mobile
 //     alignItems: 'center',
 //     gap: theme.spacing(1),
 //     padding: theme.spacing(2),
@@ -90,19 +84,29 @@
 //     borderRadius: 24,
 //     boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
 //     position: 'relative',
+//     [theme.breakpoints.up('sm')]: {
+//       flexDirection: 'row', // Change flex direction to row for larger screens
+//     },
 //   },
 //   jobSearchInput: {
 //     flex: 1,
 //     minWidth: 200,
+//     [theme.breakpoints.up('sm')]: {
+//       minWidth: 'unset', // Remove minWidth for larger screens
+//     },
 //   },
 //   jobSearchButton: {
-//     marginLeft: theme.spacing(2),
+//     marginLeft: theme.spacing(0), // Adjust margin for mobile
+//     marginTop: theme.spacing(2), // Adjust margin for mobile
 //     background: '#ff4d4d',
 //     color: '#ffffff',
 //     borderRadius: '50px',
-
 //     '&:hover': {
 //       background: '#ff3333',
+//     },
+//     [theme.breakpoints.up('sm')]: {
+//       marginLeft: theme.spacing(2), // Restore margin for larger screens
+//       marginTop: 0, // Restore margin for larger screens
 //     },
 //   },
 // }));
@@ -233,7 +237,7 @@
 //           headers: {
 //             'Content-Type': 'application/json',
 //           },
-//           body: JSON.stringify(searchObject),
+//           body: JSON.stringify(searchObject), 
 //         });
 
 //         if (!response.ok) {
@@ -260,8 +264,7 @@
 //   };
 
 //   return (
-//     <div>
-          
+//     <>
 //     <div className={isJobSearchPage ? classes.jobSearchRoot : classes.root}>
 //       <div className={isJobSearchPage ? classes.jobSearchContainer : classes.searchContainer}>
   
@@ -279,7 +282,7 @@
 //               {...params}
 //               className={classes.searchInput}
 //               variant="standard"
-//               label="Search-skill"
+//               label="Search-skills/Title"
 //               color="secondary"
 //               required
 //               error={skillError && skillValues.length === 0}
@@ -376,6 +379,7 @@
 //         >
 //           Search
 //         </Button>
+        
 //       </div>
 //       <Popover 
 //         open={Boolean(expandedAnchorEl)}
@@ -405,8 +409,11 @@
 //           ))}
 //         </div>
 //       </Popover>
+
 //     </div>
-//     </div>
+//     {/* <Companylist /> */}
+
+//     </>
 //   );
 // };
 
@@ -418,14 +425,15 @@
 
 
 
-// responsive ===============>
+// ==========================================================================>any one value is true it will search result
 
 import React, { useState, useEffect } from 'react';
 import { makeStyles, TextField, Button, Chip, Collapse, Popover } from '@material-ui/core';
 import { MdSearch, MdExpandMore } from 'react-icons/md';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { useNavigate } from 'react-router-dom';
-import Companylist from './Companylist';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -623,28 +631,13 @@ const SearchBar = ({ isJobSearchPage }) => {
   const handleSearch = async () => {
     let isError = false;
 
-    // Check if the location field is filled
-    if (searchValue.trim() === '') {
-      setLocationError(true);
-      isError = true;
-    } else {
-      setLocationError(false);
-    }
+    // Check if at least one field is filled
+    if (searchValue.trim() === '' && skillValues.length === 0 && experienceValue.trim() === '') {
+      // If none of the fields are filled, show an alert
+      // alert('Please fill in at least one field');
+      toast.error('Please fill at least one of the field.', { position: toast.POSITION.TOP_CENTER });
 
-    // Check if the skills field is filled
-    if (skillValues.length === 0) {
-      setSkillError(true);
       isError = true;
-    } else {
-      setSkillError(false);
-    }
-
-    // Check if the experience field is filled
-    if (experienceValue.trim() === '') {
-      setExperienceError(true);
-      isError = true;
-    } else {
-      setExperienceError(false);
     }
 
     if (!isError) {
@@ -660,7 +653,7 @@ const SearchBar = ({ isJobSearchPage }) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(searchObject),
+          body: JSON.stringify(searchObject), 
         });
 
         if (!response.ok) {
@@ -681,6 +674,8 @@ const SearchBar = ({ isJobSearchPage }) => {
       }
     }
   };
+
+
 
   const handleExpand = (event) => {
     setExpandedAnchorEl(event.currentTarget);
@@ -707,7 +702,7 @@ const SearchBar = ({ isJobSearchPage }) => {
               variant="standard"
               label="Search-skills/Title"
               color="secondary"
-              required
+              // required
               error={skillError && skillValues.length === 0}
               helperText={skillError && skillValues.length === 0 ? "This field is required" : ""}
               InputProps={{
@@ -757,7 +752,7 @@ const SearchBar = ({ isJobSearchPage }) => {
               variant="standard"
               label="Search-location"
               color="secondary"
-              required
+              // required
               error={locationError && searchValue.trim() === ''}
               helperText={locationError && searchValue.trim() === '' ? "This field is required" : ""}
               InputProps={{
@@ -783,7 +778,7 @@ const SearchBar = ({ isJobSearchPage }) => {
               variant="standard"
               label="Search-experience"
               color="secondary"
-              required
+              // required
               error={experienceError && experienceValue.trim() === ''}
               helperText={experienceError && experienceValue.trim() === '' ? "This field is required" : ""}
               InputProps={{
@@ -832,6 +827,8 @@ const SearchBar = ({ isJobSearchPage }) => {
           ))}
         </div>
       </Popover>
+      <ToastContainer />
+
 
     </div>
     {/* <Companylist /> */}

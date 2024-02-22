@@ -21,6 +21,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import axios from 'axios';
 import UserFormData from '../Json/UserForm.json';
+import PhoneInput from "react-phone-input-2";
+
+
 
 // Container styling
 const FormContainer = styled(Container)({
@@ -241,61 +244,132 @@ const UserForm = () => {
         }
     });
     // Handle changes in user details fields
-    const handleUserDetailsChange = (event) => {
-        // Clear previous error messages
-        setErrors({
-            ...errors,
-            [event.target.name]: '',
-        });
+    // const handleUserDetailsChange = (event) => {
+    //     // Clear previous error messages
+    //     setErrors({
+    //         ...errors,
+    //         [event.target.name]: '',
+    //     });
 
-        // Update userDetails only if validation passes
-        let updatedUserDetails = { ...userDetails };
+    //     // Update userDetails only if validation passes
+    //     let updatedUserDetails = { ...userDetails };
 
-        // Add validation logic for first_name and last_name
-        if (event.target.name === 'first_name' || event.target.name === 'last_name') {
-            if (/[^A-Za-z]/.test(event.target.value)) {
-                // Invalid input, set error message
-                setErrors({
-                    ...errors,
-                    [event.target.name]: 'Only alphabets allowed for first name and last name',
-                });
-                return;
+    //     // Add validation logic for first_name and last_name
+    //     if (event.target.name === 'first_name' || event.target.name === 'last_name') {
+    //         if (/[^A-Za-z]/.test(event.target.value)) {
+    //             // Invalid input, set error message
+    //             setErrors({
+    //                 ...errors,
+    //                 [event.target.name]: 'Only alphabets allowed for first name and last name',
+    //             });
+    //             return;
+    //         }
+    //     }
+
+    //     // Add validation logic for date_of_birth (allow only numbers)
+    //     if (event.target.name === 'date_of_birth') {
+    //         if (/[^0-9/]/.test(event.target.value)) {
+    //             // Invalid input, set error message
+    //             setErrors({
+    //                 ...errors,
+    //                 [event.target.name]: 'Only numbers and / allowed for date of birth',
+    //             });
+    //             return;
+    //         }
+    //     }
+
+    //     // Add validation logic for mobile_number (allow only numbers)
+
+    //     if (event.target.name === 'mobile_number') {
+    //         // Adjusted regular expression to allow country code prefix
+    //         if (/^\+?\d+$/.test(event.target.value)) {
+    //             // Valid input, clear error message
+    //             setErrors({
+    //                 ...errors,
+    //                 [event.target.name]: '',
+    //             });
+    //         } else {
+    //             // Invalid input, set error message
+    //             setErrors({
+    //                 ...errors,
+    //                 [event.target.name]: 'Invalid mobile number format',
+    //             });
+    //         }
+    //     }
+
+
+    //     // Update userDetails only if validation passes
+    //     updatedUserDetails = {
+    //         ...updatedUserDetails,
+    //         [event.target.name]: event.target.value,
+    //     };
+
+    //     setUserDetails(updatedUserDetails);
+    // };
+    // handle user detail change for phone input
+     const defaultCountry = "IN";
+     const handleUserDetailsChange = (event) => {
+        // Extract value from the event if available
+        const value = event.target?.value || '';
+    
+        // Check if the event object or its target property is defined
+        if (event && event.target && event.target.name) {
+            // Clear previous error messages
+            setErrors({
+                ...errors,
+                [event.target.name]: '',
+            });
+    
+            // Update userDetails only if validation passes
+            let updatedUserDetails = { ...userDetails };
+    
+            // Add validation logic for first_name and last_name
+            if (event.target.name === 'first_name' || event.target.name === 'last_name') {
+                if (/[^A-Za-z]/.test(value)) {
+                    // Invalid input, set error message
+                    setErrors({
+                        ...errors,
+                        [event.target.name]: 'Only alphabets allowed for first name and last name',
+                    });
+                    return;
+                }
             }
-        }
-
-        // Add validation logic for date_of_birth (allow only numbers)
-        if (event.target.name === 'date_of_birth') {
-            if (/[^0-9/]/.test(event.target.value)) {
-                // Invalid input, set error message
-                setErrors({
-                    ...errors,
-                    [event.target.name]: 'Only numbers and / allowed for date of birth',
-                });
-                return;
+    
+            // Add validation logic for date_of_birth (allow only numbers)
+            if (event.target.name === 'date_of_birth') {
+                if (/[^0-9/]/.test(value)) {
+                    // Invalid input, set error message
+                    setErrors({
+                        ...errors,
+                        [event.target.name]: 'Only numbers and / allowed for date of birth',
+                    });
+                    return;
+                }
             }
-        }
-
-        // Add validation logic for mobile_number (allow only numbers)
-        if (event.target.name === 'mobile_number') {
-            if (/[^0-9]/.test(event.target.value)) {
-                // Invalid input, set error message
-                setErrors({
-                    ...errors,
-                    [event.target.name]: 'Only numbers allowed for mobile number',
-                });
-                return;
+    
+            // Add validation logic for mobile_number
+            if (event.target.name === 'mobile_number') {
+                // Validate the phone number
+                if (!PhoneInput.isValidPhoneNumber(value)) {
+                    // Invalid input, set error message
+                    setErrors({
+                        ...errors,
+                        [event.target.name]: 'Invalid mobile number format',
+                    });
+                    return;
+                }
             }
+    
+            // Update userDetails only if validation passes
+            updatedUserDetails = {
+                ...updatedUserDetails,
+                [event.target.name]: value,
+            };
+    
+            setUserDetails(updatedUserDetails);
         }
-
-        // Update userDetails only if validation passes
-        updatedUserDetails = {
-            ...updatedUserDetails,
-            [event.target.name]: event.target.value,
-        };
-
-        setUserDetails(updatedUserDetails);
     };
-
+    
     // Handle changes in address fields
     const handleAddressChange = (type, event) => {
         // Clear previous errors for the specific address type
@@ -306,10 +380,10 @@ const UserForm = () => {
                 [event.target.name]: '',
             },
         });
-    
+
         let updatedAddressDetails = { ...address };
-        if (event.target.name === 'street' || event.target.name === 'city' || event.target.name === 'country' || 
-        event.target.name === 'state') {
+        if (event.target.name === 'street' || event.target.name === 'city' || event.target.name === 'country' ||
+            event.target.name === 'state') {
             if (/[^A-Za-z\s]/.test(event.target.value)) {
                 setErrors({
                     ...errors,
@@ -332,7 +406,7 @@ const UserForm = () => {
                 return;
             }
         }
-    
+
         updatedAddressDetails = {
             ...updatedAddressDetails,
             [type]: {
@@ -340,12 +414,12 @@ const UserForm = () => {
                 [event.target.name]: event.target.value,
             },
         };
-    
+
         setAddress(updatedAddressDetails);
     };
-    
+
     // Handle changes in education fields
-     const handleEducationChange = (event) => {
+    const handleEducationChange = (event) => {
         setErrors({
             ...errors,
             [event.target.name]: '',
@@ -371,7 +445,7 @@ const UserForm = () => {
             event.target.name === 'sslc_percentage' || event.target.name === 'hsc_percentage' || event.target.name === 'college_percentage' ||
             event.target.name === 'pg_college_percentage' || event.target.name === 'diploma_college_percentage' || event.target.name === 'college_start_year'
             || event.target.name === 'college_end_year' || event.target.name === 'pg_college_start_year' || event.target.name === 'pg_college_end_year'
-            || event.target.name === 'diploma_college_start_year'|| event.target.name === 'diploma_college_end_year') {
+            || event.target.name === 'diploma_college_start_year' || event.target.name === 'diploma_college_end_year') {
             if (/[^0-9]/.test(event.target.value)) {
                 // Invalid input, set error message
                 setErrors({
@@ -468,115 +542,6 @@ const UserForm = () => {
         setjobPreferenceExpanded(!jobPreferenceExpanded);
     };
 
-    // Handle form submission
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-
-    //     // Address type determination
-    //     let addressType;
-
-    //     if (address.permanent.street && address.current.street) {
-    //         addressType = 'Both';
-    //     } else if (address.permanent.street) {
-    //         addressType = 'Permanent';
-    //     } else if (address.current.street) {
-    //         addressType = 'Current';
-    //     } else {
-    //         console.log('Please fill at least one address type');
-    //         return;
-    //     }
-
-    //     // Consolidated log statement for all data
-    //     console.log({
-    //         userDetails: {
-    //     ...userDetails,
-    //     profile_picture: userDetails.profile_picture ? 'Uploaded' : 'Not uploaded',
-    // },
-    //         address: {
-    //           type: addressType,
-    //           permanent: {
-    //             ...address.permanent,
-    //             address_type: 'Permanent',
-    //           },
-    //           current: {
-    //             ...address.current,
-    //             address_type: 'Current',
-    //           },
-    //         },
-    //         education: education,
-    //         professionalDetails: experienceOption === 'experienced' ? professionalDetails : 'Fresher',
-    //         resume: resume ? 'Uploaded' : 'Not uploaded',
-    //         jobPreference: jobPreference,
-    //       });
-
-    //     // Resetting states
-    //     event.target.reset();
-    //     setUserDetails({
-    //         first_name: '',
-    //         last_name: '',
-    //         date_of_birth: '',
-    //         mobile_number: '',
-    //         gender: '',
-    //     });
-    //     setAddress({
-    //         current: {
-    //             street: '',
-    //             city: '',
-    //             pincode: '',
-    //             state: '',
-    //             country: '',
-    //         },
-    //         permanent: {
-    //             street: '',
-    //             city: '',
-    //             pincode: '',
-    //             state: '',
-    //             country: '',
-    //         },
-    //     });
-    //     setEducation({
-    //         sslc_school_name: '',
-    //         sslc_start_date: '',
-    //         sslc_end_date: '',
-    //         sslc_percentage: '',
-    //         hsc_school_name: '',
-    //         hsc_start_date: '',
-    //         hsc_end_date: '',
-    //         hsc_percentage: '',
-    //         college_name: '',
-    //         college_start_date: '',
-    //         college_end_date: '',
-    //         college_percentage: '',
-    //         department: '',
-    //         degree: '',
-    //     });
-    //     setProfessionalDetails({
-    //         isExperienced: true,
-    //         numberOfCompanies: '',
-    //         companies: [{ company_name: '', position: '', startDate: '', endDate: '' }],
-    //     });
-    //     setExperienceOption('');
-    //     setResume(null);
-    //     setJobPreference({
-    //         key_skills: '',
-    //         industry: '',
-    //         department: '',
-    //         prefered_locations: '',
-    //     });
-    //     setProfilePicture(null);
-    //     // Reset resume state
-    //     setResume(null);
-
-    //     // Collapse accordion sections
-    //     setUserDetailsExpanded(false);
-    //     setAddressExpanded(false);
-    //     setEducationExpanded(false);
-    //     setProfessionalDetailsExpanded(false);
-    //     setResumeExpanded(false);
-    //     setjobPreferenceExpanded(false)
-    // };
-
-
 
 
 
@@ -640,70 +605,70 @@ const UserForm = () => {
             console.log('API Response:', response.data);
 
             // Resetting states
-            event.target.reset();
-            setUserDetails({
-                first_name: '',
-                last_name: '',
-                date_of_birth: '',
-                mobile_number: '',
-                gender: '',
-            });
-            setAddress({
-                current: {
-                    street: '',
-                    city: '',
-                    pincode: '',
-                    state: '',
-                    country: '',
-                },
-                permanent: {
-                    street: '',
-                    city: '',
-                    pincode: '',
-                    state: '',
-                    country: '',
-                },
-            });
-            setEducation({
-                sslc_school_name: '',
-                sslc_start_year: '',
-                sslc_end_year: '',
-                sslc_percentage: '',
-                hsc_school_name: '',
-                hsc_start_year: '',
-                hsc_end_year: '',
-                hsc_percentage: '',
-                college_name: '',
-                college_start_year: '',
-                college_end_year: '',
-                college_percentage: '',
-                department: '',
-                degree: '',
-            });
-            setProfessionalDetails({
-                isExperienced: true,
-                numberOfCompanies: '',
-                companies: [{ company_name: '', position: '', startDate: '', endDate: '' }],
-            });
-            setExperienceOption('');
-            setResume(null);
-            setJobPreference({
-                key_skills: '',
-                industry: '',
-                department: '',
-                prefered_locations: '',
-            });
-            setProfilePicture(null);
-            // Reset resume state
-            setResume(null);
+            // event.target.reset();
+            // setUserDetails({
+            //     first_name: '',
+            //     last_name: '',
+            //     date_of_birth: '',
+            //     mobile_number: '',
+            //     gender: '',
+            // });
+            // setAddress({
+            //     current: {
+            //         street: '',
+            //         city: '',
+            //         pincode: '',
+            //         state: '',
+            //         country: '',
+            //     },
+            //     permanent: {
+            //         street: '',
+            //         city: '',
+            //         pincode: '',
+            //         state: '',
+            //         country: '',
+            //     },
+            // });
+            // setEducation({
+            //     sslc_school_name: '',
+            //     sslc_start_year: '',
+            //     sslc_end_year: '',
+            //     sslc_percentage: '',
+            //     hsc_school_name: '',
+            //     hsc_start_year: '',
+            //     hsc_end_year: '',
+            //     hsc_percentage: '',
+            //     college_name: '',
+            //     college_start_year: '',
+            //     college_end_year: '',
+            //     college_percentage: '',
+            //     department: '',
+            //     degree: '',
+            // });
+            // setProfessionalDetails({
+            //     isExperienced: true,
+            //     numberOfCompanies: '',
+            //     companies: [{ company_name: '', position: '', startDate: '', endDate: '' }],
+            // });
+            // setExperienceOption('');
+            // setResume(null);
+            // setJobPreference({
+            //     key_skills: '',
+            //     industry: '',
+            //     department: '',
+            //     prefered_locations: '',
+            // });
+            // setProfilePicture(null);
+            // // Reset resume state
+            // setResume(null);
 
             // Collapse accordion sections
-            setUserDetailsExpanded(false);
-            setAddressExpanded(false);
-            setEducationExpanded(false);
-            setProfessionalDetailsExpanded(false);
-            setResumeExpanded(false);
-            setjobPreferenceExpanded(false);
+            setUserDetailsExpanded(true);
+            setAddressExpanded(true);
+            setEducationExpanded(true);
+            setProfessionalDetailsExpanded(true);
+            setResumeExpanded(true);
+            setjobPreferenceExpanded(true);
 
         } catch (error) {
             console.error('API Error:', error);
@@ -724,7 +689,7 @@ const UserForm = () => {
     };
     const formRef = useRef(null);
     return (
-        <FormContainer style={{marginTop:'60px'}}>
+        <FormContainer style={{ marginTop: '60px' }}>
             <Typography variant="h4" align="center" gutterBottom>
                 {UserFormData[language].UserDetail.one}
             </Typography>
@@ -784,7 +749,7 @@ const UserForm = () => {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 {/* Second Column */}
-                                <TextField
+                                {/* <TextField
                                     label={UserFormData[language].UserDetail.eight}
                                     name="mobile_number"
                                     value={userDetails.mobile_number}
@@ -796,6 +761,20 @@ const UserForm = () => {
                                     helperText={errors.mobile_number}
 
 
+                                /> */}
+                                <PhoneInput style={{marginTop:'8px', marginBottom:'15px'}}
+                                    placeholder="Enter phone number"
+                                    value={userDetails.mobile_number}
+                                    onChange={handleUserDetailsChange}
+                                    defaultCountry={defaultCountry}
+                                    error={Boolean(errors.mobile_number)}
+                                    inputStyle={{ width: '100%' ,height:'53px'}}
+                                    inputProps={{
+                                        name: 'mobile_number',
+                                        required: true,
+                                        autoFocus: true,
+                                    }}
+                                    helperText={errors.mobile_number}
                                 />
                                 <Select
                                     label="gender"
