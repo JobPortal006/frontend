@@ -1,15 +1,10 @@
 import "./App.css";
 import Navbar from "./components/NavBar/Navbar.js";
 import "bootstrap/dist/css/bootstrap.min.css";
-// import LogIn from "./components/UserManagement/Login.jsx";
+import LogIn from "./components/UserManagement/Login.jsx";
 import SignUp1 from "./components/UserManagement/Signup1.jsx";
 import {useState} from  'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  BrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, BrowserRouter} from "react-router-dom";
 import Home from "./components/HomePage/home.jsx";
 import CreateAccount from "./components/UserManagement/CreateAccount.jsx";
 import OTPlogin from "./components/UserManagement/OTPlogin.jsx";
@@ -21,7 +16,6 @@ import MyJob from "./components/sprint 2/MyJob.jsx";
 import EditMyJob from "./components/sprint 2/EditMyJob.jsx";
 import FilteredResults from "./components/sprint 2/FilteredResults.jsx";
 import JobDetails from "./components/sprint 2/jobdiscriptions.js";
-// <Route path="/login" element={<LogIn />} />
 import UserContext from "./components/sprint 2/contextFilter.jsx";
 
 function App() {
@@ -36,7 +30,7 @@ function App() {
       
         <Routes>
           <Route index path="/home" element={<Home />} />
-          
+          <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp1 />} />
           <Route path="/CreateAccount" element={<CreateAccount />} />
           <Route path="/OTPlogin" element={<OTPlogin />} />
