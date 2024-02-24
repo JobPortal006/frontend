@@ -2,8 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: yellow;
+    background: linear-gradient(to right top, #d16ba5, #c57bbd, #b58ad0, #a499dd, #94a6e4, #90a8ed, #8aaaf5, #84acfe, #95a2ff, #b293ff, #d67eff, #fb5ffb); /* Dark blue to light blue */
+
     margin: 0;
+  }
+
+  h2 {
+    color: white;
   }
 
   .job-filter h1{
@@ -87,9 +92,34 @@
   
   .filter-btn{
     margin-bottom: 1rem;
+    margin-left: 1rem;
   }
   
   
   
+  .scroll::-webkit-scrollbar {
+    width: 8px; /* Set the width of the scrollbar */
+    
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background-color: rgb(226, 155, 0); /* Set the color of the thumb */
+   /* Adjust the height of the thumb */
+   border-radius: 10%;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background-color: transparent; /* Set the color of the track */
+  height: 70px; /* Adjust the height of the track */
+}
+
+  .scroll {
+    /* scrollbar-width: none; 
+    -ms-overflow-style: none;  */
   
+  }
+  
+  .scroll{
+    border: #333 1px solid;
+  }
   

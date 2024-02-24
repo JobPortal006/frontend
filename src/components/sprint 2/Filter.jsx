@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {Checkbox, FormControlLabel, FormGroup, IconButton, Grid, Radio, RadioGroup} from "@mui/material";
 import { Box, List, ListItemButton, ListItemText, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import "../sprint 2/filter.css";
 import FilteredResults from "./FilteredResults";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../sprint 2/FilterPage.css";
+import { Navigate } from "react-router-dom";
+import UserContext from "./contextFilter";
 
 const Filter = () => {
   const [showAll, setShowAll] = useState(false);
   const [Show, setShow] = useState(false);
-// const navigate = useNavigate();
+const navigate = useNavigate();
 
   const experienceOptions = [
     "0-1 year",
@@ -165,13 +166,18 @@ const Filter = () => {
   };
 
   // Job Filter
+  const [component,setComponent] = useState(false);
 
   const [filteredData, setFilteredData] = useState([]);
 
   console.log(filteredData, "Filtered Data ==>");
 
+  const {oneData,setData} = useContext(UserContext);
+console.log(oneData, "010101010110");
+
   const ApplyFilters = async () => {
-    const filtered = {  location: locations.filter((location) => location.selected).map((location) => location.location),
+    const filtered = {  
+      location: locations.filter((location) => location.selected).map((location) => location.location),
       employee_type: selectedEmploymentType,
       job_role: jobRoles.filter((role) => role.selected).map((role) => role.role),
       salary_range: selectedSalaryType,
@@ -190,22 +196,27 @@ const Filter = () => {
           body: JSON.stringify(filtered),
         }
       );
+      const FilterData = await response.json();
+      console.log(FilterData,"<====filter-Response");
+      setData(FilterData)
       if (!response.ok) {
         throw new Error("Failed to post data to backend");
       } else {
-        
+        setComponent(true)
       }
       console.log("Data successfully posted to backend");
     } catch (error) {
       console.error("Error posting data to backend:", error.message);
     }
-    // Navigate to filtered results page
-  };
+
+  }; 
+
+
 
   return (
     <Grid container>
       <Grid item xs={4} sm={4} md={4} xl={4}>
-        <div className="job-filter" style={{ width: "70%" }}>
+        <div className="job-filter" style={{ width: "100%" }}>
           <div className="title">
             <h1>Filter</h1>
             <div className="job-experience">
@@ -246,7 +257,7 @@ const Filter = () => {
           </div>
           <div className="job-location">
             <h3>Locations</h3>
-            <Box sx={{ width: "100%", height: 300, overflow: "auto" }}>
+            <Box className="scroll"  sx={{ width: "100%", height: 300, overflow: "auto" }}>
               <List>
                 {locations.map((location, index) => (
                   <ListItemButton
@@ -286,7 +297,7 @@ const Filter = () => {
 
           <div className="job-roles">
             <h3>Job Roles</h3>
-            <Box sx={{ width: "100%", height: 300, overflow: "auto" }}>
+            <Box className="scroll" sx={{ width: "140%", height: 300, overflow: "auto" }}>
               <List>
                 {jobRoles.map((role, index) => (
                   <ListItemButton
@@ -335,9 +346,7 @@ const Filter = () => {
         </div>
       </Grid>
       <Grid item xs={8} sm={8} md={8} xl={8}>
-      <div className="filter-result">
-        <FilteredResults />
-        </div>
+       {component && <FilteredResults two={oneData} />}
       </Grid>
     </Grid>
   );

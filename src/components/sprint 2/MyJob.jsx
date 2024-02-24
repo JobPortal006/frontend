@@ -1,192 +1,12 @@
-// import React, { useState, useEffect } from "react";
-// import "./myJob.css";
-// import { Grid, IconButton } from "@mui/material";
-// import MoreVertIcon from "@mui/icons-material/MoreVert";
-// import { useLocation } from "react-router-dom";
-// import Menu from "@mui/material/Menu";
-// import MenuItem from "@mui/material/MenuItem";
-
-// function MyJob() {
-//   const [jobView, setJobView] = useState([]);
-//   const [employee_id, setEmployeeId] = useState("");
-//   console.log(employee_id, "ididididid");
-
-
-//   // Edit and Delete
-//   const [anchorEl, setAnchorEl] = React.useState(null);
-//   const open = Boolean(anchorEl);
-//   const handleClick = (event) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-//   const handleClose = () => {
-//     setAnchorEl(null);
-//   };
-
-// // Fetching Job Details
-//   useEffect(() => {
-//     async function fetchJobs() {
-//       try {
-//         const response = await fetch(
-//           "http://192.168.1.38:8000/employer_post_jobs_view/"
-//         );
-//         if (!response.ok) {
-//           throw new Error("Failed to fetch jobs");
-//         }
-//         const data = await response.json();
-//         console.log(data, "====================");
-//         if (data && Array.isArray(data.data) && Array.isArray(data.data[0])) {
-//           setJobView(data.data[0]);
-//         } else {
-//           console.error("Invalid data format received from API");
-//         }
-//       } catch (error) {
-//         console.error("Error fetching jobs:", error);
-//       }
-//     }
-//     fetchJobs();
-//   }, []);
-
-//   console.log(jobView, "jobView");
-
-//   // Location  Coordinates 
-//   const location = useLocation();
-
-//   // POST data 
-//   useEffect(() => {
-//     if (location.state && location.state.id) {
-//       const id = location.state.id;
-//       setEmployeeId(id);
-
-//       async function postID() {
-//         try {
-//           const response = await fetch(
-//             "http://192.168.1.38:8000/employer_post_jobs/",
-//             {
-//               method: "POST",
-//               headers: {
-//                 "Content-Type": "application/json",
-//               },
-//               body: JSON.stringify({ employee_id: id }),
-//             }
-//           );
-//           if (!response.ok) {
-//             throw new Error("Failed to post id data to API");
-//           }
-//           console.log("ID data posted successfully:", id);
-//         } catch (error) {
-//           console.error("Error posting id data to API:", error);
-//         }
-//       }
-//       postID();
-//     }
-//   }, [location.state]);
-
-
-//   const handleDelete = (indexToDelete) => {
-//     setAnchorEl(null);
-//     if (indexToDelete !== undefined) {
-//       setJobView((prevJobView) => {
-//         return prevJobView.filter((_, index) => index !== indexToDelete);
-//       });
-//     }
-//   };
-
-//   return (
-//     <div>
-//       {location.state.id}
-//       <h1>My Job</h1>
-
-//       <Grid
-//         container
-//         alignItems="center"
-//         justifyContent="space-between"
-//         className="job-container"
-//       >
-//         <Grid item xs={3}>
-//           <div>
-//             <h1 className="title">Title</h1>
-//           </div>
-//         </Grid>
-//         <Grid item xs={3}>
-//           <div>
-//             <h3 className="location">Location</h3>
-//           </div>
-//         </Grid>
-//         <Grid item xs={3}>
-//           <div>
-//             <h3 className="date">Date</h3>
-//           </div>
-//         </Grid>
-//         <Grid item xs={3}>
-//         </Grid>
-//       </Grid>
-
-//       {jobView.map((job, index) => (
-//         <Grid
-//           key={index}
-//           container
-//           alignItems="center"
-//           justifyContent="space-between"
-//           className="job-container"
-//         >
-//           <Grid item xs={3}>
-//             <div>
-//               <h1 className="title">{job.job_title}</h1>
-//             </div>
-//           </Grid>
-//           <Grid item xs={3}>
-//             <div>
-//               <h3 className="location">{job.location}</h3>
-//             </div>
-//           </Grid>
-//           <Grid item xs={3}>
-//             <div>
-//               <h3 className="date">{job.created_at}</h3>
-//             </div>
-//           </Grid>
-//           <Grid item xs={3}>
-//           <IconButton
-//         id="icon-button"
-//         aria-controls={open ? 'icon-menu' : undefined}
-//         aria-haspopup="true"
-//         aria-expanded={open ? 'true' : undefined}
-//         onClick={handleClick}
-//       >
-//         <MoreVertIcon />
-//       </IconButton>
-      
-//       <Menu
-//       id="icon-menu"
-//       anchorEl={anchorEl}
-//       open={open}
-//       onClose={handleClose}
-//       MenuListProps={{
-//         'aria-labelledby': 'icon-button',
-//       }}
-//     >
-//       <MenuItem  >Edit</MenuItem>
-//       <MenuItem  onClick={() => handleDelete(index)}>Delete</MenuItem>
-//     </Menu>
-
-//           </Grid>
-//         </Grid>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default MyJob;
-
-
-
 import React, { useState, useEffect } from "react";
 import "./myJob.css";
-import { Grid, IconButton } from "@mui/material";
+import { Grid, IconButton, CircularProgress  } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useLocation } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useNavigate } from "react-router-dom";
+import LinearProgress from '@mui/material/LinearProgress';
 
 
 
@@ -194,73 +14,60 @@ function MyJob() {
   const [jobView, setJobView] = useState([]);
   const [employee_id, setEmployeeId] = useState("");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [pageLoaded, setPageLoaded] = useState(false); // State to track page load
+  const [loading, setLoading] = useState(true); // State to track loading status
   const [update, setUpdate] = useState("");
 
   // console.log(employee_id,"employee_id");
   console.log(jobView,"jobView");
-
-  
-
-  useEffect(() => {
-    async function fetchJobs() {
-      try {
-        const response = await fetch(
-          "http://192.168.1.39:8000/employer_post_jobs/"
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch jobs");
-        }
-        const data = await response.json();
-        console.log(data, "====================");
-        if (data && Array.isArray(data.data) && Array.isArray(data.data[0])) {
-          setJobView(data.data[0]);
-        } else {
-          console.error("Invalid data format received from API");
-        }
-
-      } catch (error) {
-        console.error("Error fetching jobs:", error);
-      }
-    }
-    fetchJobs();
-  }, []);
+  console.log(employee_id, "<===id");
 
   const location = useLocation();
 
-  // useEffect(() => {
-
-      // Auto reload one time when the page is first loaded
-      
-  //   if (location.state && location.state.id) {
-  //     const id = location.state.id;
-  //     setEmployeeId(id);
-  //     async function postID() {
-  //       try {
-  //         const response = await fetch(
-  //           "http://192.168.1.39:8000/employer_post_jobs/",
-  //           {
-  //             method: "POST",
-  //             headers: {
-  //               "Content-Type": "application/json",
-  //             },
-  //             body: JSON.stringify({ employee_id: id }),
-  //           }
-  //         );
-  //         if (!response.ok) {
-  //           throw new Error("Failed to post id data to API");
+  useEffect(() => {
+    
+    // Passing id and Fetching Data
+    if (location.state && location.state.id) {
+      const id = location.state.id; // id post
+      setEmployeeId(id);
+      async function postID() {
+        try {
+          const response = await fetch(
+            "http://192.168.1.39:8000/employer_post_jobs/",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ employee_id: id }),
+            }
+          );
+          if (!response.ok) {
+            throw new Error("Failed to post id data to API");
             
-  //         }
-  //         console.log("ID data posted successfully:", id);
+          }
+
+          const data = await response.json();
+          console.log(data, "====================");
+
+          // fetching data
+
+          if (data && Array.isArray(data.data) && Array.isArray(data.data[0])) {
+            setJobView(data.data[0]);
+            setLoading(false); // Set loading to false once data is fetched
+
+          } else {
+            console.error("Invalid data format received from API");
+          }
+          console.log("ID data posted successfully:", id);
           
-  //       } catch (error) {
-  //         console.error("Error posting id data to API:", error);
-  //         // window.location.reload();
-  //       }
-  //     }
-  //     postID();
-  //   }
-  // }, [location.state]);
+        } catch (error) {
+          console.error("Error posting id data to API:", error);
+          // window.location.reload();
+        }
+      }
+      postID();
+    }
+  }, [location.state]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -317,85 +124,95 @@ function MyJob() {
 // }, [location.state]);
   
 
-  return (
-    <div>
-      <h1>My Job</h1>
-
-      <Grid
-        container
-        alignItems="center"
-        justifyContent="space-between"
-        className="job-container"
-      >
-        <Grid item xs={3}>
-          <div>
-            <h1 className="title">Title</h1>
-          </div>
-        </Grid>
-        <Grid item xs={3}>
-          <div>
-            <h3 className="location">Location</h3>
-          </div>
-        </Grid>
-        <Grid item xs={3}>
-          <div>
-            <h3 className="date">Date</h3>
-          </div>
-        </Grid>
-        <Grid item xs={3}></Grid>
-      </Grid>
-
-      {jobView.map((job, index) => (
+ return (
+  <div className="main-div">
+    {loading ? (
+      // Display loading indicator while data is being fetched
+      <div className="loading">
+        <h2>
+        <LinearProgress  />
+                  Loading
+        </h2>
+      </div>
+    ) : (
+      <div className="info-container">
+        <h1>My Job</h1>
         <Grid
-          key={index}
           container
           alignItems="center"
           justifyContent="space-between"
           className="job-container"
         >
-          <Grid item xs={3}>
+          <Grid item xs={3} className="grid-one">
             <div>
-              <h1 className="title">{job.job_title}</h1>
+              <h1 className="title">Title</h1>
             </div>
           </Grid>
           <Grid item xs={3}>
             <div>
-              <h3 className="location">{job.location}</h3>
+              <h3 className="location">Location</h3>
             </div>
           </Grid>
           <Grid item xs={3}>
             <div>
-              <h3 className="date">{job.created_at}</h3>
+              <h3 className="date">Date</h3>
             </div>
           </Grid>
-          <Grid item xs={3}>
-            <IconButton
-              id="icon-button"
-              aria-controls={anchorEl ? "icon-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={anchorEl ? "true" : undefined}
-              onClick={handleClick}
-            >
-              <MoreVertIcon />
-            </IconButton>
-
-            <Menu
-              id="icon-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={() => handleClose(index)}
-              MenuListProps={{
-                "aria-labelledby": "icon-button",
-              }}
-            >
-              <MenuItem  onClick={() => changeDirect(job)}>Edit</MenuItem>
-              <MenuItem onClick={() => handleClose(index)}>Delete</MenuItem>
-            </Menu>
-          </Grid>
+          <Grid item xs={3}></Grid>
         </Grid>
-      ))}
-    </div>
-  );
+
+        {/* Render job view once data is loaded */}
+        {jobView.map((job, index) => (
+          <Grid
+            key={index}
+            container
+            alignItems="center"
+            justifyContent="space-between"
+            className="job-display"
+          >
+            <Grid item xs={3} className="job-elements">
+              <div>
+                <h1 className="title">{job.job_title}</h1>
+              </div>
+            </Grid>
+            <Grid item xs={3}>
+              <div>
+                <h3 className="location">{job.location}</h3>
+              </div>
+            </Grid>
+            <Grid item xs={3}>
+              <div>
+                <h3 className="date">{job.created_at}</h3>
+              </div>
+            </Grid>
+            <Grid item xs={3} className="edit-btn">
+              <IconButton
+                id="icon-button"
+                aria-controls={anchorEl ? 'icon-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={anchorEl ? 'true' : undefined}
+                onClick={handleClick}
+              >
+                <MoreVertIcon />
+              </IconButton>
+
+              <Menu
+                id="icon-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={() => handleClose(index)}
+                MenuListProps={{ 'aria-labelledby': 'icon-button' }}
+              >
+                <MenuItem onClick={() => changeDirect(job)}>Edit</MenuItem>
+                <MenuItem onClick={() => handleClose(index)}>Delete</MenuItem>
+              </Menu>
+            </Grid>
+          </Grid>
+        ))}
+      </div>
+    )}
+  </div>
+);
 }
 
 export default MyJob;

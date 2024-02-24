@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -78,6 +78,7 @@ const PostJob = () => {
   const [jobPost, setJobPost] = useState({
     company_name: "",
     job_title: "",
+    email:"",
     job_description: "",
     employee_type: "",
     job_role: "",
@@ -89,6 +90,7 @@ const PostJob = () => {
     no_of_vacancies: "",
   });
 
+  const [jobEmail, setJobEmail] = useState("");
   const [employment, setEmployment] = useState("");
   const [jobRole, setJobRole] = useState("");
   const [skills, setSkills] = useState([]);
@@ -99,6 +101,7 @@ const PostJob = () => {
   const [errors, setErrors] = useState({
     company_name: false,
     job_title: false,
+    email: false,
     job_description: false,
     employee_type: false,
     job_role: false,
@@ -132,6 +135,9 @@ const PostJob = () => {
     } else if (name === "employee_type") {
       setEmployment(updatedValue);
       setErrors({ ...errors, employee_type: !updatedValue }); 
+    } else if (name === "email") {
+      setJobEmail(updatedValue);
+      setErrors({ ...errors, email: !updatedValue }); 
     } else if (name === "job_role") {
       setJobRole(updatedValue);
       setErrors({ ...errors, job_role: !updatedValue }); 
@@ -166,6 +172,7 @@ const PostJob = () => {
     Object.values(errors).some((error) => error) ||
     !employment === null ||
     !jobRole ||
+    !jobEmail ||
     !experience ||
     !salary ||
     skills.length === 0 || null;
@@ -180,6 +187,7 @@ const PostJob = () => {
   
       const jobPostData = {
         ...jobPost,
+        email : jobEmail,
         experience : experience,
         employee_type: employment,
         job_role: jobRole,
@@ -218,6 +226,39 @@ const PostJob = () => {
     
   };
 
+  // company name fetch
+
+  const [companyNameList, setCompanyName] = useState([])
+
+  console.log(companyNameList,"<==company anme list");
+
+  
+
+  useEffect(() => {
+    const Companies = async () => {
+      try {
+        const response = await fetch("http://192.168.1.39:8000/company_name/");
+        if (!response.ok) {
+          console.error("Failed to fetch Company Name");
+          return;
+        }else{
+          
+        }
+        const data = await response.json();
+        console.log(data, "<====company name====>");
+        const companyNames = data.map((company) => company.company_name); // Extract company names
+
+        setCompanyName(companyNames);
+      } catch (error) {
+        console.error("Error fetching Company Name:", error.message);
+      }
+    };
+
+    Companies();
+  }, []);
+
+
+
 
 
   return (
@@ -243,19 +284,28 @@ const PostJob = () => {
             <br />
             <label>Company Name*</label>
             <br />
-            <TextField
-              margin="normal"
+            <br />
+            <Autocomplete
+              options={companyNameList}
               fullWidth
-              id="company-name"
-              label="Company Name"
-              name="company_name"
-              required
               value={jobPost.company_name}
-              onChange={(e) => handleChange(e, e.target.value, "company_name")}
-              onBlur={(e) => handleBlur("company_name", e.target.value)}
-              error={errors.company_name}
-              helperText={errors.company_name ? "Company Name is required" : ""}
+              onChange={(event, newValue) =>{
+                setJobPost({ ...jobPost, company_name: newValue });
+                setErrors({ ...errors, company_name: newValue === null });
+              }}
+             
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Company Name"
+                  name="company_name"
+                  error={errors.company_name}
+                  helperText={errors.company_name ? "Company name is required" : ""}
+                  onBlur={(e)=>handleBlur("company_name", e.target.value)}
+                />
+              )}
             />
+
             <br />
             <br />
 
@@ -273,6 +323,25 @@ const PostJob = () => {
               onBlur={(e)=>handleBlur("job_title", e.target.value)}
               error={errors.job_title}
               helperText={errors.job_title ? "Job Title is required" : ""}
+            />
+
+            <br />
+            <br />
+
+            <label>Email*</label>
+            <br />
+
+            <TextField
+              margin="normal"
+              fullWidth
+              id="job-email"
+              label="Email"
+              name="email"
+              value={jobPost.jobEmail}
+              onChange={(e) => handleChange(e, e.target.value, "email")}
+              onBlur={(e)=>handleBlur("email", e.target.value)}
+              error={errors.email}
+              helperText={errors.email ? "Job Email is required" : ""}
             />
 
             <p style={{ marginTop: "1rem" }}>Job Description*</p>

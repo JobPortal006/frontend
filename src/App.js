@@ -3,6 +3,7 @@ import Navbar from "./components/NavBar/Navbar.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 // import LogIn from "./components/UserManagement/Login.jsx";
 import SignUp1 from "./components/UserManagement/Signup1.jsx";
+import {useState} from  'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -19,10 +20,15 @@ import Filter from "./components/sprint 2/Filter.jsx";
 import MyJob from "./components/sprint 2/MyJob.jsx";
 import EditMyJob from "./components/sprint 2/EditMyJob.jsx";
 import FilteredResults from "./components/sprint 2/FilteredResults.jsx";
+import JobDetails from "./components/sprint 2/jobdiscriptions.js";
 // <Route path="/login" element={<LogIn />} />
+import UserContext from "./components/sprint 2/contextFilter.jsx";
 
 function App() {
+  const [oneData, setData] = useState("");
   return (
+    <UserContext.Provider value={{oneData, setData}}>
+
     <div>
       <BrowserRouter>
         <Navbar />
@@ -41,9 +47,12 @@ function App() {
           <Route path="/PostJob" element={<PostJob />} />
           <Route path="/EditMyJob" element={<EditMyJob />} />
           <Route path="/FilteredResults" element={<FilteredResults />} />
+          <Route path="/JobDetails" element={<JobDetails />} />
         </Routes>
       </BrowserRouter>
     </div>
+    </UserContext.Provider>
+
   );
 }
 export default App;
