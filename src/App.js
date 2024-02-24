@@ -18,6 +18,7 @@ import Password from "./components/UserManagement/Password.jsx";
 import JobPostSample from "./components/JobPostSample/JobPostSample.js";
 import JobDetails from "./components/JobPostSample/jobdiscriptions.js";
 import UserProfile from "./components/UserManagement/UserProfile.js";
+import Companydisplay from "./components/HomePage/Companydisplay.jsx";
 
 function App() {
   return (
@@ -36,6 +37,9 @@ function App() {
           <Route path="/JobDetails" element={<JobDetails />} />
 
           <Route path="/UserProfile" element={<UserProfile />}/>
+          <Route path="/Companydisplay" element={<Companydisplay />}/>
+
+
 
         </Routes>
       </BrowserRouter>

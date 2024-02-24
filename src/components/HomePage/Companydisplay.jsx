@@ -1,14 +1,12 @@
 
-
-
 // import React, { useState, useEffect } from "react";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faMapMarkerAlt, faMoneyBillAlt, faUser, faBuilding, faTools } from '@fortawesome/free-solid-svg-icons';
-// import './JobPostSampleStyle.css';
+// import '../JobPostSample/JobPostSampleStyle.css';
 // import SearchBar from "../HomePage/searchBar";
 // import { useNavigate } from 'react-router-dom';
 
-// function JobPostSample(props) {
+// function Companydisplay(props) {
 //     const navigate = useNavigate();
 
 //     const [jobs, setJobs] = useState([]);
@@ -18,7 +16,7 @@
 //         async function fetchJobs() {
 //             try {
 //                 setLoading(true); // Set loading state when fetching jobs starts
-//                 const response = await fetch('http://192.168.1.39:8000/get_view_jobs/');
+//                 const response = await fetch('http://192.168.1.39:8000/job_details_by_companyName_view/');
 //                 if (!response.ok) {
 //                     throw new Error('Failed to fetch jobs');
 //                 }
@@ -124,22 +122,17 @@
 //     );
 // }
 
-// export default JobPostSample;
+// export default Companydisplay;
 
 
 
 
-
-
-
-// ======================================>
-
-
+// ======================================== pages 
 
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faMoneyBillAlt, faUser, faBuilding, faTools } from '@fortawesome/free-solid-svg-icons';
-import './JobPostSampleStyle.css';
+import '../JobPostSample/JobPostSampleStyle.css';
 import SearchBar from "../HomePage/searchBar";
 import { useNavigate } from 'react-router-dom';
 
@@ -155,7 +148,7 @@ function JobPostSample(props) {
         async function fetchJobs() {
             try {
                 setLoading(true);
-                const response = await fetch('http://192.168.1.39:8000/get_view_jobs/');
+                const response = await fetch('http://192.168.1.39:8000/job_details_by_companyName_view/');
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');
                 }
@@ -261,3 +254,4 @@ function JobPostSample(props) {
 }
 
 export default JobPostSample;
+

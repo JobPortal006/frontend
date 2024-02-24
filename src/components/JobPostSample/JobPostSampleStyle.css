@@ -65,12 +65,13 @@
 }
 /* CSS for the image */
 .company-logo img {
-  width: 100px; 
-  height: auto; 
-  border-radius: 50%;
+  width: 25px; 
+  height: 25px; /* Set the height to match the width for a circular shape */
+  border-radius: 25%; /* Use 50% to create a circle */
   border: 2px solid #fff; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
+
 
 
 .company-logo img:hover {
