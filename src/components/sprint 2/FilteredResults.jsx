@@ -7,9 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { Grid } from "@mui/material";
 
 function FilteredResults(two) {
+  
     const navigate = useNavigate();
-
-    const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [jobsPerPage] = useState(5);
@@ -96,7 +95,7 @@ function FilteredResults(two) {
                     ))}
                     <div className="pagination">
                         <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>Previous</button>
-                        <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastJob >= jobs.length}>Next</button>
+                        <button onClick={() => paginate(currentPage + 1)} disabled={indexOfLastJob >= currentJobs.length}>Next</button>
                     </div>
                 </div>
             )}

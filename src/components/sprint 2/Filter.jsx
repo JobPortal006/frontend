@@ -4,15 +4,13 @@ import { Box, List, ListItemButton, ListItemText, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import FilteredResults from "./FilteredResults";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "../sprint 2/FilterPage.css";
-import { Navigate } from "react-router-dom";
 import UserContext from "./contextFilter";
 
 const Filter = () => {
   const [showAll, setShowAll] = useState(false);
   const [Show, setShow] = useState(false);
-const navigate = useNavigate();
 
   const experienceOptions = [
     "0-1 year",
