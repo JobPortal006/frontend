@@ -73,6 +73,7 @@ import FilteredResults from "./components/Sprint 2/FilteredResults.jsx";
 import JobDetails from "./components/Sprint 2/jobdiscriptions.js";
 import UserContext from "../src/components/Sprint 2/contextFilter.jsx";
 import SideNavbar from "./components/Dashboard/Sidebar.js";
+import JobPostSample from "./components/HomePage/Companydisplay.jsx";
 
 function App() {
   const [oneData, setData] = useState("");
@@ -99,7 +100,7 @@ function App() {
           <Route path="/EditMyJob" element={<EditMyJob />} />
           <Route path="/FilteredResults" element={<FilteredResults />} />
           <Route path="/Password" element={<Password />} />   
-          {/* <Route path="/JobSearch" element={<JobPostSample />} /> */}
+          <Route path="/JobSearch" element={<JobPostSample />} />
           <Route path="/JobDetails" element={<JobDetails />} />
         </Routes>
       </BrowserRouter>
