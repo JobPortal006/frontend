@@ -4,7 +4,7 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../UserManagement/OTPlogin.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "@firebase/auth";
-import { auth } from "../Firebase/firebase";
+import { auth } from '../../components/Firebase/firebase.js';
 import { useNavigate } from "react-router";
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios'; // Import axios
@@ -27,7 +27,7 @@ const OTPlogin = () => {
         'Accept': 'application/json',
       };
 
-      const response = await axios.post("http://192.168.1.38:8000/loginWithOTP/", { mobile_number }, { headers: headers });
+      const response = await axios.post("http://192.168.1.39:8000/loginWithOTP/", { mobile_number }, { headers: headers });
       const otpverify = response.data.status;
       
       console.log(response, "OTP_Response====>");

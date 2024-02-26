@@ -174,9 +174,9 @@ export const handleSubmit = async (formData, setErrors, setShowPassword, setShow
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
-    headers.append('Origin','http://192.168.1.38:8000/signup/');
+    headers.append('Origin','http://192.168.1.39:8000/signup/');
     // Define API URL
-    const apiUrl = 'http://192.168.1.38:8000/signup/';
+    const apiUrl = 'http://192.168.1.39:8000/signup/';
     
     try {
       // Make a POST request to the API
