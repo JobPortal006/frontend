@@ -8,15 +8,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import WorkIcon from '@material-ui/icons/Work';
-import PostAddIcon from '@material-ui/icons/PostAdd';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import Logo from '../Dashboard/Images/download.png';
-import { Employerregister } from '../EmployeerManagement/Employerregister';
-import PostJob from '../EmployeerManagement/PostJob';
 import UserProfile from '../UserManagement/UserProfile';
 
 const drawerWidth = 205;
@@ -34,7 +30,6 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
     margin: '20px auto',
     display: 'block',
-
   },
   menuButton: {
     [theme.breakpoints.up('sm')]: {
@@ -47,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   oppositeContainer: {
     width: '70%',
-    maxWidth: '80%',
+    maxWidth: '85%',
     margin:'auto',
     flexGrow: 2,
     display: 'flex',
@@ -55,23 +50,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     padding: theme.spacing(3),
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
+      width: '100%', // Set the width to 100% on smaller screens
     },
-  },
-  postJobContainer: {
-    width: '100%',
-    maxWidth: '1100px', // Adjust this value as needed
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: '20px auto', // Add margin to create space
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: theme.spacing(2),
-    padding: theme.spacing(2),
   },
 }));
 
-const SideNavbar = () => {
+const UserDash = () => {
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState('Dashboard');
@@ -101,14 +85,6 @@ const SideNavbar = () => {
         <ListItem button selected={selectedItem === 'My Profile'} onClick={() => handleListItemClick('My Profile')}>
           <ListItemIcon><AccountCircleIcon /></ListItemIcon>
           <ListItemText primary="My Profile" />
-        </ListItem>
-        <ListItem button selected={selectedItem === 'My Jobs'} onClick={() => handleListItemClick('My Jobs')}>
-          <ListItemIcon><WorkIcon /></ListItemIcon>
-          <ListItemText primary="My Jobs" />
-        </ListItem>
-        <ListItem button selected={selectedItem === 'Post Jobs'} onClick={() => handleListItemClick('Post Jobs')}>
-          <ListItemIcon><PostAddIcon /></ListItemIcon>
-          <ListItemText primary="Post Jobs" />
         </ListItem>
       </List>
       <Divider />
@@ -160,22 +136,11 @@ const SideNavbar = () => {
       </nav>
       <div className={classes.oppositeContainer}>
         {selectedItem === 'My Profile' && (
-          <Employerregister />
-        )}
-        {selectedItem === 'Post Jobs' && (
-          <div className={classes.postJobContainer}>
-            <PostJob />
-          </div>
-        )}
-        {selectedItem === 'My Jobs' && (
-          <div className={classes.myJobContainer}>
-            <UserProfile />
-          </div>
+          <UserProfile />
         )}
       </div>
     </div>
   );
 };
 
-export default SideNavbar;
-
+export default UserDash;
