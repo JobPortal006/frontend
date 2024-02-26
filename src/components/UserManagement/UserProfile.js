@@ -1142,15 +1142,41 @@
 
 
 
+
 // ======================================================================================================chcking to get the valuue from the api 
 import React, { useEffect, useState } from 'react';
 import { CircularProgress, Typography, Grid, TextField, Container, Button } from '@mui/material';
+import { Select, MenuItem } from '@mui/material';
+
 
 const UserProfile = () => {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [formData, setFormData] = useState(null);
+    const [formData, setFormData] = useState({
+        data: {
+            Signup: {
+                email: '',
+                mobile_number: ''
+            },
+            userDetails: {
+                first_name: '',
+                last_name: '',
+                gender: '',
+                date_of_birth: ''
+            },
+            address:{
+                permanent:{
+                    address_type: 'Permanent',
+                    city:'',
+                    state:'',   
+                    country:'',
+                    pincode:'',
+                    street:''
+                },
+                }
+        }
+    });
 
     useEffect(() => {
         // Fetch data from the API
@@ -1163,7 +1189,30 @@ const UserProfile = () => {
             })
             .then(data => {
                 setUserData(data);
-                setFormData(data); // Set initial form data
+                setFormData({
+                    data: {
+                        Signup: {
+                            email: data.Signup.email,
+                            mobile_number: data.Signup.mobile_number
+                        },
+                        userDetails: {
+                            first_name: data.userDetails.first_name,
+                            last_name: data.userDetails.last_name,
+                            gender: data.userDetails.gender,
+                            date_of_birth: data.userDetails.date_of_birth
+                        },
+                        address:{
+                            permanent:{
+                                address_type:data.address.permanent.address_type,
+                                city:data.address.permanent.city,
+                                state:data.address.permanent.state,
+                                country:data.address.permanent.country,
+                                pincode:data.address.permanent.pincode,
+                                street:data.address.permanent.street
+                            }
+                        }
+                    }
+                }); // Set initial form data
                 setLoading(false);
             })
             .catch(error => {
@@ -1183,22 +1232,23 @@ const UserProfile = () => {
                     [name]: value
                 },
                 userDetails: {
-                    ...prevData.data.Signup,
+                    ...prevData.data.userDetails,
                     [name]: value
+                },
+                address:{
+                    permanent:{
+                        ...prevData.data.address.permanent,
+                        [name]:value
+                    }
                 }
             }
         }));
     };
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     console.log("Updated Form Data:", formData);
-    //     // Perform any other actions like submitting data to backend API
-    // };
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("Updated Form Data:", formData);
-    
+
         // Send updated form data to the backend API
         fetch('http://192.168.1.39:8000/update_user_details/', {
             method: 'POST',
@@ -1207,19 +1257,19 @@ const UserProfile = () => {
             },
             body: JSON.stringify(formData),
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update user details');
-            }
-            // Handle success response if needed
-            console.log("User details updated successfully");
-        })
-        .catch(error => {
-            // Handle error if the request fails
-            console.error('Error updating user details:', error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update user details');
+                }
+                
+                // Handle success response if needed
+                console.log("User details updated successfully");
+            })
+            .catch(error => {
+                // Handle error if the request fails
+                console.error('Error updating user details:', error);
+            });
     };
-     
 
     if (loading) {
         return <CircularProgress />; // Display loading indicator
@@ -1270,8 +1320,8 @@ const UserProfile = () => {
                         />
                     </Grid>
 
-                         <Grid item xs={12} sm={6}>
-                              <TextField
+                    <Grid item xs={12} sm={6}>
+                        <TextField
                             label="Last Name"
                             name="last_name"
                             variant="outlined"
@@ -1280,11 +1330,52 @@ const UserProfile = () => {
                             onChange={handleChange}
 
                         />
-                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            name="date_of_birth"
+                            type='date'
+                            value={formData.data.userDetails.date_of_birth}
+                            fullWidth
+                            margin="dense"
+                            onChange={handleChange}
+
+                        />
 
 
-                    {/* Add other fields similarly */}
+<TextField
+                            name="street"
+                            value={formData.data.address.permanent.street}
+                            fullWidth
+                            margin="dense"
+                            onChange={handleChange}
+                            label="street"
+
+
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+
+                    <TextField
+                                    label="gender"
+                                    name="gender"
+                                    value={formData.data.userDetails.gender}
+                                    onChange={handleChange}
+                                    // fullWidth
+                                    margin="dense"
+                                  
+
+
+                                >
+                                    {/* <MenuItem value="" disabled>Select Gender</MenuItem>
+                                    <MenuItem className='male' value="male">Male</MenuItem>
+                                    <MenuItem value="female">Female</MenuItem>
+                                    <MenuItem value="other">Other</MenuItem> */}
+                                </TextField>
+
                 </Grid>
+                </Grid>
+
                 <Button type="submit" variant="contained" color="primary" fullWidth>Update</Button>
             </form>
         </Container>
