@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faMoneyBillAlt, faUser, faBuilding, faTools } from '@fortawesome/free-solid-svg-icons';
-import "./FIlteredResults.css";
+import "../sprint 2/FilterPage.css";
 import SearchBar from "../HomePage/searchBar";
 import { useNavigate } from 'react-router-dom';
 import { Grid } from "@mui/material";
