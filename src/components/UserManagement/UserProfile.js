@@ -1142,6 +1142,7 @@
 
 
 
+
 // ======================================================================================================chcking to get the valuue from the api 
 import React, { useEffect, useState } from 'react';
 import { CircularProgress, Typography, Grid, TextField, Container, Button } from '@mui/material';
@@ -1163,7 +1164,18 @@ const UserProfile = () => {
                 last_name: '',
                 gender: '',
                 date_of_birth: ''
-            }
+
+            },
+            address:{
+                permanent:{
+                    address_type: 'Permanent',
+                    city:'',
+                    state:'',   
+                    country:'',
+                    pincode:'',
+                    street:''
+                },
+                }
         }
     });
 
@@ -1189,6 +1201,16 @@ const UserProfile = () => {
                             last_name: data.userDetails.last_name,
                             gender: data.userDetails.gender,
                             date_of_birth: data.userDetails.date_of_birth
+                        },
+                        address:{
+                            permanent:{
+                                address_type:data.address.permanent.address_type,
+                                city:data.address.permanent.city,
+                                state:data.address.permanent.state,
+                                country:data.address.permanent.country,
+                                pincode:data.address.permanent.pincode,
+                                street:data.address.permanent.street
+                            }
                         }
                     }
                 }); // Set initial form data
@@ -1213,6 +1235,12 @@ const UserProfile = () => {
                 userDetails: {
                     ...prevData.data.userDetails,
                     [name]: value
+                },
+                address:{
+                    permanent:{
+                        ...prevData.data.address.permanent,
+                        [name]:value
+                    }
                 }
             }
         }));
@@ -1311,6 +1339,34 @@ const UserProfile = () => {
                             fullWidth
                             margin="dense"
                             onChange={handleChange}
+
+                        />
+
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+
+                    <TextField
+                                    label="gender"
+                                    name="gender"
+                                    value={formData.data.userDetails.gender}
+                                    onChange={handleChange}
+                                    // fullWidth
+                                    margin="dense" >
+                                        
+                                    </TextField>
+                                  
+
+
+
+
+    <TextField
+                            name="street"
+                            value={formData.data.address.permanent.street}
+                            fullWidth
+                            margin="dense"
+                            onChange={handleChange}
+                            label="street"
+
 
                         />
                     </Grid>
