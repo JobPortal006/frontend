@@ -98,6 +98,7 @@ function App() {
           <Route path="/PostJob" element={<PostJob />} />
           <Route path="/EditMyJob" element={<EditMyJob />} />
           <Route path="/FilteredResults" element={<FilteredResults />} />
+          <Route path="/Password" element={<Password />} />   
           <Route path="/JobDetails" element={<JobDetails />} />
         </Routes>
       </BrowserRouter>
