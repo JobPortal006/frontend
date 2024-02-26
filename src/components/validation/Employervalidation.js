@@ -129,7 +129,7 @@ export const validateContactInformation = (contactInfo) => {
     // Validate mobile number
     if (!contactInfo.mobile_number.trim()) {
         errors.mobile_number = errorMessages.contactInformation.mobile_number.required;
-    } else if (!/^\+?\d{10,14}$/.test(contactInfo.mobile_number)) {
+    } else if (!/^\+?\d{10}$/.test(contactInfo.mobile_number)) {
         errors.mobile_number = errorMessages.contactInformation.mobile_number.invalidFormat;
     }
 

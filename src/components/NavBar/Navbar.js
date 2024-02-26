@@ -5,6 +5,7 @@ import '../NavBar/Navbar.css';
 import { FaUserCircle, FaBell } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import NavbarData from "../Json/NavBarJsonData.json";
+// import { JobCard } from '../HomePage/JobCard';
 // ... (previous imports)
 
 const Navbar = () => {
@@ -39,6 +40,7 @@ const Navbar = () => {
     
     console.log(isLoggedIn,"GoogleToke============<");
     return (
+      <>
       <div className="Navbar">
         <div className="Navbar__left">
           <img src="your-logo.png" alt="Logo" className="Navbar__logo" />
@@ -114,11 +116,16 @@ const Navbar = () => {
               <button className="Navbar__button" onClick={handleSignupClick} disabled={isLoggedIn}>
               {translations.requiters_login.one}
               </button>
+              
             </>
           )}
         </div>
+        
       </div>
+      {/* <JobCard /> */}
+      </>
     );
+    
   };
   
   export default Navbar;

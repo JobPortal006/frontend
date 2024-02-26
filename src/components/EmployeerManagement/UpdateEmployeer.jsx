@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Grid, TextField, Button, Typography, Box, MenuItem } from '@mui/material';
 import axios from 'axios';
 import { validateCompanyDetails, validateCompanyAddress, validateContactInformation } from '../validation/Employervalidation';
@@ -6,12 +6,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // Importing error messages from JSON file
 import errorMessages from '../Json/Employerregister.json'; 
-import UserContext from '../Sprint 2/contextFilter';
-import { UpdateEmployerregister } from './UpdateEmployeer';
 
 // Defining a functional component named Employerregister
-export const Employerregister = () => {
- 
+export const UpdateEmployerregister = (form) => {
+
+    const UpdateForm = form;
+
+    console.log(UpdateForm,"<=====UpdateForm");
 
   // State variables for company details, address, contact information, and errors
   const [company_details, setcompany_details] = useState({
@@ -133,10 +134,7 @@ export const Employerregister = () => {
       }
     });
   };
-  // useContext===>
-  const {employeeForm,setEmployeeForm} = useContext(UserContext);
 
-  console.log(employeeForm,"<======employeeForm");
    // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -160,9 +158,6 @@ export const Employerregister = () => {
 
     try {
       const formData = new FormData(); // Create a new FormData object to store form data
-      
-      // 
-     
 
       // Append company details to formData, excluding the company_logo field
       Object.keys(company_details).forEach((key) => {
@@ -187,7 +182,6 @@ export const Employerregister = () => {
 
       // Append company logo as binary data to formData
       formData.append('company_logo', company_details.company_logo);
-      
 
       // Define headers
       const headers = {
@@ -213,25 +207,7 @@ export const Employerregister = () => {
       // Display an alert with the response message
       // alert(message);
 
-      const FormdataAll =  {
-        company_details,
-        company_address,
-        contact_information
-      }
-      
-      setEmployeeForm(FormdataAll);
-
-      console.log(response.data);
-      console.log('Form Data:', FormdataAll);
-
-      // Return the updated form data component
-      return <UpdateEmployerregister form={FormdataAll} />;
-
-    //   setEmployeeForm(FormdataAll);
-    // console.log(employeeForm,"one");
-
       console.log(response.data); // Log response data
-      console.log('Form Data:', FormdataAll);
     } catch (error) {
       console.error('Error:', error); // Log any errors
       // Display error message
@@ -244,11 +220,7 @@ export const Employerregister = () => {
         toast.error('An error occurred while processing your request. Please try again later.', { position: toast.POSITION.TOP_CENTER });
       }
     }}
-    // console.log(employeeForm,"two");
-
-    // return <UpdateEmployerregister form={employeeForm} />
   };
-  
 
   
 
@@ -532,7 +504,7 @@ export const Employerregister = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Button type="submit" variant="contained" color="primary">{errorMessages.mainFileStrings.submitButtonLabel}</Button>
+              <Button type="submit" variant="contained" color="primary">Update</Button>
             </Grid>
           </Grid>
         </form>
@@ -540,8 +512,7 @@ export const Employerregister = () => {
       </Grid>
       </Grid>
       </Box>
-
-
+      
     </>
   );
 };
