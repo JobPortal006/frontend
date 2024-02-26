@@ -33,7 +33,7 @@ import {
   handleSubmit,
   handleGoogleSignIn
 } from '../validation/signupvalidation';
-import Jobposting from '../UserManagement/Jobposting';
+import Jobposting from '../UserManagement/Jobposting.jsx';
 // import { Employerregister } from '../EmployeerManagement/Employerregister';
 
 export default function FixedContainer() {
