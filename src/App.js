@@ -65,13 +65,13 @@ import CreateAccount from "./components/UserManagement/CreateAccount.jsx";
 import OTPlogin from "./components/UserManagement/OTPlogin.jsx";
 import ForgetPassword from "./components/UserManagement/ForgetPassword.jsx";
 import Password from "./components/UserManagement/Password.jsx";
-import PostJob from "./components/sprint 2/PostJob.jsx";
-import Filter from "./components/sprint 2/Filter.jsx";
-import MyJob from "./components/sprint 2/MyJob.jsx";
-import EditMyJob from "./components/sprint 2/EditMyJob.jsx";
-import FilteredResults from "./components/sprint 2/FilteredResults.jsx";
-import JobDetails from "./components/sprint 2/jobdiscriptions.js";
-import UserContext from "../src/components/sprint 2/contextFilter.jsx";
+import PostJob from "./components/Sprint 2/PostJob.jsx";
+import Filter from "./components/Sprint 2/Filter.jsx";
+import MyJob from "./components/Sprint 2/MyJob.jsx";
+import EditMyJob from "./components/Sprint 2/EditMyJob.jsx";
+import FilteredResults from "./components/Sprint 2/FilteredResults.jsx";
+import JobDetails from "./components/Sprint 2/jobdiscriptions.js";
+import UserContext from "../src/components/Sprint 2/contextFilter.jsx";
 import SideNavbar from "./components/Dashboard/Sidebar.js";
 
 function App() {
@@ -98,6 +98,8 @@ function App() {
           <Route path="/PostJob" element={<PostJob />} />
           <Route path="/EditMyJob" element={<EditMyJob />} />
           <Route path="/FilteredResults" element={<FilteredResults />} />
+          <Route path="/Password" element={<Password />} />   
+          {/* <Route path="/JobSearch" element={<JobPostSample />} /> */}
           <Route path="/JobDetails" element={<JobDetails />} />
         </Routes>
       </BrowserRouter>
