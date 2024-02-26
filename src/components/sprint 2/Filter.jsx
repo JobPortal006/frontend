@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import FilteredResults from "./FilteredResults";
 // import { useNavigate } from "react-router-dom";
-import "../sprint 2/FilterPage.css";
+import "./FilterPage.css";
 import UserContext from "./contextFilter";
 
 const Filter = () => {
@@ -196,7 +196,7 @@ console.log(oneData, "010101010110");
       );
       const FilterData = await response.json();
       console.log(FilterData,"<====filter-Response");
-      setData(FilterData) 
+      setData(FilterData)
       if (!response.ok) {
         throw new Error("Failed to post data to backend");
       } else {

@@ -82,9 +82,8 @@ function App() {
 
     <div>
       <BrowserRouter>
-        {/*  */}
+       
         <Navbar />
-        <SideNavbar />
 
         <Routes>
           <Route index path="/home" element={<Home />} />
