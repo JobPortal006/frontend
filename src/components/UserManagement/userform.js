@@ -2129,6 +2129,7 @@ const UserForm = () => {
                                     required
                                     error={Boolean(errors.date_of_birth)}
                                     helperText={errors.date_of_birth}
+                                    
 
 
                                 />
