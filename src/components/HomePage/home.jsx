@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../UserManagement/searchBar';
-import '../HomePage/design.css'
+import '../HomePage/design.css';
 
 const Home = () => {
 const navigate = useNavigate();
