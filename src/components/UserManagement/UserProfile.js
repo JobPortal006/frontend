@@ -103,9 +103,9 @@
 //     // State for resume upload
 //     const [resume, setResume] = useState(null);
 
- 
 
- 
+
+
 
 //     // Handle resume upload
 //     const handleResumeChange = (event) => {
@@ -131,7 +131,7 @@
 
 
 //     // State for accordion expansion
-    
+
 //     // for user details validations
 //     const [errors, setErrors] = useState({
 //         userDetails: {
@@ -241,7 +241,7 @@
 //                 [event.target.name]: '',
 //             },
 //         });
-    
+
 //         let updatedAddressDetails = { ...address };
 //         if (event.target.name === 'street' || event.target.name === 'city' || event.target.name === 'country' || 
 //         event.target.name === 'state') {
@@ -267,7 +267,7 @@
 //                 return;
 //             }
 //         }
-    
+
 //         updatedAddressDetails = {
 //             ...updatedAddressDetails,
 //             [type]: {
@@ -275,10 +275,10 @@
 //                 [event.target.name]: event.target.value,
 //             },
 //         };
-    
+
 //         setAddress(updatedAddressDetails);
 //     };
-    
+
 //     // Handle changes in education fields
 //      const handleEducationChange = (event) => {
 //         setErrors({
@@ -384,7 +384,7 @@
 //         }
 //     };
 
-  
+
 
 
 //     const handleSubmit=()=>{
@@ -395,7 +395,7 @@
 // const edit=()=>{
 
 // }
- 
+
 //     const formRef = useRef(null);
 //     return (
 //       <div className='profilebackground-div'>
@@ -404,11 +404,11 @@
 //             <Typography variant="h4" align="center" gutterBottom>
 //              Profile
 //             </Typography>
-           
+
 
 //             <form ref={formRef} onSubmit={handleSubmit} >
 //                 {/* User Details Accordion */}
-                
+
 //                     <AccordionSummary >
 //                         <Typography variant="h6">User Details</Typography>
 //                     </AccordionSummary>
@@ -423,7 +423,7 @@
 //                                     onChange={handleUserDetailsChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.first_name)}
 //                                     helperText={errors.first_name}
 //                                     InputProps={{
@@ -442,7 +442,7 @@
 //                                     onChange={handleUserDetailsChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.last_name)}
 //                                     helperText={errors.last_name}
 //                                     InputProps={{
@@ -462,7 +462,7 @@
 //                                     onChange={handleUserDetailsChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.date_of_birth)}
 //                                     helperText={errors.date_of_birth}
 //                                     InputProps={{
@@ -485,8 +485,8 @@
 //                                     onChange={handleUserDetailsChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                    
-                                
+
+
 //                                     error={Boolean(errors.mobile_number)}
 //                                     helperText={errors.mobile_number}
 //                                     InputProps={{
@@ -507,9 +507,9 @@
 //                                     fullWidth
 //                                     displayEmpty
 //                                     margin="dense"
-                                
+
 //                                     // className='user_details_gender'
-                                    
+
 
 
 //                                 >
@@ -545,7 +545,7 @@
 //                     </AccordionDetails>
 
 //                 {/* Address Accordion */}
-            
+
 //                     <AccordionSummary >
 //                         <Typography variant="h6">Address</Typography>
 //                     </AccordionSummary>
@@ -562,7 +562,7 @@
 //                                     onChange={(e) => handleAddressChange('permanent', e)}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.permanent && errors.permanent.street)}
 //                                     helperText={errors.permanent && errors.permanent.street}
 //                                 />
@@ -573,7 +573,7 @@
 //                                     onChange={(e) => handleAddressChange('permanent', e)}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.permanent && errors.permanent.city)}
 //                                     helperText={errors.permanent && errors.permanent.city}
 //                                 />
@@ -584,7 +584,7 @@
 //                                     onChange={(e) => handleAddressChange('permanent', e)}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.permanent && errors.permanent.pincode)}
 //                                     helperText={errors.permanent && errors.permanent.pincode}
 //                                 />
@@ -596,7 +596,7 @@
 //                                     onChange={(e) => handleAddressChange('permanent', e)}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.permanent && errors.permanent.country)}
 //                                     helperText={errors.permanent && errors.permanent.country}
 //                                 />
@@ -607,7 +607,7 @@
 //                                     onChange={(e) => handleAddressChange('permanent', e)}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.permanent && errors.permanent.state)}
 //                                     helperText={errors.permanent && errors.permanent.state}
 //                                 />
@@ -670,7 +670,7 @@
 //                             </Grid>
 //                         </Grid>
 //                     </AccordionDetails>
-                    
+
 
 //                 {/* Educatiom Accordion */}
 
@@ -687,7 +687,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.sslc_school_name)}
 //                                     helperText={errors.sslc_school_name}
 //                                 />
@@ -698,7 +698,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.sslc_start_year)}
 //                                     helperText={errors.sslc_start_year}
 //                                 />
@@ -709,7 +709,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.sslc_end_year)}
 //                                     helperText={errors.sslc_end_year}
 //                                 />
@@ -720,7 +720,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.sslc_percentage)}
 //                                     helperText={errors.sslc_percentage}
 //                                 />
@@ -735,7 +735,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.hsc_school_name)}
 //                                     helperText={errors.hsc_school_name}
 //                                 />
@@ -746,7 +746,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.hsc_start_year)}
 //                                     helperText={errors.hsc_start_year}
 //                                 />
@@ -757,7 +757,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.hsc_end_year)}
 //                                     helperText={errors.hsc_end_year}
 //                                 />
@@ -768,7 +768,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.hsc_percentage)}
 //                                     helperText={errors.hsc_percentage}
 //                                 />
@@ -783,7 +783,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.college_name)}
 //                                     helperText={errors.college_name}
 //                                 />
@@ -794,7 +794,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.college_start_year)}
 //                                     helperText={errors.college_start_year}
 
@@ -806,7 +806,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.college_end_year)}
 //                                     helperText={errors.college_end_year}
 //                                 />
@@ -817,7 +817,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.college_percentage)}
 //                                     helperText={errors.college_percentage}
 //                                 />
@@ -833,7 +833,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.department)}
 //                                     helperText={errors.department}
 //                                 />
@@ -844,7 +844,7 @@
 //                                     onChange={handleEducationChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.degree)}
 //                                     helperText={errors.degree}
 //                                 />
@@ -1030,9 +1030,9 @@
 //                         </Grid>
 //                     </AccordionDetails>
 
-             
+
 //                 {/* job preference */}
-             
+
 //                     <AccordionSummary > <Typography variant="h6">Job Preference</Typography></AccordionSummary>
 //                     <AccordionDetails>
 //                         <Grid container spacing={2}>
@@ -1045,7 +1045,7 @@
 //                                     onChange={handlejobPreferenceChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.jobPreference.key_skills)}
 //                                     helperText={errors.jobPreference.key_skills}
 //                                 />
@@ -1056,7 +1056,7 @@
 //                                     onChange={handlejobPreferenceChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.jobPreference.industry)}
 //                                     helperText={errors.jobPreference.industry}
 //                                 />
@@ -1069,7 +1069,7 @@
 //                                     onChange={handlejobPreferenceChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.jobPreference.department)}
 //                                     helperText={errors.jobPreference.department}
 //                                 />
@@ -1080,7 +1080,7 @@
 //                                     onChange={handlejobPreferenceChange}
 //                                     fullWidth
 //                                     margin="dense"
-                                
+
 //                                     error={Boolean(errors.jobPreference.prefered_locations)}
 //                                     helperText={errors.jobPreference.prefered_locations}
 //                                 />
@@ -1091,7 +1091,7 @@
 //                     </AccordionDetails>
 
 //                 {/* Resume Accordion */}
-               
+
 //                     <AccordionSummary >
 //                         <Typography variant="h6">Resume</Typography>
 //                     </AccordionSummary>
@@ -1106,7 +1106,7 @@
 //                                     onChange={handleResumeChange}
 //                                     margin="dense"
 //                                     id="resume-input"
-                                
+
 //                                 />
 //                             </Grid>
 //                             <Grid item xs={12} sm={6}>
@@ -1143,12 +1143,14 @@
 
 
 // ======================================================================================================chcking to get the valuue from the api 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { CircularProgress, Typography, Grid, TextField, Container, Button } from '@mui/material';
 
 const UserProfile = () => {
     const [userData, setUserData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [formData, setFormData] = useState(null);
 
     useEffect(() => {
         // Fetch data from the API
@@ -1161,6 +1163,7 @@ const UserProfile = () => {
             })
             .then(data => {
                 setUserData(data);
+                setFormData(data); // Set initial form data
                 setLoading(false);
             })
             .catch(error => {
@@ -1169,55 +1172,123 @@ const UserProfile = () => {
             });
     }, []);
 
-    if (!userData || !userData.data || !userData.data.Signup) {
-      return <div>Loading...</div>;
-  }
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData(prevData => ({
+            ...prevData,
+            data: {
+                ...prevData.data,
+                Signup: {
+                    ...prevData.data.Signup,
+                    [name]: value
+                },
+                userDetails: {
+                    ...prevData.data.Signup,
+                    [name]: value
+                }
+            }
+        }));
+    };
 
-    if (error) {
-        return <div>Error: {error.message}</div>;
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     console.log("Updated Form Data:", formData);
+    //     // Perform any other actions like submitting data to backend API
+    // };
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log("Updated Form Data:", formData);
+    
+        // Send updated form data to the backend API
+        fetch('http://192.168.1.39:8000/update_user_details/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update user details');
+            }
+            // Handle success response if needed
+            console.log("User details updated successfully");
+        })
+        .catch(error => {
+            // Handle error if the request fails
+            console.error('Error updating user details:', error);
+        });
+    };
+     
+
+    if (loading) {
+        return <CircularProgress />; // Display loading indicator
     }
 
-    if (!userData) {
+    if (error) {
+        return <Typography>Error: {error.message}</Typography>; // Display error message
+    }
+
+    if (!userData || !formData) {
         return null; // Handle case when userData is not available yet
     }
 
     return (
-        <div>
-            <h1>User Details</h1>
-            <h2>Signup</h2>
-            <p>Email: {userData.data.Signup.email}</p>
-            <p>Mobile Number: {userData.data.Signup.mobile_number}</p>
+        <Container maxWidth="sm" style={{ marginTop: '100px' }}> {/* Container for form */}
+            <Typography variant="h4" align="center">User Profile</Typography>
+            <form onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            name="email"
+                            label="Email"
+                            variant="outlined"
+                            fullWidth
+                            value={formData.data.Signup.email}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            name="mobile_number"
+                            label="Mobile Number"
+                            variant="outlined"
+                            fullWidth
+                            value={formData.data.Signup.mobile_number}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <TextField
+                            label="First Name"
+                            name="first_name"
+                            variant="outlined"
+                            fullWidth
+                            value={formData.data.userDetails.first_name}
+                            onChange={handleChange}
 
-            <h2>User Details</h2>
-            <p>Date of Birth: {userData.data.userDetails.date_of_birth}</p>
-            <p>First Name: {userData.data.userDetails.first_name}</p>
-            <p>Last Name: {userData.data.userDetails.last_name}</p>
-            <p>Gender: {userData.data.userDetails.gender}</p>
+                        />
+                    </Grid>
 
-            <h2>Address</h2>
-            <h3>Current Address</h3>
-            <p>Address Type: {userData.data.address.current.address_type}</p>
-            <p>City: {userData.data.address.current.city}</p>
-            <p>Country: {userData.data.address.current.country}</p>
-            <p>Pincode: {userData.data.address.current.pincode}</p>
-            <p>State: {userData.data.address.current.state}</p>
-            <p>Street: {userData.data.address.current.street}</p>
+                         <Grid item xs={12} sm={6}>
+                              <TextField
+                            label="Last Name"
+                            name="last_name"
+                            variant="outlined"
+                            fullWidth
+                            value={formData.data.userDetails.last_name}
+                            onChange={handleChange}
 
-            <h3>Permanent Address</h3>
-            <p>Address Type: {userData.data.address.permanent.address_type}</p>
-            <p>City: {userData.data.address.permanent.city}</p>
-            <p>Country: {userData.data.address.permanent.country}</p>
-            <p>Pincode: {userData.data.address.permanent.pincode}</p>
-            <p>State: {userData.data.address.permanent.state}</p>
-            <p>Street: {userData.data.address.permanent.street}</p>
+                        />
+                        </Grid>
 
-            {/* Render other sections similarly */}
-        </div>
+
+                    {/* Add other fields similarly */}
+                </Grid>
+                <Button type="submit" variant="contained" color="primary" fullWidth>Update</Button>
+            </form>
+        </Container>
     );
 };
 
 export default UserProfile;
-
-
-
-      
