@@ -32,7 +32,7 @@ function App() {
           <Route path="/CreateAccount" element={<CreateAccount />} />
           <Route path="/OTPlogin" element={<OTPlogin />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
-          <Route path="/Password" element={<Password />} />
+          <Route path="/Password" element={<Password />} />   
           <Route path="/JobSearch" element={<JobPostSample />} />
           <Route path="/JobDetails" element={<JobDetails />} />
 
