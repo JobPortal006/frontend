@@ -4,7 +4,10 @@ import axios from 'axios';
 import { validateCompanyDetails, validateCompanyAddress, validateContactInformation } from '../validation/Employervalidation';
 import errorMessages from '../Json/Employerregister.json'; 
 
+// Defining a functional component named Employerregister
 export const Employerregister = () => {
+
+  // State variables for company details, address, contact information, and errors
   const [company_details, setcompany_details] = useState({
     company_logo: null,
     company_name: '',
@@ -36,6 +39,7 @@ export const Employerregister = () => {
     contact_information: {}
   });
 
+    // Event handler for input changes in company details section
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setcompany_details({
@@ -52,6 +56,7 @@ export const Employerregister = () => {
     });
   };
 
+    // Event handler for changing company logo
   const handleLogoChange = (e) => {
   const logo = e.target.files[0];
   if (logo && logo.size <= 2 * 1024 * 1024) { // 2MB limit
@@ -78,6 +83,8 @@ export const Employerregister = () => {
   }
 };
 
+
+    // Event handler for removing company logo
   const handleRemoveLogo = () => {
     setcompany_details({
       ...company_details,
@@ -166,11 +173,11 @@ export const Employerregister = () => {
       const headers = {
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/json',
-        'Origin': 'http://192.168.1.38:8000/employerRegister/'
+        'Origin': 'http://192.168.1.39:8000/employerRegister/'
       };
 
       // Define API URL
-      const apiUrl = 'http://192.168.1.38:8000/employerRegister/';
+      const apiUrl = 'http://192.168.1.39:8000/employerRegister/';
 
       // POST request to the API endpoint
       const response = await axios.post(apiUrl, formData, { headers });

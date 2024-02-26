@@ -34,6 +34,7 @@ import {
   handleGoogleSignIn
 } from '../validation/signupvalidation';
 import Jobposting from '../UserManagement/Jobposting';
+// import { Employerregister } from '../EmployeerManagement/Employerregister';
 
 export default function FixedContainer() {
 
@@ -263,6 +264,7 @@ export default function FixedContainer() {
         </Grid>
       </Container>
       <Jobposting />
+      
     </>
   );
 }
