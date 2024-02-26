@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import FilteredResults from "./FilteredResults";
 // import { useNavigate } from "react-router-dom";
-import "../sprint 2/FilterPage.css";
+import "../Sprint 2/FilterPage.css";
 import UserContext from "./contextFilter";
 
 const Filter = () => {
