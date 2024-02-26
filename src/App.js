@@ -15,7 +15,7 @@ import Filter from "./components/sprint 2/Filter.jsx";
 import MyJob from "./components/sprint 2/MyJob.jsx";
 import EditMyJob from "./components/sprint 2/EditMyJob.jsx";
 import FilteredResults from "./components/sprint 2/FilteredResults.jsx";
-import JobDetails from "./components/sprint 2/jobdiscriptions.js";
+import JobDetails from "./components/Sprint 2/jobdiscriptions.js";
 import UserContext from "./components/sprint 2/contextFilter.jsx";
 
 function App() {
