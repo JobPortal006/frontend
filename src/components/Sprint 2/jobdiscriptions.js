@@ -34,7 +34,18 @@ const JobDetails = () => {
         {jobData.map((job, index) => (
           <Grid item key={index} xs={12} md={6}>
             <Box sx={{ p: 3, border: '1px solid #ccc', marginLeft: '2%', borderRadius: '8px', maxWidth: '100%', backgroundColor: 'white' }}>
-              <Typography variant="h5" gutterBottom>
+            {job.company_logo && job.company_logo.includes('data:image') ? (
+              <img src={job.company_logo} alt="Company Logo" />
+                ) : (
+              <img src={`data:image/jpeg;base64,${job.company_logo}`} alt="Company Logo" style={{
+                position: 'absolute',
+                width: '50px', // Adjust the size of the logo as needed
+                height: 'auto',
+                borderRadius: '50%', // Make the logo rounded
+                border: '1px solid #ccc', // Add a border to the logo
+              }}  />
+                )}
+              <Typography variant="h5" gutterBottom style={{marginLeft:'60px'}}>
                 {job.job_title}
               </Typography>
               <Typography variant="subtitle1" gutterBottom>
@@ -45,16 +56,13 @@ const JobDetails = () => {
               </Typography>
               <Grid container spacing={1} alignItems="center">
                 <Grid item>
-                  <WorkIcon />
+                  <WorkIcon />  
                 </Grid>
                 <Grid item>
                   <Typography variant="subtitle1" marginTop='20px' style={{ marginTop: '10px' }}>Experience: {job.experience}</Typography>
                 </Grid>
                 <Grid item>
-                  <SchoolOutlinedIcon style={{ marginTop: '10px' }} />
-                </Grid>
-                <Grid item>
-                  <Typography variant="subtitle1" marginTop='20px' style={{ marginTop: '10px' }}>Qualification: {job.qualification}</Typography>
+                  <SchoolOutlinedIcon style={{ marginTop: '10px' }}>Qualification: {job.qualification}</SchoolOutlinedIcon>
                 </Grid>
                 <Grid item>
                   <AttachMoneyIcon style={{ marginTop: '10px' }} />

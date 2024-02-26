@@ -15,9 +15,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import Logo from '../Dashboard/Images/download.png';
-import { Employerregister } from '../EmployeerManagement/Employerregister';
 import PostJob from '../EmployeerManagement/PostJob';
 import UserProfile from '../UserManagement/UserProfile';
+import { UpdateEmployerregister } from '../EmployeerManagement/UpdateEmployeer';
+import { Employerregister } from '../EmployeerManagement/Employerregister';
 
 const drawerWidth = 205;
 
@@ -160,7 +161,7 @@ const SideNavbar = () => {
       </nav>
       <div className={classes.oppositeContainer}>
         {selectedItem === 'My Profile' && (
-          <Employerregister />
+          <UpdateEmployerregister/>
         )}
         {selectedItem === 'Post Jobs' && (
           <div className={classes.postJobContainer}>
@@ -169,7 +170,7 @@ const SideNavbar = () => {
         )}
         {selectedItem === 'My Jobs' && (
           <div className={classes.myJobContainer}>
-            <UserProfile />
+            <Employerregister />
           </div>
         )}
       </div>
